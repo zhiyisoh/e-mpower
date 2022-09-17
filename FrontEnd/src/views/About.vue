@@ -1,15 +1,20 @@
 <template>
-  <div class="about">
-    <h1>What am i doing</h1>
+  <div class="About">
+    <h1 class="about-title title">About Us</h1>
   </div>
 </template>
 
 <style>
-@media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
+  .About {
+
   }
+
+  .about-title{
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+@media (min-width: 1024px) {
+  
 }
 </style>
