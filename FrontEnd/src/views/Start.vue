@@ -1,7 +1,14 @@
 <script setup>
   import FeatureSection from "../components/Feature.vue";
   import Footer from "../components/Footer.vue";
+  import { onMounted } from "vue";
+  import AOS from "aos";
+  
+  onMounted(() => {
+      AOS.init();
+  })
   </script>
+  
 
 <template>
   <div class="main-start-view">
@@ -17,7 +24,8 @@
         <RouterLink to="/register"><button type="button" class="btn btn-outline-dark register-btn btn-lg" href="Register.vue">Register</button></RouterLink>
       </div>
     </div> 
-    <img src="/src/assets/bin-logo.svg" alt="e-mpower logo" id="bin-logo">
+    <img src="/src/assets/bin-logo.svg" alt="e-mpower logo" id="bin-logo" data-aos="flip-left" data-aos-easing="ease-out-cubic"
+     data-aos-duration="2000">
   </div>
 
   <FeatureSection/>
@@ -26,8 +34,9 @@
 
 <style>
   
-  h1, p {
+  h1, h5 {
     font-family: 'Merriweather', sans-serif;
+    color:#5E454B;
   }
 
   p {
@@ -38,12 +47,12 @@
   .HeroSection {
     display: block;
     text-align: right;
-    margin-top: 70px;
   }
 
   .main-line {
-    font-size: 3.5rem;
+    font-size: 3.25rem;
     font-weight: 700;
+    color: black;
   }
 
   #bin-logo {
@@ -51,10 +60,11 @@
   }
 
   #leaves-icon {
-    position: absolute;
+    /* position: absolute;
     left: -100px;
     top: 170px;
-    width: 400px;
+    width: 400px; */
+    visibility: hidden;
   } 
 
 /* --------------------buttons-------------------- */
@@ -87,6 +97,7 @@
 
   .btn-sect {
     margin-left: 90px;
+    margin-top: 50px;
   }
 
   .HeroSection {
@@ -99,18 +110,19 @@
   #bin-logo {
     width: 330px;
     position: relative;
-    bottom: 190px;
-    left: -30px;
+    bottom: 140px;
+    left: -60px;
     visibility: visible;
   }
 
   #leaves-icon {
+    position: absolute;
+    visibility: visible;
     left: -150px;
     top: 120px;
     width: 450px;
   }
 
-  
   #ewaste-logo, #notes-logo{
     display: inline-block;
     position: relative;
@@ -123,5 +135,5 @@
   }
 }
 
-
 </style>
+
