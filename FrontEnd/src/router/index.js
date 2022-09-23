@@ -49,6 +49,17 @@ const router = createRouter({
       component: () => import('../views/user management/VerificationFailed.vue')
     },
     {
+      path: '/forgotPassword',
+      name: 'forgotPassword',
+      component: () => import('../views/user management/ForgotPass.vue')
+    },
+    {
+      path: '/resetPassword',
+      name: 'resetPassword',
+      component: () => import('../views/user management/ResetPass.vue')
+    }
+    ,
+    {
       path: '/logging',
       name: 'log',
       component: () => import('../views/logging/Log.vue')
