@@ -1,25 +1,46 @@
 <script setup>
-
+  import Footer from "../../components/Footer.vue";
 </script>
 
 <template>
     <div class="register-view">
-      <form>
+      <Form @submit="handleLogin" :validation-schema="schema">
+        
+        <h2 class="header">Register</h2><br>
         <div class="form-group">
-          <h2>Register</h2><br>
-          <label for="username">Username:</label><br>
-          <input type="text" id="username" name="username" required><br>
-          <label for="email">Email:</label><br>
-          <input type="email" id="email" name="email" required><br>
-          <label for="pswd">Password:</label><br>
-          <input type="password" id="pswd" name="pswd" required><br>
-          <label for="cfmpswd">Confirm password:</label><br>
-          <input type="password" id="cfmpswd" name="cfmpswd" required><br>
+            <label for="username">Username</label>
+            <Field name="username" type="text" class="form-control" />
+            <ErrorMessage name="username" class="error-feedback" />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <Field name="email" type="email" class="form-control" />
+          <ErrorMessage name="email" class="error-feedback" />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <Field name="password" type="password" class="form-control" />
+          <ErrorMessage name="password" class="error-feedback" />
+        </div>
+        <div class="form-group">
+          <label for="password">Confirm password</label>
+          <Field name="confirm-password" type="password" class="form-control" />
+          <ErrorMessage name="confirm-password" class="error-feedback" />
+        </div>
+          <div class="form-group">
+            <div v-if="message" class="alert alert-danger" role="alert">
+              {{ message }}
+            </div>
           </div>
-      </form>
-      <br>
+      </Form>
+      
       <div>
-        <button class="btn" type="submit">Register</button>
+        <button class="btn" type="submit" :disabled="loading">
+          <span
+             v-show="loading"
+             class="spinner-border spinner-border-sm"></span>
+          Register
+        </button>
         <br>
         <button type="button" class="google"><input id="google-icon" width="50" height="50" type="image" src="/src/assets/googleicon.png" />Register with Google</button>
       </div>
@@ -29,21 +50,92 @@
       </p>
       </div>
     </div>
+    <Footer/>
   </template>
   
   <script>
+    import { Form, Field, ErrorMessage } from "vee-validate";
+    import * as yup from "yup";
+    
     export default {
-        data() {
-            return {}
+      name: "Register",
+      components: {
+        Form,
+        Field,
+        ErrorMessage,
+      },
+      data() {
+        const schema = yup.object().shape({
+          username: yup
+            .string()
+            .required("Username is required!")
+            .min(3, "Must be at least 3 characters!")
+            .max(20, "Must be maximum 20 characters!"),
+          email: yup
+            .string()
+            .required("Email is required!")
+            .email("Email is invalid!")
+            .max(50, "Must be maximum 50 characters!"),
+          password: yup
+            .string()
+            .required("Password is required!")
+            .min(6, "Must be at least 6 characters!")
+            .max(40, "Must be maximum 40 characters!"),
+        });
+    
+        return {
+          successful: false,
+          loading: false,
+          message: "",
+          schema,
+        };
+      },
+      computed: {
+        loggedIn() {
+          return this.$store.state.auth.status.loggedIn;
+        },
+      },
+      mounted() {
+        if (this.loggedIn) {
+          this.$router.push("/profile");
         }
-    }
-</script>
+      },
+      methods: {
+        handleRegister(user) {
+          this.message = "";
+          this.successful = false;
+          this.loading = true;
+    
+          this.$store.dispatch("auth/register", user).then(
+            (data) => {
+              this.message = data.message;
+              this.successful = true;
+              this.loading = false;
+            },
+            (error) => {
+              this.message =
+                (error.response &&
+                  error.response.data &&
+                  error.response.data.message) ||
+                error.message ||
+                error.toString();
+              this.successful = false;
+              this.loading = false;
+            }
+          );
+        },
+      },
+    };
+    </script>
 
   <style>
     h2,p{
       font-family: 'Merriweather', sans-serif;
       color:#5E454B;
       padding-top:50px;
+    }
+    .header{
+      padding-left: 100px;
     }
     .to-login{
       padding-top:10px;
@@ -70,6 +162,7 @@
       margin-left: 100px;
       margin-bottom:5px;
       padding-top:20px;
+      width: 500px;
     }
 
 
