@@ -15,8 +15,11 @@
     "bootstrap": "^5.2.1",
     "bootstrap-vue": "^2.22.0",
     "pinia": "^2.0.21",
+    "vee-validate": "^4.6.9",
     "vue": "^3.2.39",
-    "vue-router": "^4.1.5"
+    "vue-router": "^4.1.5",
+    "vuex": "^4.0.2",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.4",
