@@ -26,6 +26,21 @@ const router = createRouter({
       path: '/register',
       name: 'register',
       component: () => import('../views/user management/Register.vue')
+    },
+    {
+      path: '/verification',
+      name: 'verification',
+      component: () => import('../views/user management/Verification.vue')
+    },
+    {
+      path: '/verificationSuccess',
+      name: 'verificationSuccess',
+      component: () => import('../views/user management/VerificationSuccess.vue')
+    },
+    {
+      path: '/verificationFailed',
+      name: 'verificationFailed',
+      component: () => import('../views/user management/VerificationFailed.vue')
     }
   ]
 })
