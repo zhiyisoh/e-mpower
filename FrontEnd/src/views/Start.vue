@@ -21,7 +21,7 @@
 
       <div class="btn-sect">
         <RouterLink to="/login"><button type="button" class="btn btn-primary user-btn btn-lg">Login</button></RouterLink>
-        <RouterLink to="/register"><button type="button" class="btn btn-outline-dark register-btn btn-lg" href="Register.vue">Register</button></RouterLink>
+        <RouterLink to="/register"><button type="button" class="btn btn-outline-dark reg-btn btn-lg" href="Register.vue">Register</button></RouterLink>
       </div>
     </div> 
     <img src="/src/assets/bin-logo.svg" alt="e-mpower logo" id="bin-logo" data-aos="flip-left" data-aos-easing="ease-out-cubic"

@@ -34,7 +34,6 @@ import Footer from "../components/Footer.vue";
       <div class="row row-cols-1 row-cols-md-3 g-4 profile-cards">
         <div class="col">
           <div class="card h-100">
-            <img src="..." class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">Chloe Koh</h5>
             </div>
@@ -43,7 +42,6 @@ import Footer from "../components/Footer.vue";
 
         <div class="col">
           <div class="card h-100">
-            <img src="..." class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">Soh Zhi Yi</h5>
             </div>
@@ -52,7 +50,6 @@ import Footer from "../components/Footer.vue";
 
         <div class="col">
           <div class="card h-100">
-            <img src="..." class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">Jesleen</h5>
             </div>
@@ -61,7 +58,6 @@ import Footer from "../components/Footer.vue";
 
         <div class="col">
           <div class="card h-100">
-            <img src="..." class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">Kwek Zhi Yi</h5>
             </div>
@@ -70,7 +66,6 @@ import Footer from "../components/Footer.vue";
 
         <div class="col">
           <div class="card h-100">
-            <img src="..." class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">Jess Toh</h5>
             </div>
@@ -79,7 +74,6 @@ import Footer from "../components/Footer.vue";
 
         <div class="col">
           <div class="card h-100">
-            <img src="..." class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">Abiya Immaculate</h5>
             </div>
