@@ -1,25 +1,34 @@
-package empower.empower.security;
+package empower.empower.springjwt;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.UserDetailsService;
+//import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import empower.empower.springjwt.security.jwt.AuthEntryPointJwt;
+import empower.empower.springjwt.security.jwt.AuthTokenFilter;
+import empower.empower.springjwt.security.service.UserDetailsServiceImpl;
 
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig {
-    
-    private UserDetailsService userDetailsService;
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
 
-    public SecurityConfig(UserDetailsService userSvc){
-        this.userDetailsService = userSvc;
+    @Autowired
+    private AuthEntryPointJwt unauthorizedHandler;
+
+    @Bean
+    public AuthTokenFilter authenticationJwtTokenFilter() {
+      return new AuthTokenFilter();
     }
-
     /**
      * Exposes a bean of DaoAuthenticationProvider, a type of AuthenticationProvider
      * Attaches the user details and the password encoder   
@@ -49,7 +58,9 @@ public class SecurityConfig {
         .httpBasic()
             .and() //  "and()"" method allows us to continue configuring the parent
         .authorizeRequests()
-            .antMatchers(HttpMethod.POST, "/logewaste").hasRole("USER")
+            .antMatchers("/api/auth/**").permitAll()
+            .anyRequest().authenticated()
+            //.antMatchers(HttpMethod.POST, "/logewaste").hasRole("USER")
             // .antMatchers(HttpMethod.PUT, "/books/*").hasRole("ADMIN")
             // .antMatchers(HttpMethod.DELETE, "/books/*").hasRole("ADMIN")
             // // your code here
@@ -58,12 +69,16 @@ public class SecurityConfig {
             // .antMatchers(HttpMethod.DELETE, "/books/*/reviews/*").hasRole("ADMIN")
             // .antMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")
             // .antMatchers(HttpMethod.POST, "/users").hasRole("ADMIN")
-            .and()
+        .and()    
         .authenticationProvider(authenticationProvider()) //specifies the authentication provider for HttpSecurity
         .csrf().disable() // CSRF protection is needed only for browser based attacks
+        .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
+        .and()
         .formLogin().disable()
-        .headers().disable()
-        ;
+        .headers().disable();
+
+        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+
         return http.build();
     }
 
