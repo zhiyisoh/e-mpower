@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-EmpowerApplication<empower>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "empower.empower.EmpowerApplication",
+            "projectName": "empower",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
