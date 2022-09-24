@@ -58,7 +58,7 @@ public class SecurityConfig {
         .httpBasic()
             .and() //  "and()"" method allows us to continue configuring the parent
         .authorizeRequests()
-            .antMatchers("/api/auth/**").permitAll()
+            .antMatchers("/auth/**").permitAll()
             .anyRequest().authenticated()
             //.antMatchers(HttpMethod.POST, "/logewaste").hasRole("USER")
             // .antMatchers(HttpMethod.PUT, "/books/*").hasRole("ADMIN")
