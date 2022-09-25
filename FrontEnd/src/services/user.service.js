@@ -8,9 +8,15 @@ class UserService {
     return axios.get(API_URL + 'all');
   }
 
-  getUserContent() {
+  getSavedLocations() {
     return axios.get(API_URL + 'user', { headers: authHeader() });
   }
+
+  getPastlogs() {
+    return axios.get(API_URL + 'user', { headers: authHeader() });
+  }
+
+  
 
 }
 
