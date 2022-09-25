@@ -3,8 +3,9 @@ package empower.empower.springjwt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 //import org.springframework.security.core.userdetails.UserDetailsService;
@@ -58,8 +59,7 @@ public class SecurityConfig {
         .httpBasic()
             .and() //  "and()"" method allows us to continue configuring the parent
         .authorizeRequests()
-            .antMatchers("/signin/**").permitAll()
-            .antMatchers("/empowered/**").authenticated()
+            .antMatchers("/api/auth/**").permitAll()
             .anyRequest().authenticated()
             //.antMatchers(HttpMethod.POST, "/logewaste").hasRole("USER")
             // .antMatchers(HttpMethod.PUT, "/books/*").hasRole("ADMIN")
@@ -83,6 +83,10 @@ public class SecurityConfig {
         return http.build();
     }
 
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+      return authConfig.getAuthenticationManager();
+    }
     /**
      * @Bean annotation is used to declare a PasswordEncoder bean in the Spring application context. 
      * Any calls to encoder() will then be intercepted to return the bean instance.
