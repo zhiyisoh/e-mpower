@@ -20,8 +20,8 @@
           <p>Want to find out how your e-waste recycling efforts have impacted our
             environment? Our unique <strong>Recycling Log</strong> feature will enable you to your recycling
             efforts
-            and find out the amount of carbon dioxide emmissions you have saved. An analytical summary of your recycling
-            efforts as well as the recycling efforts of other users' will be exclusive to you.</p>
+            and find out the amount of carbon dioxide emissions you have saved. An analytical summary of your recycling
+            efforts as well as the recycling efforts of other users' will be exclusively available for you.</p>
           </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 <template>
     <div class="login">
-      <h1>Logged in Home Page</h1>
+      <h1>Hello {{this.$store.state.auth.user.username}}!</h1>
     </div>
   </template>
   

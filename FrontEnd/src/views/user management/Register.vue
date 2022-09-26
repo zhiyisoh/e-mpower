@@ -179,12 +179,13 @@ p {
 .card-container {
   border-color: transparent;
   margin: 0 auto;
+  background-color: white;
 }
 
 .form-group {
   margin: auto;
   padding-top: 20px;
-  width: 500px;
+  width: 90%;
 }
 
 
@@ -214,5 +215,12 @@ p {
 
 .google:hover {
   border-color: grey;
+}
+
+@media(max-width: 960px){
+  .register-view{
+    width: 90%;
+    border-radius: 5%;
+  }
 }
 </style>

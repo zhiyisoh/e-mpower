@@ -118,6 +118,10 @@ p {
   padding-top: 50px;
 }
 
+a{
+  text-decoration: none;
+}
+
 .header {
   font-weight: 700;
 }
@@ -149,18 +153,22 @@ p {
 .card-container {
   border-color: transparent;
   margin: 0 auto;
+  background-color: white;
 }
 
 .form-group {
   margin: auto;
   padding-top: 20px;
-  width: 500px;
+  width: 90%;
 }
-
-
 .error-feedback {
   color: red;
   margin: 2px;
+}
+
+.forgot-password {
+  position: relative;
+  left: 170px;
 }
 
 .google {
@@ -184,5 +192,16 @@ p {
 
 .google:hover {
   border-color: grey;
+}
+
+@media(max-width: 960px){
+  .login-view{
+    width: 90%;
+    border-radius: 5%;
+  }
+
+  .forgot-password {
+    position: static;
+  }
 }
 </style>

@@ -24,7 +24,7 @@
         <RouterLink to="/register"><button type="button" class="btn btn-outline-dark reg-btn btn-lg" href="Register.vue">Register</button></RouterLink>
       </div>
     </div> 
-    <img src="/src/assets/bin-logo.svg" alt="e-mpower logo" id="bin-logo" data-aos="flip-left" data-aos-easing="ease-out-cubic"
+    <img src="/src/assets/penguinlogo.svg" alt="e-mpower logo" id="main-logo" data-aos="flip-left" data-aos-easing="ease-out-cubic"
      data-aos-duration="2000">
   </div>
 
@@ -55,7 +55,11 @@
     color: black;
   }
 
-  #bin-logo {
+  #logo{
+
+  }
+
+  #main-logo {
     visibility: hidden;
   }
 
@@ -107,7 +111,8 @@
     text-align: left;
   }
 
-  #bin-logo {
+
+  #main-logo {
     width: 330px;
     position: relative;
     bottom: 140px;

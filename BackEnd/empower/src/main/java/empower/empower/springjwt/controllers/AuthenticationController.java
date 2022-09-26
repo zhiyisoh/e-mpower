@@ -90,12 +90,32 @@ public class AuthenticationController {
             User user = new User(signUpRequest.getUsername(),
                     signUpRequest.getEmail(),
                     encoder.encode(signUpRequest.getPassword()));
-    
+            Set<String> strRole = signUpRequest.getRole();
             Set<Role> roles = new HashSet<>();
-    
+            if(strRole == null){
                 Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-                        .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        .orElseThrow(() -> new RuntimeException("Error: User Role is not found."));
                 roles.add(userRole);
+            } else {
+
+                //for each of the roles stated , add the role accordingly
+                strRole.forEach(role -> {
+                        switch (role) {
+                        case "admin":
+                                Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
+                                                .orElseThrow(() -> new RuntimeException("Error: Admin Role is not found."));
+                                roles.add(adminRole);
+                                break;
+                        default:
+                                Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+                                                .orElseThrow(() -> new RuntimeException("Error: User Role is not found."));
+                                roles.add(userRole);
+                        }
+                });
+
+
+            }
+                
     
             user.setRoles(roles);
             userRepository.save(user);
