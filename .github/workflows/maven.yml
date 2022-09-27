@@ -32,4 +32,4 @@ jobs:
           distribution: 'adopt'
           cache: maven
       - name: Build & Test with Maven
-        run: mvn -B -U verify --file pom.xml
+        run: mvn -B -U verify --file BackEnd/empower/pom.xml
