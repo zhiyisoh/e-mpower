@@ -55,11 +55,24 @@
 			<version>0.9.1</version>
 		</dependency>
 
+<<<<<<< HEAD
 		<dependency>
+=======
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
+		<!-- <dependency>
+>>>>>>> abiya1
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
+			<version>2.4.1</version>
 			<scope>runtime</scope>
-		</dependency>
+		</dependency> -->
+		<!-- code to add the db -> JDBC driver -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
