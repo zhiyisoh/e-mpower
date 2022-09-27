@@ -3,7 +3,16 @@
 
 name: Java CI
 
-on: [push]
+on: 
+  push:
+    branches:
+      - "*"
+    paths:
+      - BackEnd/**
+  pull_request:
+    types: [opened, reopened]
+    paths:
+      - BackEnd/**
 
 jobs:
   build:
