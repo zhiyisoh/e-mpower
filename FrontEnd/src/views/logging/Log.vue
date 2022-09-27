@@ -1,4 +1,3 @@
 <template>
-    <h1>Logging page</h1>
-
+    <h1>My Log</h1>
 </template>
