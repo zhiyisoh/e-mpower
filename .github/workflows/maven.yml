@@ -39,4 +39,4 @@ jobs:
       #     mysql database: 'empowerdb' # Optional, default value is "test". The specified database which will be create
       #     mysql root password: 123456 # Required if "mysql user" is empty, default is empty. The root superuser password
       - name: Build with Maven
-        run: mvn -B -U --file empower/pom.xml
+        run: mvn -B package --file empower/pom.xml
