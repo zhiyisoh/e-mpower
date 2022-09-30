@@ -40,7 +40,7 @@ public class JdbcLogRepository implements LogRepository{
     @Override
     public int editLog(Log log) {
         return jdbcTemplate.update(
-                "update logs set itemName = ? where id = ?", log.getItemName(), log.getId());
+                "update logs set itemName = ?, itemNotes = ? where id = ?", log.getItemName(), log.getId());
     }
 
     @Override
