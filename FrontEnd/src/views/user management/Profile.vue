@@ -1,7 +1,55 @@
+<script setup>
+    import Footer from "../../components/Footer.vue";
+    </script>
+
 <template>
-    <h1>My Profile</h1>
-    <h4>Username: {{this.$store.state.auth.user.username}}</h4>
-    <h4>Email: {{this.$store.state.auth.user.email}}</h4>
-    <h4>Saved Bin Locations: Only can store up to 3</h4>
-    <h4>Change Password?</h4>
+    <section class="profile">
+        <h1>My Profile</h1>
+
+        <img src="/src/assets/profilepic.svg" alt="leaves" id="profilepic">
+        <div class="profile-details">
+        <h4>Username: </h4>
+        <p>{{this.$store.state.auth.user.username}}</p>
+        
+        <h4>Email: </h4>
+        <p>{{this.$store.state.auth.user.email}}</p>
+        <h4>Saved Bin Locations: </h4>
+        <p>NULL</p>
+        <h4>Password: </h4>
+        <p>*********</p>
+
+        <button class="btn btn-primary edit-btn"> Edit</button>
+        </div>
+        
+        
+        <Footer/>
+    </section>
 </template>
+
+<style scoped>
+
+    h1 {
+        font-weight: 700;
+    }
+
+    h4 {
+        font-family: 'Merriweather', sans-serif;
+        color:#5E454B;
+      }
+    
+    #profilepic {
+        width: 250px;
+        margin: 2%;
+    }
+.profile {
+    text-align: center;
+}
+
+.profile-details {
+    margin: 20px auto;
+    background-color: white;
+    width: 500px;
+    padding: 2% 5%;
+    border-radius: 10%;
+}
+</style>
