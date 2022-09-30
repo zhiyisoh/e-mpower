@@ -16,7 +16,12 @@ public class Log {
         this.itemNotes = itemNotes;
         this.imagePath = imagePath;
     }
-    
+
+    public Log(long id, String itemName){
+        this.id=id;
+        this.itemName=itemName;
+    }
+
     public long getId(){
         return id;
     }
