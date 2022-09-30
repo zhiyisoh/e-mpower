@@ -1,0 +1,13 @@
+GET http://localhost:8080/logging/
+Content-Type: application/json
+Authorization: Basic name name123
+
+###
+GET http://localhost:8080/logging/1
+Content-Type: application/json
+Authorization: Basic name name123
+
+{
+    "itemName": "lamp",
+    "itemNotes": "lampcool",
+}
