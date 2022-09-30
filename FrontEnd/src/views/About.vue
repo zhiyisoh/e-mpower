@@ -88,7 +88,7 @@ import Footer from "../components/Footer.vue";
       <p class="sec-desc"> We would like to express our thanks to our CS203 Professors and Instructors for
         the guidance and lessons, and
         OneMap API for making this application possible. Special thanks to the various online tutorials and open source materials 
-        which helped us along the way to develop this application successfully! 
+        which helped us along the way to develop this application successfully! Icons created using Canva Education. 
       </p>
     </div>
 
