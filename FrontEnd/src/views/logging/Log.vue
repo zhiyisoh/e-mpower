@@ -1,7 +1,6 @@
 <template>
-    <!-- <h1>My Log </h1> -->
   <div class="past-logs">
-    <h1 class="logs-title title">My Recycling Log</h1>
+    <h1 class="log-title title">My Recycling Log</h1>
     <img src="/src/assets/leave-line.svg" alt="leaves" class="leaves-line">
   
     <div class = "row row-cols-1 row-cols-md-4 g-4 log-cards">
@@ -17,7 +16,7 @@
         <div class = "col">
           <div class="card h-100">
             <div class="card-body">
-              <h5 class="card-title">R i c e cooker</h5>
+              <h5 class="card-title">R i c e</h5>
               <RouterLink to="/singlelog"><button type="button" class="btn btn-outline-dark reg-btn btn-lg" href="LogPage.vue">More</button></RouterLink>
             </div>
           </div>
@@ -41,19 +40,42 @@
           </div>
         </div>
 
+        </div>
+        </div>
 </template>
 
 <style>
 .past-logs {
-  padding: 7% 0%;
+  margin: 20px 0;
+  padding: 7% 15%;
+  border-radius: 10%;
+  text-align: center;
+}
+
+.leaves-line {
+  position: relative;
+  width: 200px;
+  right: 6px;
+  top: 6px;
+}
+
+.log-title {
+  margin-top: 10px;
+}
+
+.log-cards{
+  margin: 20px 0;
+  padding: 7% 7%;
+  border-radius: 7%;
 }
 
 .logs {
-  margin: 40px ;
+  margin: 20px ;
 }
 
 .card {
-  background-color: #ffffff;
+  text-align: center;
+  background-color: #CEE5D0;
   border: 0;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
@@ -61,10 +83,6 @@
 
 .card:hover {
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-}
-
-.log-entry {
-  padding: 2px 16px;
 }
 
 </style>
