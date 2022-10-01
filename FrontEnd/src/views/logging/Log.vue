@@ -9,9 +9,33 @@ import Footer from "../components/Footer.vue";
         <div class="row row-cols-1 row-cols-md-3 g-4 logs">
 
         <div class="log-entry">
-            <div class="card h-100">
+            <div class="card">
                 <div class="card-body">
-                <h5 class="card-title">Bottle</h5>
+                <h5 class="card-title">battery</h5>
+                </div>
+            </div>
+        </div>
+        <div class="log-entry">
+            <div class="card">
+                <div class="card-body">
+                <h5 class="card-title">charger</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="log-entry">
+            <div class="card">
+                <div class="card-body">
+                <h5 class="card-title">charger</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="log-entry">
+            <div class="card">
+                <img src="img_avatar.png" alt="the picture" style="width:50%"></img>
+                <div class="card-body">
+                <h5 class="card-title">charger</h5>
                 </div>
             </div>
         </div>
@@ -28,12 +52,22 @@ import Footer from "../components/Footer.vue";
 }
 
 .logs {
-  margin: 30px 0;
+  margin: 40px ;
 }
 
 .card {
-  background-color: #CEE5D0;
+  background-color: #ffffff;
   border: 0;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.log-entry {
+  padding: 2px 16px;
 }
 
 </style>
