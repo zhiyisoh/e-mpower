@@ -65,6 +65,11 @@ const router = createRouter({
       component: () => import('../views/logging/Log.vue')
     },
     {
+      path: '/singlelog',
+      name: 'logpage',
+      component: () => import('../views/logging/LogPage.vue')
+    },
+    {
       path: '/binlocator',
       name: 'binlocator',
       component: () => import('../views/bin locator/BinLocator.vue')
@@ -78,7 +83,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const publicPage = ['/','/login', '/register',  '/about', '/forgotPassword', '/resetPassword', '/logging']; //
+  const publicPage = ['/','/login', '/register',  '/about', '/forgotPassword', '/resetPassword', '/logging', '/singlelog']; //
   const authNeeded = !(publicPage.includes(to.path));
   const loggedIn = localStorage.getItem('user');
 
