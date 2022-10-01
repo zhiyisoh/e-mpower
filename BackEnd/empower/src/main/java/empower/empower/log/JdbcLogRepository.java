@@ -24,11 +24,10 @@ public class JdbcLogRepository implements LogRepository{
 
     @Override
     public Long save(Log log) {
-        // Use KeyHolder to obtain the auto-generated key from the "insert" statement
         GeneratedKeyHolder holder = new GeneratedKeyHolder();
         jdbcTemplate.update(new PreparedStatementCreator() {
             public PreparedStatement createPreparedStatement(Connection conn) throws SQLException {
-                PreparedStatement statement = conn.prepareStatement("insert into log (itemName) values (?) ", Statement.RETURN_GENERATED_KEYS);
+                PreparedStatement statement = conn.prepareStatement("insert into logging (itemName) values (?) ", Statement.RETURN_GENERATED_KEYS);
                 statement.setString(1, log.getItemName());
                 return statement;
             }}, holder);
@@ -40,24 +39,19 @@ public class JdbcLogRepository implements LogRepository{
     @Override
     public int editLog(Log log) {
         return jdbcTemplate.update(
-                "update logs set itemName = ?, itemNotes = ? where id = ?", log.getItemName(), log.getItemNotes(), log.getId());
+                "update logging set itemName = ?, itemNotes = ? where id = ?", log.getItemName(), log.getItemNotes(), log.getId());
     }
 
     @Override
     public int deleteById(Long id) {
         return jdbcTemplate.update(
-                "delete logs where id = ?", id);
+                "delete logging where id = ?", id);
     }
 
-    /**
-     * TODO: Activity 1 - Add code to return all books
-     * Hint: use the "query" method of JdbcTemplate
-     * Refer to the below code of "findByID" method on how to implement a RowMapper using a lambda expression
-     * 
-     */
+   
     @Override
     public List<Log> findAll() {
-        List<Log> all= jdbcTemplate.query("select * logs", 
+        List<Log> all= jdbcTemplate.query("select * logging", 
         (rs, rowNum)-> new Log( rs.getLong("id"), rs.getString("itemName") ) );
 
         return all;
@@ -66,14 +60,11 @@ public class JdbcLogRepository implements LogRepository{
     @Override
     public Optional<Log> findById(Long id) {
         try{
-            return jdbcTemplate.queryForObject("select * from logs where id = ?",
-            // implement RowMapper interface to return the book found
-            // using a lambda expression
+            return jdbcTemplate.queryForObject("select * from logging where id = ?",
             (rs, rowNum) -> Optional.of(new Log(rs.getLong("id"), rs.getString("itemName"))), 
             new Object[]{id});
 
         }catch(EmptyResultDataAccessException e){
-            // book not found - return an empty object
             return Optional.empty();
         }
     }
