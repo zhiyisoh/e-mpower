@@ -33,7 +33,7 @@ import Footer from "../components/Footer.vue";
 
         <div class="log-entry">
             <div class="card">
-                <img src="img_avatar.png" alt="the picture" style="width:50%"></img>
+                <img src="img_avatar.png" alt="the picture" style="width:50%">
                 <div class="card-body">
                 <h5 class="card-title">charger</h5>
                 </div>
