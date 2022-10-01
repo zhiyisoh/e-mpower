@@ -1,6 +1,6 @@
-<script setup>
-    import Footer from "../components/Footer.vue";
-    </script>
+<!-- <script setup>
+import Footer from "../components/Footer.vue";
+</script> -->
 
 <template>
     <h1>My Log </h1>
