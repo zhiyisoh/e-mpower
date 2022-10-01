@@ -47,8 +47,8 @@
 <style>
 .past-logs {
   margin: 20px 0;
-  padding: 7% 15%;
-  border-radius: 10%;
+  padding: 7% 0%;
+  border-radius: 0%;
   text-align: center;
 }
 
@@ -60,13 +60,12 @@
 }
 
 .log-title {
-  margin-top: 10px;
+  margin-top: 0px;
 }
 
 .log-cards{
   margin: 20px 0;
-  padding: 7% 7%;
-  border-radius: 7%;
+  padding: 7% 0%;
 }
 
 .logs {
