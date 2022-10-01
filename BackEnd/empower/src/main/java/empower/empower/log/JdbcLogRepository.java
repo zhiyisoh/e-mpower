@@ -58,7 +58,7 @@ public class JdbcLogRepository implements LogRepository{
     @Override
     public List<Log> findAll() {
         List<Log> all= jdbcTemplate.query("select * logs", 
-        (rs, rowNum)-> new Log( rs.getLong("id"), rs.getString("itemName") ) );
+        (rs, rowNum)-> new Log( rs.getLong("id"), rs.getString("itemName"), rs.getString("itemNotes"), rs.getString("imagePath") ) );
 
         return all;
     }
@@ -69,7 +69,7 @@ public class JdbcLogRepository implements LogRepository{
             return jdbcTemplate.queryForObject("select * from logs where id = ?",
             // implement RowMapper interface to return the book found
             // using a lambda expression
-            (rs, rowNum) -> Optional.of(new Log(rs.getLong("id"), rs.getString("itemName"))), 
+            (rs, rowNum) -> Optional.of(new Log(rs.getLong("id"), rs.getString("itemName"), rs.getString("itemNotes"), rs.getString("imagePath"))), 
             new Object[]{id});
 
         }catch(EmptyResultDataAccessException e){
