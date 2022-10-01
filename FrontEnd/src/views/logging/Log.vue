@@ -1,6 +1,3 @@
-<script>
-</script>
-
 <template>
     <!-- <h1>My Log </h1> -->
   <div class="past-logs">
@@ -44,38 +41,30 @@
           </div>
         </div>
 
-    </div>
-
-    </div>  
-
 </template>
 
 <style>
-  .leaves-line {
-  position: relative;
-  width: 200px;
-  right: 6px;
-  top: 6px;
-  }
+.past-logs {
+  padding: 7% 0%;
+}
 
-  .past-logs {
-  margin-top: 20px;
-  text-align: center;
-  margin: 20px 0;
-  padding: 7% 15%;
-  border-radius: 10%;
-  }
+.logs {
+  margin: 40px ;
+}
 
-  .log-cards {
-  margin: 30px 0;
-  }
-
-  .card {
-  background-color: #CEE5D0;
+.card {
+  background-color: #ffffff;
   border: 0;
-  }
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
 
-  .card-title {
-  text-align: center;
-  }
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.log-entry {
+  padding: 2px 16px;
+}
+
 </style>
