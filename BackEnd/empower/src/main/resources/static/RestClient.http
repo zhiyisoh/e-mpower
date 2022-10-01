@@ -11,3 +11,12 @@ Authorization: Basic name name123
     "itemName": "lamp",
     "itemNotes": "lampcool",
 }
+
+###
+POST http://localhost:8080/logging
+Content-Type: application/json
+
+{
+    "itemName": "laptop",
+    "itemNotes": "",
+}

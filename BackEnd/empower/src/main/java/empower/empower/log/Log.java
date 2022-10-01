@@ -1,10 +1,32 @@
 package empower.empower.log;
 
+import javax.persistence.*;
+import javax.validation.constraints.*;
+
+import empower.empower.user.User;
+
+@Entity
+// @Getter
+// @Setter
+// @ToString
+// @AllArgsConstructor
+// @NoArgsConstructor
+// @EqualsAndHashCode
 public class Log {
+    @Id @GeneratedValue (strategy = GenerationType.IDENTITY) private long id;
+    
+    @NotNull(message="Item name should not be null")
+    @Size(min=1, max=200, message="Item name should be at least 1 character long")
     private String itemName;
-    private long id;
+    
     private String itemNotes;
     private String imagePath;
+
+  
+     @ManyToOne
+     @JoinColumn(name = "user_id", nullable=false)
+     private User user;
+    
 
     public Log(String itemName){
         this.itemName=itemName;
