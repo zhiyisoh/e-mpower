@@ -26,6 +26,9 @@ import { RouterLink, RouterView } from 'vue-router'
                 <li class="nav-item">
                   <RouterLink to="/register" class="nav-link">Register</RouterLink>
                 </li>
+                <li class="nav-item">
+                  <RouterLink to="/logging" class="nav-link">My Recycling Log</RouterLink>
+                </li>
               </ul>
             </div>
           </div>
@@ -47,9 +50,9 @@ import { RouterLink, RouterView } from 'vue-router'
                 <li class="nav-item">
                   <RouterLink to="/binlocator" class="nav-link">Bin Locator</RouterLink>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                   <RouterLink to="/logging" class="nav-link">My Recycling Log</RouterLink>
-                </li>
+                </li> -->
                 <li class="nav-item">
                   <RouterLink to="/profile" class="nav-link">Profile</RouterLink>
                 </li>

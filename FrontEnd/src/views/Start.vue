@@ -15,7 +15,7 @@
     <div class="HeroSection">
       <img src="/src/assets/leaves.svg" alt="leaves" id="leaves-icon">
       <div class="main-motto">
-        <h1 class="main-line">Your electronics deserve a second life.</h1>
+        <h1 class="main-line">Your electronics deserve a second NONSensze life.</h1>
         <p>Make your e-waste recycling journey fuss-free now!</p>
       </div>
 
