@@ -168,10 +168,8 @@ p {
 }
 
 .register-view {
-  background-color: rgb(255, 255, 255);
   margin: 20px auto;
   text-align: center;
-  border-radius: 10%;
   width: 50%;
   padding: 2%;
 }
@@ -180,6 +178,7 @@ p {
   border-color: transparent;
   margin: 0 auto;
   background-color: white;
+  border-radius: 10%;
 }
 
 .form-group {
