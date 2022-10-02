@@ -65,6 +65,11 @@ const router = createRouter({
       component: () => import('../views/logging/Log.vue')
     },
     {
+      path: '/singlelog',
+      name: 'logpage',
+      component: () => import('../views/logging/LogPage.vue')
+    },
+    {
       path: '/binlocator',
       name: 'binlocator',
       component: () => import('../views/bin locator/BinLocator.vue')
