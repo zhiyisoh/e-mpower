@@ -3,7 +3,7 @@ package empower.empower.log;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
-import empower.empower.user.User;
+import empower.empower.springjwt.models.*;
 
 @Entity
 // @Getter
