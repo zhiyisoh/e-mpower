@@ -31,6 +31,12 @@ jobs:
           java-version: '17'
           distribution: 'adopt'
           cache: maven
+      - name: change MySQL root password
+        run: sudo mysql -u root
+        run: flush privileges;
+        run: USE mysql;
+        run: ALTER USER  'root'@'localhost' IDENTIFIED BY '123456';
+        run: quit;
 
       - name: Enable MySQL service
         run: sudo systemctl start mysql.service
