@@ -4,9 +4,10 @@
 
 <template>
     <div class="past-logs">
+        <RouterLink to="/enterlog"><button type="button" class="btn btn-primary enterlog-btn btn-lg"
+            href="EnterLog.vue">+ Add Log Entry</button></RouterLink>
         <h1 class="log-title title">My Recycling Log</h1>
         <img src="/src/assets/leave-line.svg" alt="leaves" class="leaves-line">
-
         <div class="row row-cols-1 row-cols-md-4 g-4 log-cards">
             <div class="col">
                 <div class="card h-100">
@@ -53,7 +54,7 @@
     <Footer/>
 </template>
 
-<style>
+<style scoped>
 .past-logs {
     margin: 20px 0;
     padding: 7% 0%;
@@ -91,5 +92,11 @@
 
 .card:hover {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.enterlog-btn {
+    position: absolute;
+    right: 100px;
+    bottom: 300px;
 }
 </style>
