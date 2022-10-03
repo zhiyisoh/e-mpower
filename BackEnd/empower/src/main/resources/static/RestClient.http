@@ -3,20 +3,18 @@ Content-Type: application/json
 Authorization: Basic name name123
 
 ###
-GET http://localhost:8080/logging/1
+PUT http://localhost:8080/logging/1
 Content-Type: application/json
 Authorization: Basic name name123
 
 {
     "itemName": "lamp",
     "itemNotes": "lampcool",
+    "imagePath": "dummyPath1replaced",
+    "itemType": "Lamp type lolz",
+    "createdDate": "2022-01-03"
 }
 
 ###
-POST http://localhost:8080/logging
-Content-Type: application/json
 
-{
-    "itemName": "laptop",
-    "itemNotes": "",
-}
+DELETE http://localhost:8080/logging/1
