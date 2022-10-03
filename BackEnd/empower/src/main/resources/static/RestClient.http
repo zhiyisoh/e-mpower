@@ -18,3 +18,17 @@ Authorization: Basic name name123
 ###
 
 DELETE http://localhost:8080/logging/1
+
+
+###
+POST http://localhost:8080/logging
+Content-Type: application/json
+Authorization: Basic name name123
+
+{
+    "itemName": "newObject",
+    "itemNotes": "AAAAAA",
+    "imagePath": "somepath",
+    "itemType": "type",
+    "createdDate": "2020-03-03"
+}
