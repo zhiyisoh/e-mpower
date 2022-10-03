@@ -30,7 +30,7 @@ public class LogController {
         }
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     public void add(@RequestBody Log log) {
         logService.saveLog(log);
     }
