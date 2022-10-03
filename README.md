@@ -39,4 +39,43 @@ Our solution is needed in order to make managing e-waste more convenient and eff
 
 <a href="https://github.com/abiyaimmaculate10">Abiya Immaculate</a>
 
-# Getting Started
+# Getting Started with Local Deployment
+## Requirements
+Please ensure that you have `JDK 17`, `Node.js v16+`, `Maven 3.3` and `MySQL Workbench` installed in your machine.
+
+## Steps to deploy application locally
+### Step 1: Setting up database
+Create new MySQL Schema in your localhost:3306 connection and name it `empowerdb`. 
+```
+create schema `empowerdb`;
+```
+Ensure that your root password is `root`. Alternatively, you can run this SQL statement to change your root password.
+```
+SET PASSWORD FOR 'root'@'localhost' = 'root'
+    REPLACE '{your current password}';
+```
+
+### Step 2: Build Spring Boot backend
+Spring Boot backend will be running on port 8080.
+```
+cd Backend/empower
+
+# for Window users
+mvnw spring-boot:run 
+
+# for MacOS and Linux
+./mvnw spring-boot:run 
+```
+
+### Step 3: Build Vue.js Frontend
+```
+cd FrontEnd
+
+npm install
+npm run dev
+```
+
+### Step 4: Open FrontEnd interface
+Click on http://127.0.0.1:5173/ to access the UI. Enjoy the application! ❤️
+
+![image](https://user-images.githubusercontent.com/111734272/193647478-6f5eba85-0d74-4bcc-8f8f-1d09192184fa.png)
