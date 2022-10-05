@@ -21,10 +21,18 @@
             <label for="notes">Notes: </label>
             <input name="notes" type="text" class="form-control" />
           </div>
-          <div id="preview">
-            <input type="file" accept="image/*" @change="onChange" />
-            <img v-if="item.imageUrl" :src="item.imageUrl" />
-          </div>
+          <div class="form-group">
+            <div id="preview">
+              <input type="file" accept="image/*" @change="onChange" />
+              <img v-if="item.imageUrl" :src="item.imageUrl" />
+            </div>
+        </div>
+        <div class="form-group">
+              <button class="btn btn-primary btn-block" :disabled="loading">
+                <span v-show="loading" class="spinner-border spinner-border-sm"></span>
+                Submit
+              </button>
+        </div>
         </Form>
       </div>
   
@@ -106,7 +114,7 @@ methods: {
 
       }
 
-      // onChange(e) {
+      // onChange(e) { -- check how to add 2 methods
       //   const file = e.target.files[0]
       //   this.image = file
       //   this.item.imageUrl = URL.createObjectURL(file)
