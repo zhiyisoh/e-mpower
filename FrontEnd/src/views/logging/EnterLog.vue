@@ -11,20 +11,23 @@
         <Form @submit="" :validation-schema="schema">
           <div class="form-group">
             <label for="type">Type of e-waste recyling: </label>
-            <Field name="type" type="text" class="form-control" />
+            <input name="type" type="text" class="form-control" />
           </div>
           <div class="form-group">
             <label for="date">Date (YYYY-MM-DD): </label>
-            <Field name="date" type="text" class="form-control" />
+            <input name="date" type="text" class="form-control" />
           </div>
           <div class="form-group">
             <label for="notes">Notes: </label>
-            <Field name="notes" type="text" class="form-control" />
+            <input name="notes" type="text" class="form-control" />
           </div>
-
+          <input type="file" accept="image/*" @change="onChange" />
+        <div id="preview">
+      <img v-if="item.imageUrl" :src="item.imageUrl" />
+        </div>
         </Form>
       </div>
-    
+  
     <Footer />
     </div>
     <!-- <input type="file" accept="image/*" @change="uploadImage($event)" id="file-input"> -->
@@ -35,10 +38,7 @@
       accept="image/*"
       label="Image"
     /> -->
-    <input type="file" accept="image/*" @change="onChange" />
-    <div id="preview">
-      <img v-if="item.imageUrl" :src="item.imageUrl" />
-    </div>
+  
 
 
 </template>
