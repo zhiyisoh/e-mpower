@@ -21,10 +21,10 @@
             <label for="notes">Notes: </label>
             <input name="notes" type="text" class="form-control" />
           </div>
-          <input type="file" accept="image/*" @change="onChange" />
-        <div id="preview">
-      <img v-if="item.imageUrl" :src="item.imageUrl" />
-        </div>
+          <div id="preview">
+            <input type="file" accept="image/*" @change="onChange" />
+            <img v-if="item.imageUrl" :src="item.imageUrl" />
+          </div>
         </Form>
       </div>
   
@@ -73,41 +73,45 @@ methods: {
 }
 </script> -->
 
-<!-- <script>
-  export default{
-    data:{file: null, image:null},
-    methods: {
-      onFileChange(){
-        const reader= new FileReader()
-        reader.readAsDataURL(this.file)
-        reader.onoload = e => {
-          this.image = e.target.result
-          console.log(this.image)
-        }
-      }
-    }
-
-  }
-</script> -->
 <script>
   export default {
     name: 'imageUpload',
     data() {
       return {
         item:{
-            //...
+            type : '',
+            date : '',
+            notes : '',
             image : null,
             imageUrl: null
         }
       }
     },
     methods: {
-      onChange(e) {
-        const file = e.target.files[0]
-        this.image = file
-        this.item.imageUrl = URL.createObjectURL(file)
+      onSubmit(e){
+        e.preventDefault()
+        if(!this.type){
+          alert('Please enter type of e-waste')
+          return
+        }
+        const NewInformation = {
+            id: Math.floor(Math.random() * 100000),
+            name : this.name,
+            age : this.age,
+            reminder : this.reminder
+        }
+        this.$emit('add-information', newInformation)
+        this.name = ' ',
+        this.age = ' '
+
       }
+
+      // onChange(e) {
+      //   const file = e.target.files[0]
+      //   this.image = file
+      //   this.item.imageUrl = URL.createObjectURL(file)
     }
+    
   } 
   </script>
 
