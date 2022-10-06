@@ -1,58 +1,74 @@
 <script setup>
-  import Footer from "../../components/Footer.vue";
+import Footer from "../../components/Footer.vue";
 </script>
 
 <template>
-    <div class="enter-log-view">
-      <form>
-        <input class="back" type="button" value="Back to past logs" onclick="history.back()">
-      </form>
+  <div class="enter-log-view">
+    <form>
+      <input class="back" type="button" value="Back to past logs" onclick="history.back()">
+    </form>
+
+
+    <div class="enter">
       <h1>Hello {{this.$store.state.auth.user.username}}, ready to recycle?</h1>
-      
-      <div class="enter">
-        <Form @submit="" :validation-schema="schema">
-          <div class="form-group">
-            <label for="name">Item name: </label>
-            <input name="name" type="text" class="form-control" />
-          </div>
-          <div class="form-group">
-            <label for="type">Type of e-waste recyling: </label>
-            <input name="type" type="text" class="form-control" />
-          </div>
-          <div class="form-group">
-            <label for="date">Date (YYYY-MM-DD): </label>
-            <input name="date" type="text" class="form-control" />
-          </div>
-          <div class="form-group">
-            <label for="notes">Notes: </label>
-            <input name="notes" type="text" class="form-control" />
-          </div>
-          <div class="form-group">
-            <div id="preview">
-              <input type="file" accept="image/*" @change="onChange" />
-              <img v-if="item.imageUrl" :src="item.imageUrl" />
-            </div>
+      <img src="/src/assets/recycle-bin.gif" alt="leaves" class="bin-icon">
+
+      <Form @submit="" :validation-schema="schema">
+        <div class="form-group">
+          <label for="type">Type of e-waste: </label>
+          <select class="form-select" aria-label="Default select example">
+            <option selected>-- Select type of e-waste --</option>
+            <option value="ICT">Information and Communication Equipment (ICT)</option>
+            <option value="Large Household Appliance">Large Household Appliance</option>
+            <option value="Electric Mobility">Electric Mobility Device</option>
+            <option value="Household Battery">Household Battery</option>
+            <option value="Lithium Ion Battery">Lithium Ion Portable Battery</option>
+            <option value="Consumer Lamp">Consumer Lamp</option>
+            <option value="Consumer EV Battery">Consumer Electric Vehicle Battery</option>
+            <option value="Unregulated">Unregulated E-Waste</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="name">Item name: </label>
+          <input name="name" type="text" class="form-control" />
+        </div>
+
+        <div class="form-group">
+          <label for="date">Date (YYYY-MM-DD): </label>
+          <input name="date" type="text" class="form-control" />
         </div>
         <div class="form-group">
-              <button class="btn btn-primary btn-block" :disabled="loading">
-                <span v-show="loading" class="spinner-border spinner-border-sm"></span>
-                Submit
-              </button>
+          <label for="notes">Notes: </label>
+          <input name="notes" type="text" class="form-control" />
         </div>
-        </Form>
-      </div>
-  
-    <Footer />
+        <div class="form-group">
+          <label for="image">Upload an image of your e-waste! 🗑️</label>
+          <div id="preview">
+            <input type="file" accept="image/*" @change="onChange" />
+            <img v-if="item.imageUrl" :src="item.imageUrl" />
+          </div>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary btn-block" :disabled="loading">
+            <span v-show="loading" class="spinner-border spinner-border-sm"></span>
+            Submit
+          </button>
+        </div>
+      </Form>
     </div>
-    <!-- <input type="file" accept="image/*" @change="uploadImage($event)" id="file-input"> -->
-    <!-- code to allow user to upload image -->
-    <!-- <v-file-input
+
+    <Footer />
+  </div>
+  <!-- <input type="file" accept="image/*" @change="uploadImage($event)" id="file-input"> -->
+  <!-- code to allow user to upload image -->
+  <!-- <v-file-input
       v-model="file"
       chips
       accept="image/*"
       label="Image"
     /> -->
-  
+
 
 
 </template>
@@ -88,72 +104,97 @@ methods: {
 </script> -->
 
 <script>
-  export default {
-    name: 'imageUpload',
-    data() {
-      return {
-        item:{
-            type : '',
-            date : '',
-            notes : '',
-            image : null,
-            imageUrl: null
-        }
-      }
-    },
-    methods: {
-      onSubmit(e){
-        e.preventDefault()
-        if(!this.type){
-          alert('Please enter type of e-waste')
-          return
-        }
-        const NewInformation = {
-            id: Math.floor(Math.random() * 100000),
-            name : this.name,
-            //age : this.age,
-            //reminder : this.reminder
-        }
-        this.$emit('add-information', newInformation)
-        this.name = ' '
-        //this.age = ' '
+export default {
 
+  name: 'imageUpload',
+  data() {
+    return {
+      item: {
+        type: '',
+        date: '',
+        notes: '',
+        image: null,
+        imageUrl: null
       }
-
-      // onChange(e) { -- check how to add 2 methods
-      //   const file = e.target.files[0]
-      //   this.image = file
-      //   this.item.imageUrl = URL.createObjectURL(file)
+    }
+  },
+  methods: {
+    onSubmit(e) {
+      e.preventDefault()
+      if (!this.type) {
+        alert('Please enter type of e-waste')
+        return
+      }
+      const NewInformation = {
+        id: Math.floor(Math.random() * 100000),
+        name: this.name,
+        //age : this.age,
+        //reminder : this.reminder
+      }
+      this.$emit('add-information', newInformation)
+      this.name = ' '
+      //this.age = ' '
     }
     
-  } 
-  </script>
+    // onChange(e) { -- check how to add 2 methods
+    //   const file = e.target.files[0]
+    //   this.image = file
+    //   this.item.imageUrl = URL.createObjectURL(file)
 
-<style>
-  h1{
-    text-align: center;
   }
-  .enter-log-view{
-    font-family: 'Merriweather', sans-serif;
-    color: #5E454B;
-  }
-  .back{
-    background-color: #5E454B;
-    font-family: 'Merriweather', sans-serif;
-    color: white;
-    border-radius: 8px;
-    border-color: transparent;
-    margin-left:40px;
-  }
-  .form-group{
-    font-size: 25px;
-    margin: auto;
-    padding-top: 20px;
-    width: 90%;
-    height:70%;
-  }
+}
 
-  .form-control{
-    height:35px;
-  }
+</script>
+
+<style scoped>
+h1 {
+  text-align: center;
+}
+
+label {
+  margin: 7px 5px 0;
+  font-size: 24px;
+}
+
+.enter-log-view {
+  font-family: 'Merriweather', sans-serif;
+  color: #5E454B;
+
+}
+
+.bin-icon {
+  width: 200px;
+  margin: 5%;
+}
+
+.back {
+  background-color: #5E454B;
+  font-family: 'Merriweather', sans-serif;
+  color: white;
+  border-radius: 8px;
+  border-color: transparent;
+  margin-left: 40px;
+}
+
+.form-group {
+
+  margin: auto;
+  padding-top: 20px;
+  width: 90%;
+  height: 70%;
+}
+
+.enter {
+  width: 60%;
+  text-align: center;
+  margin: 10px auto;
+  background-color: white;
+  border-radius: 10%;
+  padding: 7%;
+}
+
+#preview {
+  font-size: 16px;
+  margin: 20px auto;
+}
 </style>

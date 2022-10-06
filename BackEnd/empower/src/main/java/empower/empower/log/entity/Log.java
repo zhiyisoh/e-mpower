@@ -5,6 +5,7 @@ import java.sql.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -12,7 +13,7 @@ import javax.persistence.Table;
 @Table(name = "logs")
 public class Log {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "itemName")
@@ -35,8 +36,7 @@ public class Log {
     }
 
 
-    public Log(long id, String itemName, String itemNotes, String imagePath, String itemType, Date createdDate){
-        this.id=id;
+    public Log(String itemName, String itemNotes, String imagePath, String itemType, Date createdDate){
         this.itemName=itemName;
         this.itemNotes = itemNotes;
         this.imagePath = imagePath;
