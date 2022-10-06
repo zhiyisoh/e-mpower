@@ -4,11 +4,17 @@
 
 <template>
     <div class="enter-log-view">
-      <RouterLink to="/log"><button type="button" class="log-link" href="Log.vue">Back</button></RouterLink>
+      <form>
+        <input class="back" type="button" value="Back to past logs" onclick="history.back()">
+      </form>
       <h1>Hello {{this.$store.state.auth.user.username}}, ready to recycle?</h1>
       
       <div class="enter">
         <Form @submit="" :validation-schema="schema">
+          <div class="form-group">
+            <label for="name">Item name: </label>
+            <input name="name" type="text" class="form-control" />
+          </div>
           <div class="form-group">
             <label for="type">Type of e-waste recyling: </label>
             <input name="type" type="text" class="form-control" />
@@ -105,12 +111,12 @@ methods: {
         const NewInformation = {
             id: Math.floor(Math.random() * 100000),
             name : this.name,
-            age : this.age,
-            reminder : this.reminder
+            //age : this.age,
+            //reminder : this.reminder
         }
         this.$emit('add-information', newInformation)
-        this.name = ' ',
-        this.age = ' '
+        this.name = ' '
+        //this.age = ' '
 
       }
 
@@ -131,7 +137,14 @@ methods: {
     font-family: 'Merriweather', sans-serif;
     color: #5E454B;
   }
-
+  .back{
+    background-color: #5E454B;
+    font-family: 'Merriweather', sans-serif;
+    color: white;
+    border-radius: 8px;
+    border-color: transparent;
+    margin-left:40px;
+  }
   .form-group{
     font-size: 25px;
     margin: auto;
