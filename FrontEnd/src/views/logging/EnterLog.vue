@@ -102,28 +102,28 @@ methods: {
       }
     },
     methods: {
-      // onSubmit(e){
-      //   e.preventDefault()
-      //   if(!this.type){
-      //     alert('Please enter type of e-waste')
-      //     return
-      //   }
-      //   const NewInformation = {
-      //       id: Math.floor(Math.random() * 100000),
-      //       name : this.name,
-      //       //age : this.age,
-      //       //reminder : this.reminder
-      //   }
-      //   this.$emit('add-information', newInformation)
-      //   this.name = ' '
-      //   //this.age = ' '
+      onSubmit(e){
+        e.preventDefault()
+        if(!this.type){
+          alert('Please enter type of e-waste')
+          return
+        }
+        const NewInformation = {
+            id: Math.floor(Math.random() * 100000),
+            name : this.name,
+            //age : this.age,
+            //reminder : this.reminder
+        }
+        this.$emit('add-information', newInformation)
+        this.name = ' '
+        //this.age = ' '
 
-      // }
+      }
 
-      onChange(e) { //-- check how to add 2 methods
-        const file = e.target.files[0]
-        this.image = file
-        this.item.imageUrl = URL.createObjectURL(file)
+      // onChange(e) { -- check how to add 2 methods
+      //   const file = e.target.files[0]
+      //   this.image = file
+      //   this.item.imageUrl = URL.createObjectURL(file)
     }
     
   } 
