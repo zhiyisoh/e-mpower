@@ -13,10 +13,10 @@ import Footer from "../../components/Footer.vue";
       <h1>Hello {{this.$store.state.auth.user.username}}, ready to recycle?</h1>
       <img src="/src/assets/recycle-bin.gif" alt="leaves" class="bin-icon">
 
-      <Form @submit="" :validation-schema="schema">
+      <Form v-on:submit.prevent="submitForm">
         <div class="form-group">
-          <label for="type">Type of e-waste: </label>
-          <select class="form-select" aria-label="Default select example">
+          <label for="itemType">Type of e-waste: </label>
+          <select id="itemType" v-model="itemType" class="form-select" aria-label="Default select example">
             <option selected>-- Select type of e-waste --</option>
             <option value="ICT">Information and Communication Equipment (ICT)</option>
             <option value="Large Household Appliance">Large Household Appliance</option>
@@ -145,22 +145,22 @@ import Footer from "../../components/Footer.vue";
         </div>
 
         <div class="form-group">
-          <label for="name">Item name: </label>
-          <input name="name" type="text" class="form-control" />
+          <label for="itemName">Item name: </label>
+          <input id="itemName" v-model="itemName" type="text" class="form-control" />
         </div>
 
         <div class="form-group">
-          <label for="date">Date (YYYY-MM-DD): </label>
-          <input name="date" type="text" class="form-control" />
+          <label for="createdDate">Date (YYYY-MM-DD): </label>
+          <input id="createdDate" v-model="createdDate" type="text" class="form-control" />
         </div>
         <div class="form-group">
-          <label for="notes">Notes: </label>
-          <input name="notes" type="text" class="form-control" />
+          <label for="itemNotes">Notes: </label>
+          <input id="itemNotes" v-model="notes" type="text" class="form-control" />
         </div>
         <div class="form-group">
           <label for="image">Upload an image of your e-waste! 🗑️</label>
           <div id="preview">
-            <input type="file" accept="image/*" @change="onChange" />
+            <input id="image" type="file" accept="image/*" @change="onChange" />
             <img v-if="item.imageUrl" :src="item.imageUrl" />
           </div>
         </div>
@@ -219,13 +219,24 @@ methods: {
 </script> -->
 
 <script>
+import axios from 'axios';
+import * as yup from "yup";
 export default {
 
-  name: 'imageUpload',
+  name: 'LogEntry',
   data() {
+    const logAddSchema = object().shape({
+        type: yup.string().required().type(),
+        itemName: yup.string().required.name(),
+        date: yup.string().required().date(),
+        notes: yup.string().notes(),
+        image: yup.string().image(),
+        imageurl: yup.string().imageUrl()
+    });
     return {
       item: {
         type: '',
+        itemName: '',
         date: '',
         notes: '',
         image: null,
@@ -234,6 +245,26 @@ export default {
     }
   },
   methods: {
+    submitForm(){
+      axios.post('http://localhost:8080/logging', {
+        itemType: this.itemType,
+        itemName: this.itemName,
+        createdDate: this.createdDate,
+        itemNotes: this.itemNotes,
+        image: this.image,
+        imageUrl: this.imageUrl,
+        success: false
+    })
+      .then((response) => {
+      //Perform Success Action
+        this.success=true;
+        console.log(response);
+      })
+      .catch((error) => {
+      // error.response.status Check status code
+      console.log(error)
+      });
+  },
     onSubmit(e) {
       e.preventDefault()
       if (!this.type) {
