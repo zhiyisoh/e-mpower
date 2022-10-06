@@ -96,7 +96,7 @@ nav {
   width: 100%;
 }
 .logout-btn {
-  color: white;
+  color: white !important; 
   padding: 4%;
 }
 

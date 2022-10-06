@@ -27,6 +27,121 @@ import Footer from "../../components/Footer.vue";
             <option value="Consumer EV Battery">Consumer Electric Vehicle Battery</option>
             <option value="Unregulated">Unregulated E-Waste</option>
           </select>
+
+          <p>
+            <a class="help-btn btn btn-primary btn-sm" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+              Unsure of your type of e-waste?
+            </a>
+          </p>
+          <div class="collapse" id="collapseExample">
+            <div class="card card-body">
+              <p>If your item is not found in any of these categories, please indicate "Unregulated E-Waste"</p>
+              <h5>Information and Communication Equipment (ICT)</h5>
+              <ul class="type-list">
+                <li>
+                  Printers less than 20kg
+                </li>
+                <li>
+                  Computers and Laptops
+                </li>
+                <li>
+                  Mobile Phones and Tablets
+                </li>
+                <li>
+                  Network and Set-up boxes
+                </li>
+                <li>
+                  Desktop Monitors
+                </li>
+              </ul>
+              
+              <h5>Large Household Appliance</h5>
+              <ul class="type-list">
+                <li>
+                  Consumer Refrigerators less than 900L
+                </li>
+                <li>
+                  Air-Conditioners
+                </li>
+                <li>
+                  Washing Machines
+                </li>
+                <li>
+                  Dryers
+                </li>
+                <li>
+                  Televisions
+                </li>
+              </ul>
+
+              <h5>Electric Mobility Device</h5>
+              <ul class="type-list">
+                <li>
+                  Personal Mobility Device
+                </li>
+                <li>
+                  Power Assisted Bicycle
+                </li>
+                <li>
+                  Electric Mobility Scooter
+                </li>
+              </ul>
+
+              <h5>Household Battery</h5>
+              <ul class="type-list">
+                <li>
+                  D
+                </li>
+                <li>
+                  C
+                </li>
+                <li>
+                  AA
+                </li>
+                <li>
+                  AAA
+                </li>
+                <li>
+                  AAAA
+                </li>
+                <li>
+                  N
+                </li>
+                <li>
+                  9-volt
+                </li>
+                <li>
+                  Button Cell
+                </li>
+              </ul>
+
+              <h5>Lithium Ion Portable Battery</h5>
+              <ul class="type-list">
+                <li>
+                  Powerbank
+                </li>
+                <li>
+                  Mobile Telephone Battery
+                </li>
+                <li>
+                  Laptop Battery
+                </li>
+              </ul>
+
+              <h5>Consumer Lamp</h5>
+              <ul class="type-list">
+                <li>
+                  Bulb
+                </li>
+                <li>
+                  Fluorescent Tube
+                </li>
+              </ul>
+
+              <h5>Consumer Electric Vehicle Battery</h5>
+
+            </div>
+          </div>
         </div>
 
         <div class="form-group">
@@ -151,6 +266,10 @@ h1 {
   text-align: center;
 }
 
+h5 {
+  font-weight: 700;
+}
+
 label {
   margin: 7px 5px 0;
   font-size: 24px;
@@ -182,6 +301,15 @@ label {
   padding-top: 20px;
   width: 90%;
   height: 70%;
+}
+
+.help-btn {
+  margin-top: 20px;
+  margin-left: 250px;
+}
+
+.type-list {
+  text-align: left;
 }
 
 .enter {
