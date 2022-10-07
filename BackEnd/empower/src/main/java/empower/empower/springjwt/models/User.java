@@ -9,6 +9,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import empower.empower.log.entity.Log;
+
 @Entity
 @Table(name = "users", 
     uniqueConstraints = { 
@@ -38,6 +40,12 @@ public class User {
         joinColumns = @JoinColumn(name = "user_id"), 
         inverseJoinColumns = @JoinColumn(name = "role_id"))
   private Set<Role> roles = new HashSet<>();
+
+  @OneToMany(fetch = FetchType.LAZY)
+  @JoinTable (name = "user_log",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "log_id"))
+  private Set<Log> logs = new HashSet<>();
 
   public User() {
   }
