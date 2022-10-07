@@ -10,7 +10,6 @@ Authorization: Basic name name123
 {
     "itemName": "lamp",
     "itemNotes": "lampcool",
-    "imagePath": "dummyPath1replaced",
     "itemType": "Lamp type lolz",
     "createdDate": "2022-01-03"
 }
@@ -28,7 +27,6 @@ Authorization: Basic name name123
 {
     "itemName": "newObject",
     "itemNotes": "AAAAAA",
-    "imagePath": "somepath",
     "itemType": "type",
     "createdDate": "2020-03-03"
 }

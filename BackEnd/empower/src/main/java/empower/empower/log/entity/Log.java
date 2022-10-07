@@ -26,9 +26,6 @@ public class Log {
     @Column(name = "itemNotes")
     private String itemNotes;
 
-    @Column(name = "imagePath")
-    private String imagePath;
-
     @Column(name = "itemType")
     private String itemType;
 
@@ -44,10 +41,9 @@ public class Log {
     }
 
 
-    public Log(String itemName, String itemNotes, String imagePath, String itemType, Date createdDate){
+    public Log(String itemName, String itemNotes, String itemType, Date createdDate){
         this.itemName=itemName;
         this.itemNotes = itemNotes;
-        this.imagePath = imagePath;
         this.itemType = itemType;
         this.createdDate = createdDate;
     }
@@ -79,14 +75,6 @@ public class Log {
 
     public void setItemNotes(String itemNotes) {
         this.itemNotes = itemNotes;
-    }
-
-    public String getImagePath() {
-        return imagePath;
-    }
-
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
     }
 
     public String getItemType() {

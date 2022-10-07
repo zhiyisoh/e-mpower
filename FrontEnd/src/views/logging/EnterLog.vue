@@ -13,7 +13,7 @@ import Footer from "../../components/Footer.vue";
       <h1>Hello {{this.$store.state.auth.user.username}}, ready to recycle?</h1>
       <img src="/src/assets/recycle-bin.gif" alt="leaves" class="bin-icon">
 
-      <Form v-on:submit.prevent="submitForm">
+      <Form @submit="onSubmit" :validation-schema="schema" v-on:submit.prevent="submitForm">
         <div class="form-group">
           <label for="itemType">Type of e-waste: </label>
           <select id="itemType" v-model="itemType" class="form-select" aria-label="Default select example">
@@ -27,9 +27,13 @@ import Footer from "../../components/Footer.vue";
             <option value="Consumer EV Battery">Consumer Electric Vehicle Battery</option>
             <option value="Unregulated">Unregulated E-Waste</option>
           </select>
+          <div v-if="message" class="alert" :class="successful ? 'alert-success' : 'alert-danger'">
+            {{ message }}
+          </div>
 
           <p>
-            <a class="help-btn btn btn-primary btn-sm" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+            <a class="help-btn btn btn-primary btn-sm" data-toggle="collapse" href="#collapseExample" role="button"
+              aria-expanded="false" aria-controls="collapseExample">
               Unsure of your type of e-waste?
             </a>
           </p>
@@ -54,7 +58,7 @@ import Footer from "../../components/Footer.vue";
                   Desktop Monitors
                 </li>
               </ul>
-              
+
               <h5>Large Household Appliance</h5>
               <ul class="type-list">
                 <li>
@@ -147,6 +151,9 @@ import Footer from "../../components/Footer.vue";
         <div class="form-group">
           <label for="itemName">Item name: </label>
           <input id="itemName" v-model="itemName" type="text" class="form-control" />
+          <div v-if="message" class="alert" :class="successful ? 'alert-success' : 'alert-danger'">
+            {{ message }}
+          </div>
         </div>
 
         <div class="form-group">
@@ -157,13 +164,7 @@ import Footer from "../../components/Footer.vue";
           <label for="itemNotes">Notes: </label>
           <input id="itemNotes" v-model="notes" type="text" class="form-control" />
         </div>
-        <div class="form-group">
-          <label for="image">Upload an image of your e-waste! 🗑️</label>
-          <div id="preview">
-            <input id="image" type="file" accept="image/*" @change="onChange" />
-            <img v-if="item.imageUrl" :src="item.imageUrl" />
-          </div>
-        </div>
+
         <div class="form-group">
           <button class="btn btn-primary btn-block" :disabled="loading">
             <span v-show="loading" class="spinner-border spinner-border-sm"></span>
@@ -172,121 +173,59 @@ import Footer from "../../components/Footer.vue";
         </div>
       </Form>
     </div>
+    {{}}
 
     <Footer />
   </div>
-  <!-- <input type="file" accept="image/*" @change="uploadImage($event)" id="file-input"> -->
-  <!-- code to allow user to upload image -->
-  <!-- <v-file-input
-      v-model="file"
-      chips
-      accept="image/*"
-      label="Image"
-    /> -->
-
-
 
 </template>
   
-<!-- <script>
-methods: {
-  method to upload image, still figuring it out
-  uploadImage(event) {
-
-    const URL = 'http://foobar.com/upload';
-
-    let data = new FormData();
-    data.append('name', 'my-picture');
-    data.append('file', event.target.files[0]);
-
-    let config = {
-      header: {
-        'Content-Type': 'image/png'
-      }
-    }
-
-    axios.put(
-      URL,
-      data,
-      config
-    ).then(
-      response => {
-        console.log('image upload response > ', response)
-      }
-    )
-  }
-}
-</script> -->
 
 <script>
 import axios from 'axios';
-import * as yup from "yup";
+
 export default {
 
   name: 'LogEntry',
   data() {
-    const logAddSchema = object().shape({
-        type: yup.string().required().type(),
-        itemName: yup.string().required.name(),
-        date: yup.string().required().date(),
-        notes: yup.string().notes(),
-        image: yup.string().image(),
-        imageurl: yup.string().imageUrl()
-    });
     return {
-      item: {
-        type: '',
-        itemName: '',
-        date: '',
-        notes: '',
-        image: null,
-        imageUrl: null
-      }
+      itemType: '',
+      itemName: '',
+      createdDate: '',
+      itemNotes: ''
     }
-  },
-  methods: {
-    submitForm(){
-      axios.post('http://localhost:8080/logging', {
+  }, methods: {
+    onSubmit(e) {
+      this.loading = true;
+      e.preventDefault();
+      if (!this.itemName) {
+        alert('Please add item name')
+        return
+      }
+      let currentObj = this;
+
+      const configHeaders = {
+      'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('user')).accessToken
+      };
+      axios.post('http://localhost:8080/logging/addlog', {
+        user : this.$store.state.auth.user,
         itemType: this.itemType,
         itemName: this.itemName,
         createdDate: this.createdDate,
-        itemNotes: this.itemNotes,
-        image: this.image,
-        imageUrl: this.imageUrl,
-        success: false
-    })
-      .then((response) => {
-      //Perform Success Action
-        this.success=true;
-        console.log(response);
+        itemNotes: this.itemNotes
+      }, {
+        headers: configHeaders
       })
-      .catch((error) => {
-      // error.response.status Check status code
-      console.log(error)
-      });
-  },
-    onSubmit(e) {
-      e.preventDefault()
-      if (!this.type) {
-        alert('Please enter type of e-waste')
-        return
-      }
-      const NewInformation = {
-        id: Math.floor(Math.random() * 100000),
-        name: this.name,
-        //age : this.age,
-        //reminder : this.reminder
-      }
-      this.$emit('add-information', newInformation)
-      this.name = ' '
-      //this.age = ' '
-    }
-    
-    // onChange(e) { -- check how to add 2 methods
-    //   const file = e.target.files[0]
-    //   this.image = file
-    //   this.item.imageUrl = URL.createObjectURL(file)
+        .then(function (response) {
+          currentObj.output = response.data;
+          alert('Successful Submission')
+        })
+        .catch(function (error) {
+          currentObj.output = error;
+          alert('Unsuccessful Submission')
+        });
 
+    }
   }
 }
 

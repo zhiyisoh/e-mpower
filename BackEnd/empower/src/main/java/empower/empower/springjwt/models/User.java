@@ -46,7 +46,7 @@ public class User {
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "log_id"))
   private Set<Log> logs = new HashSet<>();
-
+  
   public User() {
   }
 

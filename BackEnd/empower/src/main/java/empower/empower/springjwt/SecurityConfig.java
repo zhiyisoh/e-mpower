@@ -62,6 +62,7 @@ public class SecurityConfig {
         .authorizeRequests()
             .antMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
             .antMatchers("/api/auth/**").permitAll()
+            .antMatchers(HttpMethod.POST, "/logging/**").permitAll()
             .anyRequest().authenticated()
             //.antMatchers(HttpMethod.POST, "/logewaste").hasRole("USER")
             // .antMatchers(HttpMethod.PUT, "/books/*").hasRole("ADMIN")

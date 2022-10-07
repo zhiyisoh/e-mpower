@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/logging")
 public class LogController {
@@ -30,7 +31,7 @@ public class LogController {
         }
     }
 
-    @PostMapping("")
+    @PostMapping("/addlog")
     public void add(@RequestBody Log log) {
         logService.saveLog(log);
     }
