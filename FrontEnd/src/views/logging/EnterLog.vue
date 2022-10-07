@@ -160,12 +160,15 @@ import Footer from "../../components/Footer.vue";
           <label for="createdDate">Date (YYYY-MM-DD): </label>
           <input id="createdDate" v-model="createdDate" type="text" class="form-control" />
         </div>
+
         <div class="form-group">
           <label for="itemNotes">Notes: </label>
           <input id="itemNotes" v-model="notes" type="text" class="form-control" />
         </div>  
-        {{this.$store.state.auth.user}}
 
+        <div v-if="message" class="alert" :class="successful ? 'alert-success' : 'alert-danger'">
+          {{ message }}
+        </div>
         <div class="form-group">
           <button class="btn btn-primary btn-block" :disabled="loading">
             <span v-show="loading" class="spinner-border spinner-border-sm"></span>
@@ -173,9 +176,7 @@ import Footer from "../../components/Footer.vue";
           </button>
         </div>
       </Form>
-    </div>
-    {{}}
-
+    </div> 
     <Footer />
   </div>
 
@@ -205,27 +206,25 @@ export default {
       }
       let currentObj = this;
 
-      const configHeaders = {
-      'content-type' : 'application/json',
-      'Authorization': 'Basic user1 password123'
-      };
-
       const API_URL ='http://localhost:8080/api/logging/addlog/';
       axios.post(API_URL + this.$store.state.auth.user.id, {
-        itemType: this.itemType,
         itemName: this.itemName,
-        createdDate: this.createdDate,
-        itemNotes: this.itemNotes
+        itemType: this.itemType,
+        itemNotes: this.itemNotes,
+        createdDate: this.createdDate
       }, {
-        headers: configHeaders
+        headers: {
+          'Authorization': 'Bearer ' + this.$store.state.auth.user.accessToken 
+        }
       })
         .then(function (response) {
           currentObj.output = response.data;
-          alert('Successful Submission')
+          alert("🎉Input Success!🎉 Check out your log page")
         })
         .catch(function (error) {
           currentObj.output = error;
-          alert('Unsuccessful Submission' + error)
+          alert('Unsuccessful Submission. ' + error);
+          
         });
 
     }

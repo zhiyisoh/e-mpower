@@ -63,16 +63,7 @@ public class SecurityConfig {
             .antMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
             .antMatchers("/api/auth/**").permitAll()
             .antMatchers(HttpMethod.POST, "/api/logging/**").authenticated()
-            .anyRequest().authenticated()
-            //.antMatchers(HttpMethod.POST, "/logewaste").hasRole("USER")
-            // .antMatchers(HttpMethod.PUT, "/books/*").hasRole("ADMIN")
-            // .antMatchers(HttpMethod.DELETE, "/books/*").hasRole("ADMIN")
-            // // your code here
-            // .antMatchers(HttpMethod.POST, "/books/*/reviews").hasAnyRole("ADMIN", "USER")
-            // .antMatchers(HttpMethod.PUT, "/books/*/reviews/*").hasRole("ADMIN")
-            // .antMatchers(HttpMethod.DELETE, "/books/*/reviews/*").hasRole("ADMIN")
-            // .antMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")
-            // .antMatchers(HttpMethod.POST, "/users").hasRole("ADMIN")
+
         .and()    
         .authenticationProvider(authenticationProvider()) //specifies the authentication provider for HttpSecurity
         .csrf().disable() // CSRF protection is needed only for browser based attacks
