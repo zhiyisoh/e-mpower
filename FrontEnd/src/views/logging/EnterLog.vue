@@ -220,19 +220,19 @@ methods: {
 
 <script>
 import axios from 'axios';
-import * as yup from "yup";
+//import * as yup from "yup";
 export default {
 
   name: 'LogEntry',
   data() {
-    const logAddSchema = object().shape({
-        type: yup.string().required().type(),
-        itemName: yup.string().required.name(),
-        date: yup.string().required().date(),
-        notes: yup.string().notes(),
-        image: yup.string().image(),
-        imageurl: yup.string().imageUrl()
-    });
+    // const logAddSchema = object().shape({
+    //     type: yup.string().required().type(),
+    //     itemName: yup.string().required.name(),
+    //     date: yup.string().required().date(),
+    //     notes: yup.string().notes(),
+    //     image: yup.string().image(),
+    //     imageurl: yup.string().imageUrl()
+    // });
     return {
       item: {
         type: '',
