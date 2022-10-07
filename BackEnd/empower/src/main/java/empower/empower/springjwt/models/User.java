@@ -9,6 +9,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import empower.empower.log.entity.Log;
 
 @Entity
@@ -41,11 +43,9 @@ public class User {
         inverseJoinColumns = @JoinColumn(name = "role_id"))
   private Set<Role> roles = new HashSet<>();
 
-  @OneToMany(fetch = FetchType.LAZY)
-  @JoinTable (name = "user_log",
-        joinColumns = @JoinColumn(name = "user_id"),
-        inverseJoinColumns = @JoinColumn(name = "log_id"))
-  private Set<Log> logs = new HashSet<>();
+  @OneToMany(mappedBy="user", cascade = CascadeType.ALL, orphanRemoval = true)
+  @JsonIgnore
+  private Set<Log> logs;
   
   public User() {
   }
@@ -95,4 +95,13 @@ public class User {
   public void setRoles(Set<Role> roles) {
     this.roles = roles;
   }
+
+  public Set<Log> getLogs() {
+      return logs;
+  }
+
+  public void setLogs(Set<Log> logs) {
+      this.logs = logs;
+  }
+  
 }

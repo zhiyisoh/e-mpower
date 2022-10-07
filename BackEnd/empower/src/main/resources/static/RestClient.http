@@ -1,11 +1,11 @@
-GET http://localhost:8080/logging/
+GET http://localhost:8080/api/logging/
 Content-Type: application/json
-Authorization: Basic name name123
+Authorization: Basic name 123
 
 ###
-PUT http://localhost:8080/logging/1
+PUT http://localhost:8080/api/logging/1
 Content-Type: application/json
-Authorization: Basic name name123
+Authorization: Bearer user1 password123
 
 {
     "itemName": "lamp",
@@ -16,13 +16,13 @@ Authorization: Basic name name123
 
 ###
 
-DELETE http://localhost:8080/logging/1
+DELETE http://localhost:8080/api/logging/1
 
 
 ###
-POST http://localhost:8080/logging
+POST http://localhost:8080/api/logging/addlog/1
 Content-Type: application/json
-Authorization: Basic name name123
+Authorization: Basic user1 password123
 
 {
     "itemName": "newObject",

@@ -163,7 +163,8 @@ import Footer from "../../components/Footer.vue";
         <div class="form-group">
           <label for="itemNotes">Notes: </label>
           <input id="itemNotes" v-model="notes" type="text" class="form-control" />
-        </div>
+        </div>  
+        {{this.$store.state.auth.user}}
 
         <div class="form-group">
           <button class="btn btn-primary btn-block" :disabled="loading">
@@ -205,10 +206,12 @@ export default {
       let currentObj = this;
 
       const configHeaders = {
-      'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('user')).accessToken
+      'content-type' : 'application/json',
+      'Authorization': 'Basic user1 password123'
       };
-      axios.post('http://localhost:8080/logging/addlog', {
-        user : this.$store.state.auth.user,
+
+      const API_URL ='http://localhost:8080/api/logging/addlog/';
+      axios.post(API_URL + this.$store.state.auth.user.id, {
         itemType: this.itemType,
         itemName: this.itemName,
         createdDate: this.createdDate,
@@ -222,7 +225,7 @@ export default {
         })
         .catch(function (error) {
           currentObj.output = error;
-          alert('Unsuccessful Submission')
+          alert('Unsuccessful Submission' + error)
         });
 
     }
