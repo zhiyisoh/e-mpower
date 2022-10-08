@@ -150,10 +150,8 @@ import Footer from "../../components/Footer.vue";
 
         <div class="form-group">
           <label for="itemName">Item name: </label>
-          <input id="itemName" v-model="itemName" type="text" class="form-control" />
-          <div v-if="message" class="alert" :class="successful ? 'alert-success' : 'alert-danger'">
-            {{ message }}
-          </div>
+          <Field name="itemName"><input id="itemName" v-model="itemName" type="text" class="form-control" /></Field>
+          <ErrorMessage name="username" class="error-feedback" />
         </div>
 
         <div class="form-group">
@@ -163,7 +161,7 @@ import Footer from "../../components/Footer.vue";
 
         <div class="form-group">
           <label for="itemNotes">Notes: </label>
-          <input id="itemNotes" v-model="notes" type="text" class="form-control" />
+          <input id="itemNotes" v-model="itemNotes" type="text" class="form-control" />
         </div>  
 
         <div v-if="message" class="alert" :class="successful ? 'alert-success' : 'alert-danger'">
@@ -186,6 +184,7 @@ import Footer from "../../components/Footer.vue";
 <script>
 import axios from 'axios';
 
+
 export default {
 
   name: 'LogEntry',
@@ -198,14 +197,19 @@ export default {
     }
   }, methods: {
     onSubmit(e) {
-      this.loading = true;
       e.preventDefault();
       if (!this.itemName) {
-        alert('Please add item name')
+        alert('❌ Item Name field is required ')
         return
       }
-      let currentObj = this;
 
+      if (!this.createdDate) {
+        alert('❌ Date field is required')
+        return
+      }
+
+      let currentObj = this;
+      let self = this;
       const API_URL ='http://localhost:8080/api/logging/addlog/';
       axios.post(API_URL + this.$store.state.auth.user.id, {
         itemName: this.itemName,
@@ -219,14 +223,12 @@ export default {
       })
         .then(function (response) {
           currentObj.output = response.data;
-          alert("🎉Input Success!🎉 Check out your log page")
+          self.$router.push('/logging');
         })
         .catch(function (error) {
           currentObj.output = error;
           alert('Unsuccessful Submission. ' + error);
-          
         });
-
     }
   }
 }
