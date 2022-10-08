@@ -3,9 +3,9 @@ Content-Type: application/json
 Authorization: Basic name 123
 
 ###
-PUT http://localhost:8080/api/logging/1
+PUT http://localhost:8080/api/logging/updatelog/1/40
 Content-Type: application/json
-Authorization: Bearer user1 password123
+Authorization: Basic user1:password123
 
 {
     "itemName": "lamp",
@@ -16,7 +16,9 @@ Authorization: Bearer user1 password123
 
 ###
 
-DELETE http://localhost:8080/api/logging/1
+DELETE http://localhost:8080/api/logging/deletelog/1/39
+Content-Type: application/json
+Authorization: Basic user1:password123
 
 
 ###
