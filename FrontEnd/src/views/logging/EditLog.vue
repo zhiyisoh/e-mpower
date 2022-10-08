@@ -4,19 +4,16 @@ import Footer from "../../components/Footer.vue";
 
 <template>
   <div class="enter-log-view">
-    <form>
-      <input class="back" type="button" value="Back to past logs" onclick="history.back()">
-    </form>
 
 
     <div class="enter">
-      <h1>Hello {{this.$store.state.auth.user.username}}, ready to recycle?</h1>
+      <h1>Hello {{this.$store.state.auth.user.username}}, made a mistake somewhere?</h1>
       <img src="/src/assets/recycle-bin.gif" alt="leaves" class="bin-icon">
 
       <Form @submit="onSubmit" :validation-schema="schema" v-on:submit.prevent="submitForm">
         <div class="form-group">
           <label for="itemType">Type of e-waste: </label>
-          <select id="itemType" v-model="itemType" class="form-select" aria-label="Default select example">
+          <select id="itemType" v-model="record.itemType" class="form-select" aria-label="Default select example">
             <option selected>-- Select type of e-waste --</option>
             <option value="ICT">Information and Communication Equipment (ICT)</option>
             <option value="Large Household Appliance">Large Household Appliance</option>
@@ -27,6 +24,9 @@ import Footer from "../../components/Footer.vue";
             <option value="Consumer EV Battery">Consumer Electric Vehicle Battery</option>
             <option value="Unregulated">Unregulated E-Waste</option>
           </select>
+          <div v-if="message" class="alert" :class="successful ? 'alert-success' : 'alert-danger'">
+            {{ message }}
+          </div>
 
           <p>
             <a class="help-btn btn btn-primary btn-sm" data-toggle="collapse" href="#collapseExample" role="button"
@@ -147,20 +147,24 @@ import Footer from "../../components/Footer.vue";
 
         <div class="form-group">
           <label for="itemName">Item name: </label>
-          <input id="itemName" v-model="itemName" type="text" class="form-control" />
+          <Field name="itemName">
+            <input id="itemName" v-model="record.itemName" type="text" class="form-control"/></Field>
           <ErrorMessage name="username" class="error-feedback" />
         </div>
 
         <div class="form-group">
           <label for="createdDate">Date (YYYY-MM-DD): </label>
-          <input id="createdDate" v-model="createdDate" type="text" class="form-control" />
+          <input id="createdDate" v-model="record.createdDate" type="text" class="form-control" />
         </div>
 
         <div class="form-group">
           <label for="itemNotes">Notes: </label>
-          <input id="itemNotes" v-model="itemNotes" type="text" class="form-control" />
+          <input id="itemNotes" v-model="record.itemNotes" type="text" class="form-control" />
         </div>  
-
+        <h3>{{ record.itemName }}</h3>
+        <div v-if="message" class="alert" :class="successful ? 'alert-success' : 'alert-danger'">
+          {{ message }}
+        </div>
         <div class="form-group">
           <button class="btn btn-primary btn-block" :disabled="loading">
             <span v-show="loading" class="spinner-border spinner-border-sm"></span>
@@ -179,42 +183,40 @@ import Footer from "../../components/Footer.vue";
 import axios from 'axios';
 
 
+
 export default {
 
   name: 'LogEntry',
+  el: "#app",
   data() {
     return {
-      itemType: '',
-      itemName: '',
-      createdDate: '',
-      itemNotes: ''
+      itemType: "",
+      itemName: "",
+      createdDate: "",
+      itemNotes: '',
+      record: []
     }
   }, methods: {
     onSubmit(e) {
       e.preventDefault();
-
-      if(!(this.itemName || this.createdDate)){
-        alert('❌ Item Name field is required \n❌ Date field is required')
-        return
-      }
-      if (!this.itemName) {
+      if (!this.record.itemName) {
         alert('❌ Item Name field is required ')
         return
       }
 
-      if (!this.createdDate) {
+      if (!this.record.createdDate) {
         alert('❌ Date field is required')
         return
       }
 
       let currentObj = this;
       let self = this;
-      const API_URL ='http://localhost:8080/api/logging/addlog/';
-      axios.post(API_URL + this.$store.state.auth.user.id, {
-        itemName: this.itemName,
-        itemType: this.itemType,
-        itemNotes: this.itemNotes,
-        createdDate: this.createdDate
+      const API_URL ='http://localhost:8080/api/logging/updatelog/';
+      axios.put(API_URL + this.$store.state.auth.user.id + "/2", {
+        itemName: this.record.itemName,
+        itemType: this.record.itemType,
+        itemNotes: this.record.itemNotes,
+        createdDate: this.record.createdDate
       }, {
         headers: {
           'Authorization': 'Bearer ' + this.$store.state.auth.user.accessToken 
@@ -229,6 +231,17 @@ export default {
           alert('Unsuccessful Submission. ' + error);
         });
     }
+  }, mounted(){
+    const url = "http://localhost:8080/api/logging/2"; //to be changed
+    axios.get(url)
+    .then(response => {
+      this.record = response.data;
+
+    }).catch((error) => {
+        this.error = "Error!  " + error;
+      });
+
+  
   }
 }
 

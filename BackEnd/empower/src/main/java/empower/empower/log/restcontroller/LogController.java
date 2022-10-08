@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
+import javax.validation.Valid;
+
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/logging")
@@ -24,7 +26,7 @@ public class LogController {
     private LogRepository logRepo;
     private UserRepository userRepo;
 
-    public LogController(LogRepository logRepo, UserRepository userRepo){
+    public LogController(LogRepository logRepo, UserRepository userRepo) {
         this.logRepo = logRepo;
         this.userRepo = userRepo;
     }
@@ -45,31 +47,53 @@ public class LogController {
     }
 
     @PostMapping("/addlog/{user_id}")
-    public Log add(@PathVariable (value = "user_id") Long userId, @RequestBody Log log) {
+    public Log add(@PathVariable(value = "user_id") Long userId, @RequestBody Log log) {
         return userRepo.findById(userId)
-        .map(user ->{
-            log.setUser(user);
-            Set<Log> logs = user.getLogs();
-            logs.add(log);
-            return logService.saveLog(log);
-        }).orElseThrow(() -> new UserNotFoundException(userId));
+                .map(user -> {
+                    log.setUser(user);
+                    Set<Log> logs = user.getLogs();
+                    logs.add(log);
+                    return logService.saveLog(log);
+                }).orElseThrow(() -> new UserNotFoundException(userId));
     }
 
+    @PutMapping("/updatelog/{user_id}/{id}")
+    public ResponseEntity<?> update(@PathVariable(value = "user_id") Long userId, @PathVariable Long id, @Valid @RequestBody Log log) {
 
-    @PutMapping("/{id}")
-    public ResponseEntity<?> update(@RequestBody Log log, @PathVariable Long id) {
-        try {
-            Log existLog = logService.getLog(id);
-            log.setId(id);            
-            logService.saveLog(log);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } catch (NoSuchElementException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (!logRepo.existsById(id)) {
+            throw new LogNotFoundException(id);
         }
+
+        if(!userRepo.existsById(userId)){
+            throw new UserNotFoundException(userId);
+        }
+
+        return logRepo.findByIdAndUserId(id, userId).map(oldLog -> {
+            oldLog.setItemName(log.getItemName());
+            oldLog.setItemNotes(log.getItemNotes());
+            oldLog.setItemType(log.getItemType());
+            oldLog.setCreatedDate(log.getCreatedDate());
+            logService.saveLog(oldLog);
+            return ResponseEntity.ok().build();
+        }).orElseThrow(() -> new LogNotFoundException(id));
+
     }
 
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        logService.deleteLog(id);
+    @DeleteMapping("/deletelog/{user_id}/{id}")
+    public ResponseEntity<?> delete(@PathVariable(value = "user_id") Long userId, @PathVariable Long id) {
+        if (!logRepo.existsById(id)) {
+            throw new LogNotFoundException(id);
+        }
+
+        Log log = logService.getLog(id);
+        return userRepo.findById(userId)
+                .map(user -> {
+                    Set<Log> logs = user.getLogs();
+                    logs.remove(log);
+                    logService.deleteLog(id);
+                    return ResponseEntity.ok().build();
+                }).orElseThrow(() -> new UserNotFoundException(userId));
+
     }
+
 }

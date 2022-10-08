@@ -27,6 +27,7 @@ public class LogService {
     }
 
     public void deleteLog(Long id){
+
         logRepository.deleteById(id);
     }
 
