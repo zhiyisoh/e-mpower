@@ -27,9 +27,6 @@ import Footer from "../../components/Footer.vue";
             <option value="Consumer EV Battery">Consumer Electric Vehicle Battery</option>
             <option value="Unregulated">Unregulated E-Waste</option>
           </select>
-          <div v-if="message" class="alert" :class="successful ? 'alert-success' : 'alert-danger'">
-            {{ message }}
-          </div>
 
           <p>
             <a class="help-btn btn btn-primary btn-sm" data-toggle="collapse" href="#collapseExample" role="button"
@@ -150,7 +147,7 @@ import Footer from "../../components/Footer.vue";
 
         <div class="form-group">
           <label for="itemName">Item name: </label>
-          <Field name="itemName"><input id="itemName" v-model="itemName" type="text" class="form-control" /></Field>
+          <input id="itemName" v-model="itemName" type="text" class="form-control" />
           <ErrorMessage name="username" class="error-feedback" />
         </div>
 
@@ -164,9 +161,6 @@ import Footer from "../../components/Footer.vue";
           <input id="itemNotes" v-model="itemNotes" type="text" class="form-control" />
         </div>  
 
-        <div v-if="message" class="alert" :class="successful ? 'alert-success' : 'alert-danger'">
-          {{ message }}
-        </div>
         <div class="form-group">
           <button class="btn btn-primary btn-block" :disabled="loading">
             <span v-show="loading" class="spinner-border spinner-border-sm"></span>
@@ -198,6 +192,11 @@ export default {
   }, methods: {
     onSubmit(e) {
       e.preventDefault();
+
+      if(!(this.itemName || this.createdDate)){
+        alert('❌ Item Name field is required \n❌ Date field is required')
+        return
+      }
       if (!this.itemName) {
         alert('❌ Item Name field is required ')
         return
