@@ -4,7 +4,8 @@
         <h1>Type:</h1>
 
         <div class = "btn-toolbar">
-            <button v-on:click="" type="button" class="btn btn-outline-dark user-btn btn-lg">Edit</button>
+            <RouterLink to="/editlog"><button type="button" class="btn btn-primary enterlog-btn btn-lg"
+                href="EnterLog.vue">Edit</button></RouterLink>
             <button v-on:click="" type="button" class="btn btn-outline-dark reg-btn btn-lg">Delete</button>
         </div>
         

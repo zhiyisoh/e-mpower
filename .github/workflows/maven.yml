@@ -39,4 +39,4 @@ jobs:
         run: mysql -uroot -proot -e "CREATE DATABASE empowerdb;"
 
       - name: Build with Maven
-        run: mvn -B package --file empower/pom.xml
+        run: mvn -B package -U verify --file empower/pom.xml
