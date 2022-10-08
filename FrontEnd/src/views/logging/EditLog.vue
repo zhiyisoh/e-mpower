@@ -181,7 +181,8 @@ import Footer from "../../components/Footer.vue";
 
 <script>
 import axios from 'axios';
-
+//import LogService from "../../../../BackEnd/empower/src/main/java/empower/empower/log/service/";
+//import mysql from 'mysql';
 
 export default {
 
@@ -208,8 +209,8 @@ export default {
 
       let currentObj = this;
       let self = this;
-      const API_URL ='http://localhost:8080/api/logging/';
-      axios.put('http://localhost:8080/logging/2', {
+      const API_URL ='http://localhost:8080/api/logging/updatelog/';
+      axios.put(API_URL + this.$store.state.auth.user.id + "/2", {
         itemName: this.itemName,
         itemType: this.itemType,
         itemNotes: this.itemNotes,
