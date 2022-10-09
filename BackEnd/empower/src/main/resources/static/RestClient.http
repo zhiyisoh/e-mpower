@@ -1,30 +1,36 @@
 GET http://localhost:8080/api/logging/
 Content-Type: application/json
-Authorization: Basic name 123
+Authorization: Basic name name123
+###
+
+GET http://localhost:8080/api/logging/1
+Content-Type: application/json
+Authorization: Basic name name123
 
 ###
-PUT http://localhost:8080/api/logging/updatelog/1/40
+## updatelog/{user_id}/{log's id}. this is s.t. we can add the user id into the database and only that user can update that log
+PUT http://localhost:8080/api/logging/updatelog/4/2
 Content-Type: application/json
-Authorization: Basic user1:password123
+Authorization: Basic name name123
 
 {
     "itemName": "lamp",
     "itemNotes": "lampcool",
-    "itemType": "Lamp type lolz",
+    "itemType": "Consumer Lamp",
     "createdDate": "2022-01-03"
 }
 
 ###
 
-DELETE http://localhost:8080/api/logging/deletelog/1/39
+DELETE http://localhost:8080/api/logging/deletelog/4/7
 Content-Type: application/json
-Authorization: Basic user1:password123
+Authorization: Basic name name123
 
 
 ###
 POST http://localhost:8080/api/logging/addlog/1
 Content-Type: application/json
-Authorization: Basic user1:password123
+Authorization: Basic name name123
 
 {
     "itemName": "newObject",

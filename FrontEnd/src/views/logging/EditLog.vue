@@ -13,7 +13,7 @@ import Footer from "../../components/Footer.vue";
       <Form @submit="onSubmit" :validation-schema="schema" v-on:submit.prevent="submitForm">
         <div class="form-group">
           <label for="itemType">Type of e-waste: </label>
-          <select id="itemType" v-model="itemType" class="form-select" aria-label="Default select example">
+          <select id="itemType" v-model="record.itemType" class="form-select" aria-label="Default select example">
             <option selected>-- Select type of e-waste --</option>
             <option value="ICT">Information and Communication Equipment (ICT)</option>
             <option value="Large Household Appliance">Large Household Appliance</option>
@@ -148,20 +148,20 @@ import Footer from "../../components/Footer.vue";
         <div class="form-group">
           <label for="itemName">Item name: </label>
           <Field name="itemName">
-            <input id="itemName" v-model="itemName" type="text" class="form-control" value/></Field>
+            <input id="itemName" v-model="record.itemName" type="text" class="form-control"/></Field>
           <ErrorMessage name="username" class="error-feedback" />
         </div>
 
         <div class="form-group">
           <label for="createdDate">Date (YYYY-MM-DD): </label>
-          <input id="createdDate" v-model="createdDate" type="text" class="form-control" />
+          <input id="createdDate" v-model="record.createdDate" type="text" class="form-control" />
         </div>
 
         <div class="form-group">
           <label for="itemNotes">Notes: </label>
-          <input id="itemNotes" v-model="itemNotes" type="text" class="form-control" />
+          <input id="itemNotes" v-model="record.itemNotes" type="text" class="form-control" />
         </div>  
-
+        <h3>{{ record.itemName }}</h3>
         <div v-if="message" class="alert" :class="successful ? 'alert-success' : 'alert-danger'">
           {{ message }}
         </div>
@@ -181,28 +181,30 @@ import Footer from "../../components/Footer.vue";
 
 <script>
 import axios from 'axios';
-//import LogService from "../../../../BackEnd/empower/src/main/java/empower/empower/log/service/";
-//import mysql from 'mysql';
+
+
 
 export default {
 
   name: 'LogEntry',
+  el: "#app",
   data() {
     return {
-      itemType: "Household Battery",
-      itemName: "Testing",
-      createdDate: '2022-01-20',
-      itemNotes: 'omg'
+      itemType: "",
+      itemName: "",
+      createdDate: "",
+      itemNotes: '',
+      record: []
     }
   }, methods: {
     onSubmit(e) {
       e.preventDefault();
-      if (!this.itemName) {
+      if (!this.record.itemName) {
         alert('❌ Item Name field is required ')
         return
       }
 
-      if (!this.createdDate) {
+      if (!this.record.createdDate) {
         alert('❌ Date field is required')
         return
       }
@@ -211,10 +213,10 @@ export default {
       let self = this;
       const API_URL ='http://localhost:8080/api/logging/updatelog/';
       axios.put(API_URL + this.$store.state.auth.user.id + "/2", {
-        itemName: this.itemName,
-        itemType: this.itemType,
-        itemNotes: this.itemNotes,
-        createdDate: this.createdDate
+        itemName: this.record.itemName,
+        itemType: this.record.itemType,
+        itemNotes: this.record.itemNotes,
+        createdDate: this.record.createdDate
       }, {
         headers: {
           'Authorization': 'Bearer ' + this.$store.state.auth.user.accessToken 
@@ -229,6 +231,17 @@ export default {
           alert('Unsuccessful Submission. ' + error);
         });
     }
+  }, mounted(){
+    const url = "http://localhost:8080/api/logging/2"; //to be changed
+    axios.get(url)
+    .then(response => {
+      this.record = response.data;
+
+    }).catch((error) => {
+        this.error = "Error!  " + error;
+      });
+
+  
   }
 }
 
