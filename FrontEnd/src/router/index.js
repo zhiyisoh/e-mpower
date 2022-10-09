@@ -50,9 +50,9 @@ const router = createRouter({
       component: () => import('../views/logging/Log.vue')
     },
     {
-      path: '/singlelog',
+      path: '/singlelog/:id',
       name: 'logpage',
-      component: () => import('../views/logging/LogPage.vue')
+      component: () => import('../views/logging/LogPage.vue'),
     },
     {
       path: '/enterlog',

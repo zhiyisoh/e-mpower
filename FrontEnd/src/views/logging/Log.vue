@@ -47,18 +47,6 @@
     margin: 20px;
 }
 
-.card {
-    text-align: center;
-    background-color: #CEE5D0;
-    border: 0;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    transition: 0.3s;
-}
-
-.card:hover {
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-}
-
 .enterlog-btn {
     position: absolute;
     right: 300px;
