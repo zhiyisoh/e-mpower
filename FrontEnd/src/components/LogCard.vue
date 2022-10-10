@@ -1,7 +1,7 @@
 <template >
     <div class="card-display container">
         <div class ="row ">
-            <div class = "col-lg-4 mb-4" v-for = "log in logs">
+            <div class = "col-lg-4 mb-4" v-for = "log in logs.slice().reverse()">
                 <div class="card h-100">
                     <img v-if = "log.itemType === ('Lithium Ion Battery')" class="card-img-top" src="/src/assets/x-LI-image.svg" alt="hehe" id="category-pic" img-top>
                     <img v-if = "log.itemType === ('Household Battery')" class="card-img-top" src="/src/assets/x-HB-image.svg" alt="hehe" id="category-pic" img-top>
