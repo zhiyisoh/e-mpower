@@ -5,7 +5,7 @@
 
 <template>
     <div class="past-logs">
-        <RouterLink to="/enterlog"><button type="button" class="btn btn-primary enterlog-btn btn-lg"
+        <RouterLink to="/enterlog"><button type="button" class="btn btn-primary enterlog-btn "
             href="EnterLog.vue">+ Add Log Entry</button></RouterLink>
         <h1 class="log-title title">My Recycling Log</h1>
         <img src="/src/assets/leave-line.svg" alt="leaves" class="leaves-line">
@@ -49,8 +49,10 @@
 
 .enterlog-btn {
     position: absolute;
-    right: 300px;
-    bottom: 400px;
+    right: 100px;
+    bottom: 390px;
+    font-family: 'Merriweather', sans-serif;
+    padding: 1%;
 }
 
 </style>

@@ -79,6 +79,11 @@ import { RouterLink, RouterView } from 'vue-router'
   bottom: 5px;
 }
 
+.navbar-nav > li{
+  padding-left:30px;
+  padding-right:30px;
+}
+
 
 header {
   line-height: 1.5;
@@ -114,6 +119,7 @@ nav {
   
   .logout-btn{
     margin-left: 10px;
+    padding: 5%;
   }
 }
 

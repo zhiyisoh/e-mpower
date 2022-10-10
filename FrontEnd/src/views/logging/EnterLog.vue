@@ -266,6 +266,7 @@ label {
   border-radius: 8px;
   border-color: transparent;
   margin-left: 40px;
+  padding: 1%;
 }
 
 .form-group {
