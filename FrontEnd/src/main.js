@@ -13,6 +13,8 @@ import "bootstrap"
 // AOS Transitions
 import AOS from 'aos'
 import 'aos/dist/aos.css'
+import swal from 'sweetalert2';
+window.Swal = swal;
 
 const app = createApp(App)
 

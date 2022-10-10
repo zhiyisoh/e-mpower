@@ -60,7 +60,7 @@ const router = createRouter({
       component: () => import('../views/logging/EnterLog.vue')
     },
     {
-      path: '/editlog/:id',
+      path: '/editlog/:userId/:id',
       name: 'editlog',
       component: () => import('../views/logging/EditLog.vue')
     },

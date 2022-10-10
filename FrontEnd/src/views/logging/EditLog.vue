@@ -161,7 +161,7 @@ import Footer from "../../components/Footer.vue";
           <label for="itemNotes">Notes: </label>
           <input id="itemNotes" v-model="record.itemNotes" type="text" class="form-control" />
         </div>  
-        <h3>{{ record.itemName }}</h3>
+       
         <div v-if="message" class="alert" :class="successful ? 'alert-success' : 'alert-danger'">
           {{ message }}
         </div>
@@ -212,7 +212,8 @@ export default {
       let currentObj = this;
       let self = this;
       const API_URL ='http://localhost:8080/api/logging/updatelog/';
-      axios.put(API_URL + this.$store.state.auth.user.id + "/2", {
+      
+      axios.put(API_URL + this.$store.state.auth.user.id + '/' + this.$route.params.id, {
         itemName: this.record.itemName,
         itemType: this.record.itemType,
         itemNotes: this.record.itemNotes,
@@ -224,7 +225,7 @@ export default {
       })
         .then(function (response) {
           currentObj.output = response.data;
-          self.$router.push('/logging');
+          history.back();
         })
         .catch(function (error) {
           currentObj.output = error;
@@ -232,8 +233,8 @@ export default {
         });
     }
   }, mounted(){
-    const url = "http://localhost:8080/api/logging/2"; //to be changed
-    axios.get(url)
+    const url = "http://localhost:8080/api/logging/"; //to be changed
+    axios.get(url + this.$route.params.id)
     .then(response => {
       this.record = response.data;
 

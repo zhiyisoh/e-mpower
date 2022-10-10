@@ -31,19 +31,19 @@
             class="border border-5 border-light rounded" alt="hehe" id="profile-pic">
 
         <div class="btn-toolbar">
-            <RouterLink to="/editlog"><button type="button" class="btn btn-primary log-btn btn-lg"
-                    href="EnterLog.vue">Edit</button></RouterLink>
-            <button v-on:click="" type="button" class="btn btn-outline-dark log-btn btn-lg">Delete</button>
+            <router-link :to="`/editlog/${this.$store.state.auth.user.id}/${this.$route.params.id}`" ><button type="button" class="btn btn-primary log-btn btn-lg"
+                    href="EnterLog.vue">Edit</button></router-link>
+            <button v-on:click="JSalert(this.$store.state.auth.user.id, this.$route.params.id, this.$store.state.auth.user.accessToken, this.$router)" type="button" class="btn btn-outline-dark log-btn btn-lg">Delete</button>
             <RouterLink to="/logging"><button type="button" class="btn btn-outline-dark back-btn btn-lg"
                     href="Log.vue">Back to Logs</button></RouterLink>
         </div>
-
     </div>
     <Footer/>
 </template>
 
 <script>
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 export default {
     name: 'onelog',
@@ -58,6 +58,47 @@ export default {
         axios.get(API_URL + this.$route.params.id).then(response =>
             this.data = response.data);
     }
+}
+
+function JSalert(userid, logid, accessToken, router){
+	Swal.fire({
+  title: 'Are you sure?',
+  text: "You won't be able to revert this!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, delete it!',
+  preConfirm: () => {
+            return axios
+              .delete(`http://localhost:8080/api/logging/deletelog/${userid}/${logid}`,
+            {
+        headers: {
+          'Authorization': 'Bearer ' + accessToken 
+        }
+      })
+              .then(response => {
+                if (response.status != 200) {
+                  throw new Error("Something went wrong");
+                }
+                return router.push('/logging');;
+              })
+              .catch(error => {
+                Swal.showValidationMessage(`Request failed: ${error}`);
+              });
+          },
+          allowOutsideClick: () => !Swal.isLoading()
+        
+}).then((result) => {
+  if (result.isConfirmed) {
+    Swal.fire(
+      'Deleted!',
+      'Your log has been deleted.',
+      'success'
+    )
+    
+  }
+})
 }
 </script>
 
