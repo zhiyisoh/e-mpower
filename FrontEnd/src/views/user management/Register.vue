@@ -40,7 +40,7 @@ import Footer from "../../components/Footer.vue";
             </div>
           </div>
 
-          <div v-if="message" class="alert" :class="successful ? 'alert-success' : 'alert-danger'">
+          <div v-if="message" class="alert alertmsg" :class="successful ? 'alert-success' : 'alert-danger'">
             {{ message }}
           </div>
         </Form>
@@ -214,6 +214,10 @@ p {
 
 .google:hover {
   border-color: grey;
+}
+
+.alertmsg{
+  margin: 10px 15px;
 }
 
 @media(max-width: 960px){

@@ -35,9 +35,9 @@ export default {
     },
     created() {
             try {
-                const API_URL = 'http://localhost:8080/api/logging';
-                axios.get(API_URL).then(response => 
-                    this.logs = response.data);
+                const API_URL = 'http://localhost:8080/api/logging/userlogs/';
+                axios.get(API_URL + this.$store.state.auth.user.id).then(response => 
+                    this.logs = response.data, );
             }catch (error){
                 console.log(error);
             }

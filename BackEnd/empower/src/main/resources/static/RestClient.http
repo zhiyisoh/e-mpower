@@ -3,9 +3,9 @@ Content-Type: application/json
 Authorization: Basic name name123
 ###
 
-GET http://localhost:8080/api/logging/1
+GET http://localhost:8080/api/logging/userlogs/1
 Content-Type: application/json
-Authorization: Basic name name123
+Authorization: Basic user1:password
 
 ###
 ## updatelog/{user_id}/{log's id}. this is s.t. we can add the user id into the database and only that user can update that log

@@ -26,14 +26,26 @@ public class LogController {
     private LogRepository logRepo;
     private UserRepository userRepo;
 
-    public LogController(LogRepository logRepo, UserRepository userRepo) {
+    public LogController(LogRepository logRepo, UserRepository userRepo, LogService logService) {
         this.logRepo = logRepo;
         this.userRepo = userRepo;
+        this.logService = logService;
     }
 
-    @GetMapping("")
-    public List<Log> list() {
-        return logService.listAllLogs();
+    @GetMapping("/userlogs/{user_id}")
+    public List<Log> listLogs(@PathVariable Long user_id) {
+        try {
+
+            List<Log> list = logService.listUserLogs(user_id);
+
+            if (list.isEmpty()) {
+                return null;
+            }
+
+            return list;
+        } catch (NoSuchElementException e) {
+            return null;
+        }
     }
 
     @GetMapping("/{id}")
@@ -58,13 +70,14 @@ public class LogController {
     }
 
     @PutMapping("/updatelog/{user_id}/{id}")
-    public ResponseEntity<?> update(@PathVariable(value = "user_id") Long userId, @PathVariable Long id, @Valid @RequestBody Log log) {
+    public ResponseEntity<?> update(@PathVariable(value = "user_id") Long userId, @PathVariable Long id,
+            @Valid @RequestBody Log log) {
 
         if (!logRepo.existsById(id)) {
             throw new LogNotFoundException(id);
         }
 
-        if(!userRepo.existsById(userId)){
+        if (!userRepo.existsById(userId)) {
             throw new UserNotFoundException(userId);
         }
 

@@ -17,6 +17,10 @@ public class LogService {
         return logRepository.findAll();
     }
 
+    public List<Log> listUserLogs(Long userId){
+        return logRepository.findByUserId(userId);
+    }
+
     public Log saveLog(Log log){
         
         return logRepository.save(log);
