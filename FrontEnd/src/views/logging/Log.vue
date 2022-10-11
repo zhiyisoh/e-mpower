@@ -49,7 +49,7 @@
 
 .enterlog-btn {
     position: absolute;
-    right: 340px;
+    right: 100px;
     bottom: 390px;
     font-family: 'Merriweather', sans-serif;
     padding: 1%;

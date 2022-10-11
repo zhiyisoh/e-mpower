@@ -1,7 +1,6 @@
 package empower.empower.log.restcontroller;
 
 import empower.empower.log.entity.Log;
-import empower.empower.springjwt.models.User;
 import empower.empower.log.repository.LogRepository;
 import empower.empower.log.service.LogService;
 import empower.empower.springjwt.repository.UserRepository;
