@@ -80,8 +80,8 @@ import { RouterLink, RouterView } from 'vue-router'
 }
 
 .navbar-nav > li{
-  padding-left:30px;
-  padding-right:30px;
+  padding-left:15px;
+  padding-right:15px;
 }
 
 

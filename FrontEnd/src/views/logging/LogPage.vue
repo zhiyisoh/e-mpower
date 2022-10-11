@@ -122,6 +122,8 @@ function JSalert(userid, logid, accessToken, router){
     margin-right: 20px;
     display: inline-flex;
     align-items: center;
+    text-decoration: none !important;
+    
 }
 
 #profile-pic {
@@ -130,6 +132,10 @@ function JSalert(userid, logid, accessToken, router){
     width: 200px;
     top: 10%;
     left: 0%;
+}
+
+a{
+    text-decoration: none;
 }
 
 </style>
