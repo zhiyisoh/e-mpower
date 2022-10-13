@@ -5,10 +5,14 @@
 
 <template>
     <div class="past-logs">
-        <RouterLink to="/enterlog"><button type="button" class="btn btn-primary enterlog-btn "
-            href="EnterLog.vue">+ Add Log Entry</button></RouterLink>
-        <h1 class="log-title title">My Recycling Log</h1>
-        <img src="/src/assets/leave-line.svg" alt="leaves" class="leaves-line">
+        <button type="button" class="btn btn-primary enterlog-btn "
+            href="EnterLog.vue"><RouterLink to="/enterlog">+ Add Log Entry</RouterLink></button>
+        <h1 class="log-title title">My Recycling Log.</h1>
+        <br>
+        <p>Log your recycling efforts to gain CO2 points. Start your recycling journey today and get attractive vouchers.
+            <br> 1 kg of CO2 saved = 1 CO2 point.
+        </p>
+       
         <LogCard />
     </div>
     <Footer/>
@@ -16,6 +20,11 @@
 </template>
 
 <style scoped>
+
+a {
+    text-decoration: none;
+    color: white;
+}
 .past-logs {
     margin: 20px 0;
     padding: 7% 0%;
@@ -40,7 +49,7 @@
 }
 
 .log-title {
-    margin-top: 0px;
+    margin-top: -140px;
 }
 
 .logs {
@@ -48,11 +57,11 @@
 }
 
 .enterlog-btn {
-    position: absolute;
-    right: 100px;
-    bottom: 390px;
-    font-family: 'Merriweather', sans-serif;
-    padding: 1%;
+    position: relative;
+    left: 450px;
+    bottom: 100px;
+    padding: 0.8%;
 }
+
 
 </style>
