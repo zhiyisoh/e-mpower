@@ -25,7 +25,7 @@ import Footer from "../../components/Footer.vue";
             <option value="Lithium Ion Battery">Lithium Ion Portable Battery</option>
             <option value="Consumer Lamp">Consumer Lamp</option>
             <option value="Consumer EV Battery">Consumer Electric Vehicle Battery</option>
-            <option value="Unregulated">Unregulated E-Waste</option>
+            
           </select>
 
           <p>
@@ -36,7 +36,8 @@ import Footer from "../../components/Footer.vue";
           </p>
           <div class="collapse" id="collapseExample">
             <div class="card card-body">
-              <p>If your item is not found in any of these categories, please indicate "Unregulated E-Waste"</p>
+              <p>If your item is not found in any of these categories, it is an unregulated waste and is <strong>not recyclable</strong>. 
+                We would recommend for you to bring your E-Waste down to the nearest Cash for Trash (CFT) station. <a href="https://www.alba-wh.sg/map.html">Click here for more information.</a></p>
               <h5>Information and Communication Equipment (ICT)</h5>
               <ul class="type-list">
                 <li>
@@ -245,14 +246,9 @@ h5 {
 
 label {
   margin: 7px 5px 0;
-  font-size: 24px;
+  font-size: 20px;
 }
 
-.enter-log-view {
-  font-family: 'Merriweather', sans-serif;
-  color: #5E454B;
-
-}
 
 .bin-icon {
   width: 200px;
@@ -261,12 +257,11 @@ label {
 
 .back {
   background-color: #5E454B;
-  font-family: 'Merriweather', sans-serif;
   color: white;
   border-radius: 8px;
   border-color: transparent;
   margin-left: 40px;
-  padding: 1%;
+  padding: 0.8%;
 }
 
 .form-group {
