@@ -11,7 +11,7 @@
                 <p class="desc">With E-MPOWER's Bin Locator feature, 
                 you can find the nearest available bin to recycle your e-waste. 
                 <br><strong class="impt">IMPORTANT:</strong> If your item type is not in the options,
-                 you are <strong>NOT</strong> able to recycle via e-waste recycling bins. Click <a href="">here</a> for more information</p>
+                 you are <strong>NOT</strong> able to recycle via e-waste recycling bins. Collection point will be at 20 Tuas Loop (Opening Hours: Mon-Fri, 9AM - 5.30PM). Click <a href="https://alba-ewaste.sg/drop-off-locations/dd/">here</a> for more information</p>
                 
             </div>
             
@@ -27,7 +27,16 @@
 
                     <div class="form-group name-field">
                         <label for="itemName">Item Type:</label>
-                        
+                        <div>
+                            
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <button class="btn btn-primary btn-block" :disabled="loading">
+                          <span v-show="loading" class="spinner-border spinner-border-sm"></span>
+                          Submit
+                        </button>
                       </div>
                 </Form>
             </div>
