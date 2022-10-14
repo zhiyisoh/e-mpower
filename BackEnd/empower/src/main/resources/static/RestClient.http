@@ -38,3 +38,44 @@ Authorization: Basic name name123
     "itemType": "type",
     "createdDate": "2020-03-03"
 }
+
+###
+GET http://localhost:8080/api/bins
+Content-Type: application/json
+Authorization: Basic name name123
+
+###
+GET http://localhost:8080/api/bins/1
+Content-Type: application/json
+Authorization: Basic name name123
+
+###
+POST http://localhost:8080/api/bins/addBin
+Content-Type: application/json
+Authorization: Basic name name123
+
+{
+    "postalCode": "123456",
+    "address": "somewhere",
+    "isIct": "true",
+    "isBattery": "false",
+    "isBulb": "true"
+}
+
+###
+PUT http://localhost:8080/api/bins/updateBin/1
+Content-Type: application/json
+Authorization: Basic name name123
+
+{
+    "postalCode": "111111",
+    "address": "new place",
+    "isIct": "false",
+    "isBattery": "false",
+    "isBulb": "false"
+}
+
+###
+DELETE http://localhost:8080/api/bins/deleteBin/2
+Content-Type: application/json
+Authorization: Basic name name123
