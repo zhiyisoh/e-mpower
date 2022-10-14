@@ -27,8 +27,141 @@
 
                     <div class="form-group name-field">
                         <label for="itemName">Item Type:</label>
-                        <div>
-                            
+
+                        
+                      <p>
+                        <a class="help-btn btn btn-outline btn-sm" data-bs-toggle="collapse" href="#collapseExample" role="button"
+                          aria-expanded="false" aria-controls="collapseExample">
+                          Unsure of your type of e-waste? Click here.
+                        </a>
+                      </p>
+                      <div class="collapse" id="collapseExample">
+                        <div class="card card-body">
+                          <p>If your item is not found in any of these categories, it is an unregulated waste and is <strong>not recyclable</strong>. 
+                            We would recommend for you to bring your E-Waste down to the nearest Cash for Trash (CFT) station. <a href="https://www.alba-wh.sg/map.html">Click here for more information.</a></p>
+                          <h5>Information and Communication Equipment (ICT)</h5>
+                          <ul class="type-list">
+                            <li>
+                              Printers less than 20kg
+                            </li>
+                            <li>
+                              Computers and Laptops
+                            </li>
+                            <li>
+                              Mobile Phones and Tablets
+                            </li>
+                            <li>
+                              Network and Set-up boxes
+                            </li>
+                            <li>
+                              Desktop Monitors
+                            </li>
+                          </ul>
+            
+                          <h5>Large Household Appliance</h5>
+                          <ul class="type-list">
+                            <li>
+                              Consumer Refrigerators less than 900L
+                            </li>
+                            <li>
+                              Air-Conditioners
+                            </li>
+                            <li>
+                              Washing Machines
+                            </li>
+                            <li>
+                              Dryers
+                            </li>
+                            <li>
+                              Televisions
+                            </li>
+                          </ul>
+            
+                          <h5>Electric Mobility Device</h5>
+                          <ul class="type-list">
+                            <li>
+                              Personal Mobility Device
+                            </li>
+                            <li>
+                              Power Assisted Bicycle
+                            </li>
+                            <li>
+                              Electric Mobility Scooter
+                            </li>
+                          </ul>
+            
+                          <h5>Household Battery</h5>
+                          <ul class="type-list">
+                            <li>
+                              D
+                            </li>
+                            <li>
+                              C
+                            </li>
+                            <li>
+                              AA
+                            </li>
+                            <li>
+                              AAA
+                            </li>
+                            <li>
+                              AAAA
+                            </li>
+                            <li>
+                              N
+                            </li>
+                            <li>
+                              9-volt
+                            </li>
+                            <li>
+                              Button Cell
+                            </li>
+                          </ul>
+            
+                          <h5>Lithium Ion Portable Battery</h5>
+                          <ul class="type-list">
+                            <li>
+                              Powerbank
+                            </li>
+                            <li>
+                              Mobile Telephone Battery
+                            </li>
+                            <li>
+                              Laptop Battery
+                            </li>
+                          </ul>
+            
+                          <h5>Consumer Lamp</h5>
+                          <ul class="type-list">
+                            <li>
+                              Bulb
+                            </li>
+                            <li>
+                              Fluorescent Tube
+                            </li>
+                          </ul>
+            
+                          <h5>Consumer Electric Vehicle Battery</h5>
+            
+                        </div>
+                      </div>
+
+
+                        <div class="item-types">
+
+                            <div>Picked: {{ recycleType }} </div>
+
+                            <input type="radio" class="btn-check" name="options" id="ICT" autocomplete="off" value="ICT" v-model="recycleType" checked />
+                            <label class="btn btn-outline-dark" for="ICT">ICT</label>
+
+                            <input type="radio" class="btn-check" name="options" id="Batteries" autocomplete="off" value="Batteries" v-model="recycleType" />
+                            <label class="btn btn-outline-dark" for="Batteries">Batteries</label>
+
+                            <input type="radio" class="btn-check" name="options" id="CL-B" autocomplete="off" value="Bulb" v-model="recycleType"/>
+                            <label class="btn btn-outline-dark" for="CL-B">Consumer Lamp (Bulb)</label>
+
+                            <input type="radio" class="btn-check" name="options" id="CL-FT" autocomplete="off" value="Fluorescent Tube" v-model="recycleType"/>
+                            <label class="btn btn-outline-dark" for="CL-FT">Consumer Lamp (Fluorescent Tube)</label>
                         </div>
                       </div>
 
@@ -48,7 +181,17 @@
 </template>
 
 <script>
+import axios from 'axios';
 
+  export default {
+    name: 'LocatorEntry',
+  data() {
+    return {
+      recycleType: ''
+    }
+  },
+
+}
 </script>
 <style scoped>
 
@@ -80,7 +223,7 @@ label {
         
     }
     .form-locate {
-        width: 700px;
+        width: 90%;
         margin: 30px auto;
         
     }
@@ -89,4 +232,17 @@ label {
         margin-top: 10px;
         float: right;
     }
+
+    .item-types {
+        margin: 30px 0 50px;
+    }
+
+    .card {
+        background-color: #CEE5D0;
+    }
+    .btn-check:checked+.btn {
+        background-color:#5E454B;
+        color: white !important;
+    }
+    
 </style>
