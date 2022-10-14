@@ -13,5 +13,6 @@ public interface BinRepository extends JpaRepository <Bin, Long>{
     Optional<Bin> findByIct(boolean ict); //information and communication equipment
     Optional<Bin> findByBattery(boolean battery);
     Optional<Bin> findByBulb(boolean bulb);
+    Optional<Bin> findByCoor(float[] coordinate);
 
 }
