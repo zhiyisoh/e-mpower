@@ -29,7 +29,7 @@ import Footer from "../../components/Footer.vue";
           </select>
 
           <p>
-            <a class="help-btn btn btn-primary btn-sm" data-toggle="collapse" href="#collapseExample" role="button"
+            <a class="help-btn btn btn-primary btn-sm" data-bs-toggle="collapse" href="#collapseExample" role="button"
               aria-expanded="false" aria-controls="collapseExample">
               Unsure of your type of e-waste?
             </a>
@@ -261,7 +261,7 @@ label {
   border-radius: 8px;
   border-color: transparent;
   margin-left: 40px;
-  padding: 0.8%;
+  padding: 0.5% 1%;
 }
 
 .form-group {

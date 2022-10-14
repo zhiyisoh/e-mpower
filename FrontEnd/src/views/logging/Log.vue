@@ -60,7 +60,7 @@ a {
     position: relative;
     left: 450px;
     bottom: 100px;
-    padding: 0.8%;
+    
 }
 
 
