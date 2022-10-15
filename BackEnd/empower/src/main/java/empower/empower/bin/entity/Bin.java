@@ -1,138 +1,138 @@
-package empower.empower.bin.entity;
+// package empower.empower.bin.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+// import javax.persistence.Column;
+// import javax.persistence.Entity;
+// import javax.persistence.GeneratedValue;
+// import javax.persistence.GenerationType;
+// import javax.persistence.Id;
+// import javax.persistence.JoinColumn;
+// import javax.persistence.ManyToMany;
+// import javax.persistence.Table;
 
-@Entity
-@Table(name = "bins")
-public class Bin {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+// @Entity
+// @Table(name = "bins")
+// public class Bin {
+//     @Id
+//     @GeneratedValue
+//     private Long id;
 
-    @Column(name="postalCode")
-    private int postalCode;
+//     @Column(name="postalCode")
+//     private int postalCode;
 
-    @Column(name="address")
-    private String address;
+//     @Column(name="address")
+//     private String address;
 
-    //types are booleans. If the bin can recycle that type of item, then the boolean
-    //will be true and vice versa.
-    @Column(name="ict") //information and communication equipment
-    private boolean ict; 
+//     //types are booleans. If the bin can recycle that type of item, then the boolean
+//     //will be true and vice versa.
+//     @Column(name="ict") //information and communication equipment
+//     private boolean ict; 
 
-    @Column(name="battery")
-    private boolean battery;
+//     @Column(name="battery")
+//     private boolean battery;
 
-    @Column(name="lamp")
-    private boolean lamp;
+//     @Column(name="lamp")
+//     private boolean lamp;
 
-    @Column(name="latitude")
-    private float latitude;
+//     @Column(name="latitude")
+//     private float latitude;
 
-    @Column(name="longitude")
-    private float longitude;
+//     @Column(name="longitude")
+//     private float longitude;
 
-    @ManyToMany //many user can throw items in many bins
-    @JoinColumn(name="ewaste", nullable=false)
-    private Ewaste ewaste;
+//     @ManyToMany //many user can throw items in many bins
+//     @JoinColumn(name="ewaste", nullable=false)
+//     private Ewaste ewaste;
 
-    public Bin(){
+//     public Bin(){
 
-    }
+//     }
 
-    public Bin(Long id, int postalCode){
-        this.id=id;
-        this.postalCode=postalCode;
-    }
+//     public Bin(Long id, int postalCode){
+//         this.id=id;
+//         this.postalCode=postalCode;
+//     }
 
-    public Bin(int postalCode, String address, boolean ict, boolean battery, boolean lamp, float latitude, float longitude) {
-        this.postalCode = postalCode;
-        this.address = address;
-        this.ict = ict;
-        this.battery=battery;
-        this.lamp=lamp;
-        this.latitude=latitude;
-        this.longitude=longitude;
-    }
+//     public Bin(int postalCode, String address, boolean ict, boolean battery, boolean lamp, float latitude, float longitude) {
+//         this.postalCode = postalCode;
+//         this.address = address;
+//         this.ict = ict;
+//         this.battery=battery;
+//         this.lamp=lamp;
+//         this.latitude=latitude;
+//         this.longitude=longitude;
+//     }
 
-    public long getId(){
-        return id;
-    }
+//     public long getId(){
+//         return id;
+//     }
 
-    public int getPostalCode() {
-        return postalCode;
-    }
+//     public int getPostalCode() {
+//         return postalCode;
+//     }
 
-    public String getAddress() {
-        return address;
-    }
+//     public String getAddress() {
+//         return address;
+//     }
 
-    public boolean isIct() {
-        return ict;
-    }
+//     public boolean isIct() {
+//         return ict;
+//     }
 
-    public boolean isBattery() {
-        return battery;
-    }
+//     public boolean isBattery() {
+//         return battery;
+//     }
 
-    public boolean isLamp() {
-        return lamp;
-    }
+//     public boolean isLamp() {
+//         return lamp;
+//     }
 
-    public float getLatitude(){
-        return latitude;
-    }
+//     public float getLatitude(){
+//         return latitude;
+//     }
 
-    public float getLongitude(){
-        return latitude;
-    }
+//     public float getLongitude(){
+//         return latitude;
+//     }
 
-    public Ewaste getEwaste(){
-        return ewaste;
-    }
+//     public Ewaste getEwaste(){
+//         return ewaste;
+//     }
 
-    public void setId(Long id){
-        this.id=id;
-    }
+//     public void setId(Long id){
+//         this.id=id;
+//     }
 
-    public void setPostalCode(int postalCode) {
-        this.postalCode = postalCode;
-    }
+//     public void setPostalCode(int postalCode) {
+//         this.postalCode = postalCode;
+//     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
+//     public void setAddress(String address) {
+//         this.address = address;
+//     }
 
-    public void setIct(boolean ict) {
-        this.ict = ict;
-    }
+//     public void setIct(boolean ict) {
+//         this.ict = ict;
+//     }
     
-    public void setBattery(boolean battery) {
-        this.battery = battery;
-    }
+//     public void setBattery(boolean battery) {
+//         this.battery = battery;
+//     }
 
-    public void setLamp(boolean lamp) {
-        this.lamp = lamp;
-    }
+//     public void setLamp(boolean lamp) {
+//         this.lamp = lamp;
+//     }
 
-    public void setEwaste(Ewaste ewaste){
-        this.ewaste=ewaste;
-    }
+//     public void setEwaste(Ewaste ewaste){
+//         this.ewaste=ewaste;
+//     }
 
-    public void setLatitude(float latitude) {
-        this.latitude = latitude;
-    }
+//     public void setLatitude(float latitude) {
+//         this.latitude = latitude;
+//     }
 
-    public void setLongitude(float longitude) {
-        this.longitude = longitude;
-    }
+//     public void setLongitude(float longitude) {
+//         this.longitude = longitude;
+//     }
 
     
-}
+// }
