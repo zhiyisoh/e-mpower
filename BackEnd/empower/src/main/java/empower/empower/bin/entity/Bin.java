@@ -33,8 +33,11 @@ public class Bin {
     @Column(name="lamp")
     private boolean lamp;
 
-    @Column(name="coordinate")
-    private float[] coordinate;
+    @Column(name="latitude")
+    private float latitude;
+
+    @Column(name="longitude")
+    private float longitude;
 
     @ManyToMany //many user can throw items in many bins
     @JoinColumn(name="ewaste", nullable=false)
@@ -49,13 +52,14 @@ public class Bin {
         this.postalCode=postalCode;
     }
 
-    public Bin(int postalCode, String address, boolean ict, boolean battery, boolean lamp, float[] coordinate) {
+    public Bin(int postalCode, String address, boolean ict, boolean battery, boolean lamp, float latitude, float longitude) {
         this.postalCode = postalCode;
         this.address = address;
         this.ict = ict;
         this.battery=battery;
         this.lamp=lamp;
-        this.coordinate=coordinate;
+        this.latitude=latitude;
+        this.longitude=longitude;
     }
 
     public long getId(){
@@ -82,8 +86,12 @@ public class Bin {
         return lamp;
     }
 
-    public float[] getCoordinate(){
-        return coordinate;
+    public float getLatitude(){
+        return latitude;
+    }
+
+    public float getLongitude(){
+        return latitude;
     }
 
     public Ewaste getEwaste(){
@@ -118,10 +126,13 @@ public class Bin {
         this.ewaste=ewaste;
     }
 
-    public void setCoordinate(float[] coordinate) {
-        this.coordinate = coordinate;
+    public void setLatitude(float latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setLongitude(float longitude) {
+        this.longitude = longitude;
     }
 
     
-
 }

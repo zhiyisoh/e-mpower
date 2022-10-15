@@ -56,7 +56,8 @@ public class BinController {
             oldBin.setIct(bin.isIct());
             oldBin.setBattery(bin.isBattery());
             oldBin.setLamp(bin.isLamp());
-            oldBin.setCoordinate(bin.getCoordinate());
+            oldBin.setLatitude(bin.getLatitude());
+            oldBin.setLongitude(bin.getLongitude());
             binService.saveBin(oldBin);
             return ResponseEntity.ok().build();
         }).orElseThrow(() -> new BinNotFoundException(id));
