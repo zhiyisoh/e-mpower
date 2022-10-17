@@ -29,6 +29,9 @@ public class Log {
     @Column(name = "itemType")
     private String itemType;
 
+    @Column(name = "itemQuantity")
+    private Integer itemQuantity;
+
     @Column(name = "createdDate")
     private Date createdDate;
 
@@ -41,10 +44,11 @@ public class Log {
     }
 
 
-    public Log(String itemName, String itemNotes, String itemType, Date createdDate){
+    public Log(String itemName, String itemNotes, String itemType, Integer itemQuantity, Date createdDate){
         this.itemName=itemName;
         this.itemNotes = itemNotes;
         this.itemType = itemType;
+        this.itemQuantity = itemQuantity;
         this.createdDate = createdDate;
     }
 
@@ -99,5 +103,13 @@ public class Log {
 
     public User getUser() {
         return user;
+    }
+
+    public Integer getItemQuantity() {
+        return itemQuantity;
+    }
+
+    public void setItemQuantity(Integer itemQuantity) {
+        this.itemQuantity = itemQuantity;
     }
 }

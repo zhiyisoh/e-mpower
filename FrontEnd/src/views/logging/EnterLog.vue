@@ -153,6 +153,12 @@ import Footer from "../../components/Footer.vue";
         </div>
 
         <div class="form-group">
+          <label for="itemQuantity">Item Quantity: </label>
+          <input id="itemQuantity" v-model="itemQuantity" type="text" class="form-control" />
+          <ErrorMessage name="username" class="error-feedback" />
+        </div>
+
+        <div class="form-group">
           <label for="createdDate">Date (YYYY-MM-DD): </label>
           <input id="createdDate" v-model="createdDate" type="text" class="form-control" />
         </div>
@@ -187,26 +193,48 @@ export default {
     return {
       itemType: '',
       itemName: '',
+      itemQuantity: '',
       createdDate: '',
       itemNotes: ''
     }
   }, methods: {
     onSubmit(e) {
       e.preventDefault();
+      var message = ""
 
-      if(!(this.itemName || this.createdDate)){
-        alert('❌ Item Name field is required \n❌ Date field is required')
-        return
-      }
       if (!this.itemName) {
-        alert('❌ Item Name field is required ')
-        return
+        message+='❌ Item Name field is required '
       }
 
       if (!this.createdDate) {
-        alert('❌ Date field is required')
-        return
+        message+='❌ Date field is required'
       }
+
+      if (!this.itemQuantity) {
+        message+='❌ Item Name field is required '
+      }
+
+      alert (message)
+      return
+     
+     
+      // if(!(this.itemName || this.createdDate || this.itemQuantity)){
+      //   message+='❌ Item Name field is required \n❌ Date field is required';
+      // }
+      // if (!this.itemName) {
+      //   alert('❌ Item Name field is required ')
+      //       return
+      // }
+
+      // if (!this.createdDate) {
+      //   alert('❌ Date field is required')
+      //   return
+      // }
+
+      // if (!this.itemQuantity) {
+      //   alert('❌ Item Name field is required ')
+      //   return
+      // }
 
       let currentObj = this;
       let self = this;
