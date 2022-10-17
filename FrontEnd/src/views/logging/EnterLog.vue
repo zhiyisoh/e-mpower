@@ -219,26 +219,6 @@ export default {
         return
       }
 
-     
-     
-      // if(!(this.itemName || this.createdDate || this.itemQuantity)){
-      //   message+='❌ Item Name field is required \n❌ Date field is required';
-      // }
-      // if (!this.itemName) {
-      //   alert('❌ Item Name field is required ')
-      //       return
-      // }
-
-      // if (!this.createdDate) {
-      //   alert('❌ Date field is required')
-      //   return
-      // }
-
-      // if (!this.itemQuantity) {
-      //   alert('❌ Item Name field is required ')
-      //   return
-      // }
-
       let currentObj = this;
       let self = this;
       const API_URL ='http://localhost:8080/api/logging/addlog/';
