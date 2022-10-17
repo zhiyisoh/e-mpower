@@ -46,7 +46,7 @@ public class LogServiceTest {
         // arrange *** create log
         Calendar myCalendar = new GregorianCalendar(2014, 2, 11);
         Date currDate = new Date(myCalendar.getTimeInMillis());
-        Log newLog = new Log("newObject", "AAAAAA", "type", currDate);
+        Log newLog = new Log("newObject", "AAAAAA", "type",1, currDate);
         
         // mock the "save" operation 
         when(logService.saveLog(any(Log.class))).thenReturn(newLog);

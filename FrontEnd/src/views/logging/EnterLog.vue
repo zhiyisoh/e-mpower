@@ -203,19 +203,22 @@ export default {
       var message = ""
 
       if (!this.itemName) {
-        message+='❌ Item Name field is required '
+        message+='❌ Item Name field is required\n'
       }
 
       if (!this.createdDate) {
-        message+='❌ Date field is required'
+        message+='❌ Date field is required\n'
       }
 
       if (!this.itemQuantity) {
-        message+='❌ Item Name field is required '
+        message+='❌ Item Quantity field is required\n'
       }
 
-      alert (message)
-      return
+      if(message){
+        alert (message)
+        return
+      }
+
      
      
       // if(!(this.itemName || this.createdDate || this.itemQuantity)){
