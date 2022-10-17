@@ -83,6 +83,7 @@ public class LogController {
         return logRepo.findByIdAndUserId(id, userId).map(oldLog -> {
             oldLog.setItemName(log.getItemName());
             oldLog.setItemNotes(log.getItemNotes());
+            oldLog.setItemQuantity(log.getItemQuantity());
             oldLog.setItemType(log.getItemType());
             oldLog.setCreatedDate(log.getCreatedDate());
             logService.saveLog(oldLog);

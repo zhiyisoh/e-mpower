@@ -153,6 +153,12 @@ import Footer from "../../components/Footer.vue";
         </div>
 
         <div class="form-group">
+          <label for="itemQuantity">Item Quantity: </label>
+          <input id="itemQuantity" v-model="itemQuantity" type="text" class="form-control" />
+          <ErrorMessage name="username" class="error-feedback" />
+        </div>
+
+        <div class="form-group">
           <label for="createdDate">Date (YYYY-MM-DD): </label>
           <input id="createdDate" v-model="record.createdDate" type="text" class="form-control" />
         </div>
@@ -192,6 +198,7 @@ export default {
     return {
       itemType: "",
       itemName: "",
+      itemQuantity: "",
       createdDate: "",
       itemNotes: '',
       record: []
@@ -199,13 +206,22 @@ export default {
   }, methods: {
     onSubmit(e) {
       e.preventDefault();
-      if (!this.record.itemName) {
-        alert('❌ Item Name field is required ')
-        return
+     var message = ""
+
+      if (!this.itemName) {
+        message+='❌ Item Name field is required\n'
       }
 
-      if (!this.record.createdDate) {
-        alert('❌ Date field is required')
+      if (!this.createdDate) {
+        message+='❌ Date field is required\n'
+      }
+
+      if (!this.itemQuantity) {
+        message+='❌ Item Quantity field is required\n'
+      }
+
+      if(message){
+        alert (message)
         return
       }
 
@@ -215,6 +231,7 @@ export default {
       
       axios.put(API_URL + this.$store.state.auth.user.id + '/' + this.$route.params.id, {
         itemName: this.record.itemName,
+        itemQuantity: this.record.itemQuantity,
         itemType: this.record.itemType,
         itemNotes: this.record.itemNotes,
         createdDate: this.record.createdDate

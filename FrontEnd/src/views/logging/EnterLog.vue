@@ -225,6 +225,7 @@ export default {
       axios.post(API_URL + this.$store.state.auth.user.id, {
         itemName: this.itemName,
         itemType: this.itemType,
+        itemQuantity: this.itemQuantity,
         itemNotes: this.itemNotes,
         createdDate: this.createdDate
       }, {
