@@ -5,15 +5,36 @@
 <template>
     <div class="locator-view">
         <div class="form-container">
-            <div class="form-header">
+            <div class="container">
                 <h1>Nearest Bin</h1>
-                <div class="row">
-                    <img src="/src/assets/recycle">
-                    Location 1</div>
-                <div class="row">
-                    Location 2</div>
-                <div class="row">
-                    Location 3</div>
+                <div class="row binentry">
+                    <img src="/src/assets/recycle-bin.png" style="max-width: 200px">
+                    <div class="item">
+                    <h4 >Address 1</h4>
+                    <h4>Postal 1</h4>
+                    <h4>Accepts:</h4>
+                    </div>
+                </div>
+                <div class="row binentry">
+                    <img src="/src/assets/recycle-bin.png" style="max-width: 200px">
+                    <div class="item">
+                    <h4 >Address 2</h4>
+                    <h4>Postal 2</h4>
+                    <h4>Accepts:</h4>
+                    </div>
+                </div>
+                <div class="row binentry">
+                    <img src="/src/assets/recycle-bin.png" style="max-width: 200px">
+                    <div class="item">
+                    <h4 >Address 3</h4>
+                    <h4>Postal 3</h4>
+                    <h4>Accepts:</h4>
+                    </div>
+                </div>
+                <RouterLink to="/binlocator">
+                    <button class="btn btn-primary find-button" href="BinLocator.vue">Find Another Bin</button>
+                </RouterLink>
+                
             </div>
         </div>
     </div>
@@ -31,26 +52,30 @@ label {
     
  
   }
-  
-    .name-field {
-        margin-top: 60px;
+
+    .binentry {
+        padding-top: 60px;
     }
     .locator-view {
         text-align: center;
     }
-    .form-locate {
-        width: 90%;
+    .container {
+        width: 70%;
         margin: 30px auto;
         
     }
 
-
-    .card {
-        background-color: #CEE5D0;
+    .item{
+        width: 55%;
+        text-align: left;
     }
-    .btn-check:checked+.btn {
-        background-color:#5E454B;
-        color: white !important;
+    .find-button {
+        margin-left: auto;
+        margin-right: 0;
+        display: block;
+    }
+    a{
+        text-decoration: none;
     }
     
 </style>
