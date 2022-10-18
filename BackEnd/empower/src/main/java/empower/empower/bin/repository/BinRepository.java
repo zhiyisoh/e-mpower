@@ -10,9 +10,9 @@ public interface BinRepository extends JpaRepository <Bin, Long>{
     List<Bin> findById(long id);
     Optional<Bin> findByPostalCode(int postalCode);
     Optional<Bin> findByAddress(String address);
-    Optional<Bin> findByIct(boolean ict); //information and communication equipment
-    Optional<Bin> findByBattery(boolean battery);
-    Optional<Bin> findByLamp(boolean Lamp);
+    List<Bin> findByIct(boolean ict); //information and communication equipment
+    List<Bin> findByBattery(boolean battery);
+    List<Bin> findByLamp(boolean Lamp);
     Optional<Bin> findByLatitude(float latitude);
     Optional<Bin> findByLongitude(float longitude);
 

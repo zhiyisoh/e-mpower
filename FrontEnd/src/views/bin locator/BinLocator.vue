@@ -202,6 +202,7 @@ import axios from 'axios';
 
       let currentObj = this;
       let self = this;
+
       const location_url = 'https://developers.onemap.sg/commonapi/search?searchVal=' + this.location + '&returnGeom=Y&getAddrDetails=Y&pageNum=1';
       //console.log(location_url);
       axios.get( location_url ,
@@ -214,7 +215,7 @@ import axios from 'axios';
         currentObj.longitude = response.data.results[0].LONGITUDE;
         currentObj.latitude = response.data.results[0].LATITUDE;
         //console.log(response.data.results[0].LATITUDE);
-        alert(currentObj.longitude + ' and ' + currentObj.latitude);
+        //alert(currentObj.longitude + ' and ' + currentObj.latitude);
       })
       .catch(function(error){
         alert('Invalid Location. ' + error);
@@ -222,12 +223,11 @@ import axios from 'axios';
       
       
       
-      const API_URL ='http://localhost:8080/api/findNearestBin/';
-      axios.post(API_URL + this.$store.state.auth.user.id, {
-        itemName: this.itemName,
-        itemType: this.itemType,
-        itemNotes: this.itemNotes,
-        createdDate: this.createdDate
+      const API_URL ='http://localhost:8080/api/bins/findNearestBin';
+      axios.post(API_URL, {
+        longitude: this.longitude,
+        latitude: this.latitude,
+        recycleType: this.recycleType
       }, {
         headers: {
           'Authorization': 'Bearer ' + this.$store.state.auth.user.accessToken 
@@ -235,7 +235,7 @@ import axios from 'axios';
       })
         .then(function (response) {
           currentObj.output = response.data;
-          self.$router.push('/logging');
+          self.$router.push('/returnedbins');
         })
         .catch(function (error) {
           currentObj.output = error;

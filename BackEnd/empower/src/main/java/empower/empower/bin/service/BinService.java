@@ -17,6 +17,16 @@ public class BinService {
         return binRepository.findAll();
     }
 
+    public List<Bin> listIctBins(){
+        return binRepository.findByIct(true);
+    }
+    public List<Bin> listBatteryBins(){
+        return binRepository.findByBattery(true);
+    }
+    public List<Bin> listLampBins(){
+        return binRepository.findByLamp(true);
+    }
+
     public Bin saveBin(Bin bin){
         return binRepository.save(bin);
     }
