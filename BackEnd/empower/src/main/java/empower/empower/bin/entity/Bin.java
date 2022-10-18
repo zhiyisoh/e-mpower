@@ -32,10 +32,10 @@ public class Bin {
     private boolean lamp;
 
     @Column(name="latitude")
-    private float latitude;
+    private double latitude;
 
     @Column(name="longitude")
-    private float longitude;
+    private double longitude;
 
     public Bin(){
 
@@ -46,7 +46,7 @@ public class Bin {
         this.postalCode=postalCode;
     }
 
-    public Bin(int postalCode, String address, boolean ict, boolean battery, boolean lamp, float latitude, float longitude) {
+    public Bin(int postalCode, String address, boolean ict, boolean battery, boolean lamp, double latitude, double longitude) {
         this.postalCode = postalCode;
         this.address = address;
         this.ict = ict;
@@ -56,7 +56,7 @@ public class Bin {
         this.longitude=longitude;
     }
 
-    public Bin(Long id, int postalCode, String address, boolean ict, boolean battery, boolean lamp, float latitude, float longitude) {
+    public Bin(Long id, int postalCode, String address, boolean ict, boolean battery, boolean lamp, double latitude, double longitude) {
         
         this.id = id;
         this.postalCode = postalCode;
@@ -92,12 +92,12 @@ public class Bin {
         return lamp;
     }
 
-    public float getLatitude(){
+    public double getLatitude(){
         return latitude;
     }
 
-    public float getLongitude(){
-        return latitude;
+    public double getLongitude(){
+        return longitude;
     }
 
 
@@ -125,11 +125,11 @@ public class Bin {
         this.lamp = lamp;
     }
 
-    public void setLatitude(float latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public void setLongitude(float longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 

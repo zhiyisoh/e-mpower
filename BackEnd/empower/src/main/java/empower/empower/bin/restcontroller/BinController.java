@@ -2,6 +2,7 @@ package empower.empower.bin.restcontroller;
 
 import empower.empower.bin.entity.Bin;
 import empower.empower.bin.repository.BinRepository;
+import empower.empower.bin.requests.Coordinate;
 import empower.empower.bin.service.BinService;
 
 import java.util.*;
@@ -48,8 +49,12 @@ public class BinController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/findNearestBin")
-    public Bin getNearestBin(@Valid @RequestBody float longitude, @Valid @RequestBody float latitude, @Valid @RequestBody String recycleType){
+    public Bin getNearestBin(@RequestBody Coordinate coordinate){
         List<Bin> binlist;
+
+        String recycleType = coordinate.getRecycleType();
+        double longitude = coordinate.getLongitude();
+        double latitude = coordinate.getLatitude();
 
         switch(recycleType){
             case "ICT":
@@ -60,26 +65,33 @@ public class BinController {
                 break;
             case "Batteries":
                 binlist = binService.listBatteryBins();
+                break;
             default:
                 binlist = binService.listBins();
         }
-
+        //System.out.println(binlist.size() + "Longitude and Latitude: " + longitude + latitude);
         Bin closestBin = compareCoordinates(binlist, longitude, latitude);
-
         return closestBin;
     }
 
-    public Bin compareCoordinates(List<Bin> list, float longitude, float latitude){
+    public Bin compareCoordinates(List<Bin> list, double longitude, double latitude){
         Bin nearest = list.get(0);
+
+        System.out.println("list size is " + list.size());
         double nearestDistance = Double.MAX_VALUE;
-        for (Bin currBin : list) {
-            float currBinLon = currBin.getLongitude();
-            float currBinLat = currBin.getLatitude();
+        //int count = 0;
+        for (int i = 0; i < list.size(); i++) {
+            Bin currBin = list.get(i);
+            double currBinLon = currBin.getLongitude();
+            double currBinLat = currBin.getLatitude();
             double distance = distance(currBinLat, latitude, currBinLon, longitude);
+            //System.out.println("distance calculated is " + distance);
             if(nearestDistance > distance){
                 nearestDistance = distance;
                 nearest = currBin;
             }
+            //System.out.println("nearest distance is " + nearestDistance);
+            //System.out.println(++count);
         }
         return nearest;
     }
