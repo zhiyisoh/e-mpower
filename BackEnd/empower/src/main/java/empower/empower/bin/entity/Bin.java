@@ -5,15 +5,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "bins")
 public class Bin {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name="postalCode")
@@ -58,7 +56,19 @@ public class Bin {
         this.longitude=longitude;
     }
 
-    public long getId(){
+    public Bin(Long id, int postalCode, String address, boolean ict, boolean battery, boolean lamp, float latitude, float longitude) {
+        
+        this.id = id;
+        this.postalCode = postalCode;
+        this.address = address;
+        this.ict = ict;
+        this.battery=battery;
+        this.lamp=lamp;
+        this.latitude=latitude;
+        this.longitude=longitude;
+    }
+
+    public Long getId(){
         return id;
     }
 
