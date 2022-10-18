@@ -187,11 +187,11 @@ import axios from 'axios';
       return {
         location: '',
         recycleType: '',
-        longitude: '',
-        latitude:''
+        longitude: 0.0,
+        latitude: 0.0
       }
   }, methods: {
-    onSubmit(e) {
+    async onSubmit(e) {
       e.preventDefault();
 
       if(!(this.location)){
@@ -205,7 +205,7 @@ import axios from 'axios';
 
       const location_url = 'https://developers.onemap.sg/commonapi/search?searchVal=' + this.location + '&returnGeom=Y&getAddrDetails=Y&pageNum=1';
       //console.log(location_url);
-      axios.get( location_url ,
+      await axios.get( location_url ,
         {
          params: {
 
@@ -221,12 +221,12 @@ import axios from 'axios';
         alert('Invalid Location. ' + error);
       });
       
-      
-      
+      console.log(currentObj.longitude + " and " + currentObj.latitude);
+
       const API_URL ='http://localhost:8080/api/bins/findNearestBin';
-      axios.post(API_URL, {
-        longitude: this.longitude,
-        latitude: this.latitude,
+      await axios.post(API_URL, {
+        longitude: currentObj.longitude,
+        latitude: currentObj.latitude,
         recycleType: this.recycleType
       }, {
         headers: {
@@ -235,14 +235,16 @@ import axios from 'axios';
       })
         .then(function (response) {
           currentObj.output = response.data;
-          console.log(response.data);
+          console.log("Location is " + response.data.address);
           self.$router.push('/returnedbins');
         })
         .catch(function (error) {
           currentObj.output = error;
           alert('Unsuccessful Submission. ' + error);
         });
+
     }
+
   }
 
 }
