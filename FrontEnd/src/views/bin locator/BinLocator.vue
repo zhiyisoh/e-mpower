@@ -19,7 +19,7 @@
                 <Form @submit="onSubmit" :validation-schema="schema" v-on:submit.prevent="submitForm">
                     <div class="form-group">
                         <label for="location">Postal Code / Address</label>
-                        <input name="location" v-model="itemName" type="text" class="form-control" />
+                        <input name="location" v-model="location" type="text" class="form-control" />
                         <button type="button" class="btn btn-primary saved-locations-btn">View Saved Locations</button>
                         <ErrorMessage name="username" class="error-feedback" />
                         
@@ -160,8 +160,6 @@
                             <input type="radio" class="btn-check" name="options" id="CL-B" autocomplete="off" value="Bulb" v-model="recycleType"/>
                             <label class="btn btn-outline-dark" for="CL-B">Consumer Lamp (Bulb)</label>
 
-                            <input type="radio" class="btn-check" name="options" id="CL-FT" autocomplete="off" value="Fluorescent Tube" v-model="recycleType"/>
-                            <label class="btn btn-outline-dark" for="CL-FT">Consumer Lamp (Fluorescent Tube)</label>
                         </div>
                       </div>
 
@@ -185,10 +183,12 @@ import axios from 'axios';
 
   export default {
     name: 'LocatorEntry',
-  data() {
-    return {
-      recycleType: ''
-    }
+    data() {
+      return {
+        location: '',
+        recycleType: ''
+      }
+    
   },
 
 }
