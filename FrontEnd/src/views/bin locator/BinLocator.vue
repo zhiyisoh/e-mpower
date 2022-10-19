@@ -187,8 +187,8 @@ import axios from 'axios';
       return {
         location: '',
         recycleType: '',
-        longitude: 0.0,
-        latitude: 0.0
+        longitude: '',
+        latitude:''
       }
   }, methods: {
     onSubmit(e) {
@@ -242,8 +242,6 @@ import axios from 'axios';
           currentObj.output = error;
           alert('Unsuccessful Submission. ' + error);
         });
-
-        
     }
   }
 
