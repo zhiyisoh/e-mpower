@@ -75,7 +75,7 @@ const router = createRouter({
       component: () => import('../views/user management/Profile.vue')
     },
     {
-      path: '/returnedbins',
+      path: '/returnedbins/:binid',
       name: 'returnedbins',
       component: () => import('../views/bin locator/ReturnedBins.vue')
     }

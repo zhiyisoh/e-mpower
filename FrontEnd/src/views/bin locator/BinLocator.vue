@@ -235,8 +235,8 @@ import axios from 'axios';
       })
         .then(function (response) {
           currentObj.output = response.data;
-          console.log(response);
-          self.$router.push('/returnedbins');
+          console.log(response.data);
+          self.$router.push('/returnedbins/' + response.data);
         })
         .catch(function (error) {
           currentObj.output = error;
