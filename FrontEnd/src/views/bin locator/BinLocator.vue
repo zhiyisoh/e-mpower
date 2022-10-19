@@ -187,8 +187,8 @@ import axios from 'axios';
       return {
         location: '',
         recycleType: '',
-        longitude: '',
-        latitude:''
+        longitude: 0.0,
+        latitude: 0.0
       }
   }, methods: {
     onSubmit(e) {
@@ -235,13 +235,15 @@ import axios from 'axios';
       })
         .then(function (response) {
           currentObj.output = response.data;
-          console.log(response.data);
+          console.log(response);
           self.$router.push('/returnedbins');
         })
         .catch(function (error) {
           currentObj.output = error;
           alert('Unsuccessful Submission. ' + error);
         });
+
+        
     }
   }
 
@@ -256,8 +258,6 @@ h1 {
 label {
     margin: 7px 5px 0;
     font-size: 20px;
-    
- 
   }
   
     .name-field {

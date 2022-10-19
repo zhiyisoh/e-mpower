@@ -49,7 +49,7 @@ public class BinController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/findNearestBin")
-    public Bin getNearestBin(@RequestBody Coordinate coordinate){
+    public Long getNearestBin(@RequestBody Coordinate coordinate){
         List<Bin> binlist;
 
         String recycleType = coordinate.getRecycleType();
@@ -71,7 +71,7 @@ public class BinController {
         }
         //System.out.println(binlist.size() + "Longitude and Latitude: " + longitude + latitude);
         Bin closestBin = compareCoordinates(binlist, longitude, latitude);
-        return closestBin;
+        return closestBin.getId();
     }
 
     public Bin compareCoordinates(List<Bin> list, double longitude, double latitude){
