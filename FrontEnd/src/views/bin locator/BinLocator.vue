@@ -191,7 +191,7 @@ import axios from 'axios';
         latitude:''
       }
   }, methods: {
-    onSubmit(e) {
+    async onSubmit(e) {
       e.preventDefault();
 
       if(!(this.location)){
@@ -205,7 +205,7 @@ import axios from 'axios';
 
       const location_url = 'https://developers.onemap.sg/commonapi/search?searchVal=' + this.location + '&returnGeom=Y&getAddrDetails=Y&pageNum=1';
       //console.log(location_url);
-      axios.get( location_url ,
+      await axios.get( location_url ,
         {
          params: {
 
@@ -224,7 +224,7 @@ import axios from 'axios';
       
       
       const API_URL ='http://localhost:8080/api/bins/findNearestBin';
-      axios.post(API_URL, {
+      await axios.post(API_URL, {
         longitude: this.longitude,
         latitude: this.latitude,
         recycleType: this.recycleType
