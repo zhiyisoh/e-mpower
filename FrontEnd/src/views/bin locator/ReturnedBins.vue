@@ -11,13 +11,15 @@
                     <img src="/src/assets/recycle-bin.png" style="max-width: 200px">
                     <div class="item">
                     <h4>Address: </h4>
-                        <h5>{{bins.address}}</h5>
-                    <h4>Postal:</h4>
-                        <h5>{{bins.postalCode}}</h5>
+                    <h5>{{bins.address}}</h5>
+                    <br><br>
+                    <h4>Postal Code: </h4>
+                    <h5>{{bins.postalCode}}</h5>
+                    <br><br>
                     <h4>Accepts:</h4>
-                    <h5 v-if = "bins.ict === true" > ICT</h5>
-                    <h5 v-if = "bins.battery === true" >Batteries</h5>
-                    <h5 v-if = "bins.lamp === true" > Bulbs</h5>
+                    <h5 v-if = "bins.ict === true" > ICT </h5>
+                    <h5 v-if = "bins.battery === true" >Batteries </h5>
+                    <h5 v-if = "bins.lamp === true" > Bulbs </h5>
                     </div>
                 </div>
                 <RouterLink to="/binlocator">
@@ -57,6 +59,14 @@ import axios from 'axios';
 
 h1 {
     font-weight: 700;
+}
+
+h4 {
+    display: inline;
+}
+
+h5 {
+    display: inline;
 }
 
 label {
