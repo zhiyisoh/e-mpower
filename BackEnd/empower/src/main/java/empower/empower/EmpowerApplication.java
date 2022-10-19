@@ -13,7 +13,6 @@ import empower.empower.log.repository.EmissionRepository;
 import empower.empower.log.entity.Emissions;
 @SpringBootApplication
 public class EmpowerApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(EmpowerApplication.class, args);
 
