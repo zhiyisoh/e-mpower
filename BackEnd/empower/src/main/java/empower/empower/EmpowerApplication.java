@@ -8,19 +8,21 @@ import com.opencsv.CSVReaderBuilder;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
 
 import empower.empower.log.repository.EmissionRepository;
 import empower.empower.log.entity.Emissions;
+
 @SpringBootApplication
 public class EmpowerApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(EmpowerApplication.class, args);
+		ApplicationContext ctx = SpringApplication.run(EmpowerApplication.class, args);
 
 		EmissionRepository emRepo = ctx.getBean(EmissionRepository.class);
 		List<String[]> list = readAllDataAtOnce("./src/main/java/empower/empower/emissiondata.csv");
 
 		for (String[] s : list) {
-
+			
 			emRepo.save(new Emissions());
 		}
 	}
