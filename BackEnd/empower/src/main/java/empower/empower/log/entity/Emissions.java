@@ -15,7 +15,7 @@ public class Emissions {
     private String itemName;
 
     @Column(name = "EmissionsSaved")
-    private String EmissionsSaved;
+    private Double EmissionsSaved;
 
     @OneToMany(mappedBy = "emissions")
     private List<Log> logs;
@@ -23,7 +23,7 @@ public class Emissions {
     public Emissions() {
     }
 
-    public Emissions(String itemName, String emissionsSaved) {
+    public Emissions(String itemName, Double emissionsSaved) {
         this.itemName = itemName;
         EmissionsSaved = emissionsSaved;
     }
@@ -36,11 +36,11 @@ public class Emissions {
         this.itemName = itemName;
     }
 
-    public String getEmissionsSaved() {
+    public Double getEmissionsSaved() {
         return EmissionsSaved;
     }
 
-    public void setEmissionsSaved(String emissionsSaved) {
+    public void setEmissionsSaved(Double emissionsSaved) {
         EmissionsSaved = emissionsSaved;
     }
 

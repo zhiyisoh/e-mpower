@@ -42,41 +42,6 @@ export default {
                 console.log(error);
             }
     }
-    //test array
-        //data() {
-    //     return {
-    //         logs: [
-    //             {
-    //                 itemType: "Household Battery",
-    //                 itemName: "Testing",
-    //                 createdDate: '2022-01-20',
-    //                 itemNotes: 'omg',
-    //                 id: '1'
-    //             },
-    //             {
-    //                 itemType: "Consumer Lamp",
-    //                 itemName: "Rice cooker",
-    //                 createdDate: '2022-02-22',
-    //                 itemNotes: 'i eat rice',
-    //                 id: '2'
-    //             },
-    //             {
-    //                 itemType: "Large Household Appliance",
-    //                 itemName: "Washing machine",
-    //                 createdDate: '2022-04-20',
-    //                 itemNotes: 'wishy washi',
-    //                 id: '3'
-    //             },
-    //             {
-    //                 itemType: "ICT",
-    //                 itemName: "Testing",
-    //                 createdDate: '2022-06-09',
-    //                 itemNotes: 'omg',
-    //                 id: '4'
-    //             }
-    //         ]
-    //     };
-    // },
 }
 </script>
 

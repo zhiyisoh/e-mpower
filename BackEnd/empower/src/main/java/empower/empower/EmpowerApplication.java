@@ -22,8 +22,8 @@ public class EmpowerApplication {
 		List<String[]> list = readAllDataAtOnce("./src/main/java/empower/empower/emissiondata.csv");
 
 		for (String[] s : list) {
-			
-			emRepo.save(new Emissions());
+			double emissionval = Double.parseDouble(s[2]);
+			emRepo.save(new Emissions(s[1], emissionval));
 		}
 	}
 

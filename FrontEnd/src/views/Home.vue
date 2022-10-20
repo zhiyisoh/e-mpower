@@ -1,4 +1,5 @@
 <script setup>
+
 import { onMounted } from "vue";
 import AOS from "aos";
 import Footer from "../components/Footer.vue";

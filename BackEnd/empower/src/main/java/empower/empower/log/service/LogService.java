@@ -22,7 +22,6 @@ public class LogService {
     }
 
     public Log saveLog(Log log){
-        
         return logRepository.save(log);
     }
 

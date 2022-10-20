@@ -16,13 +16,8 @@ import Footer from "../../components/Footer.vue";
           <select id="itemType" v-model="record.itemType" class="form-select" aria-label="Default select example">
             <option selected>-- Select type of e-waste --</option>
             <option value="ICT">Information and Communication Equipment (ICT)</option>
-            <option value="Large Household Appliance">Large Household Appliance</option>
-            <option value="Electric Mobility">Electric Mobility Device</option>
             <option value="Household Battery">Household Battery</option>
-            <option value="Lithium Ion Battery">Lithium Ion Portable Battery</option>
             <option value="Consumer Lamp">Consumer Lamp</option>
-            <option value="Consumer EV Battery">Consumer Electric Vehicle Battery</option>
-            <option value="Unregulated">Unregulated E-Waste</option>
           </select>
           <div v-if="message" class="alert" :class="successful ? 'alert-success' : 'alert-danger'">
             {{ message }}
@@ -149,23 +144,23 @@ import Footer from "../../components/Footer.vue";
           <label for="itemName">Item name: </label>
           <select id="itemName" v-model="itemName" class="form-select" aria-label="Default select example">
             <option selected>-- Select type of e-waste --</option>
-            <option v-if = "log.itemType === ('ICT')" value="Computer">Computer/Laptop (ICT)</option>
-            <option v-if = "log.itemType === ('ICT')" value="Phone">Mobile Phone/Tablet (ICT)</option>
-            <option v-if = "log.itemType === ('ICT')" value="Printer">Printer (ICT)</option>
-            <option v-if = "log.itemType === ('ICT')" value="Powerbank">Power Bank (ICT)</option>
-            <option v-if = "log.itemType === ('ICT')" value="Computer">Network/Set-top Boxes (ICT)</option>
-            <option v-if = "log.itemType === ('ICT')" value="Computer">Television/Desktop Monitor (ICT)</option>
+            <option v-show = "itemType === ('ICT')" value="Computer">Computer/Laptop (ICT)</option>
+            <option v-show = "itemType === ('ICT')" value="Phone">Mobile Phone/Tablet (ICT)</option>
+            <option v-show = "itemType === ('ICT')" value="Printer">Printer (ICT)</option>
+            <option v-show = "itemType === ('ICT')" value="Powerbank">Power Bank (ICT)</option>
+            <option v-show = "itemType === ('ICT')" value="Computer">Network/Set-top Boxes (ICT)</option>
+            <option v-show = "itemType === ('ICT')" value="Computer">Television/Desktop Monitor (ICT)</option>
             
-            <option v-if = "log.itemType === ('Household Battery')" value="AAAA">AAAA (ICT)</option>
-            <option v-if = "log.itemType === ('Household Battery')" value="AAA">AAA (ICT)</option>
-            <option v-if = "log.itemType === ('Household Battery')" value="AA">AA (ICT)</option>
-            <option v-if = "log.itemType === ('Household Battery')" value="D">D (ICT)</option>
-            <option v-if = "log.itemType === ('Household Battery')" value="C">C (ICT)</option>
-            <option v-if = "log.itemType === ('Household Battery')" value="9-volt">9-volt (ICT)</option>
-            <option v-if = "log.itemType === ('Household Battery')" value="ButtonCell">ButtonCell (ICT)</option>
+            <option v-show = "itemType === ('Household Battery')" value="AAAA">AAAA (ICT)</option>
+            <option v-show = "itemType === ('Household Battery')" value="AAA">AAA (ICT)</option>
+            <option v-show = "itemType === ('Household Battery')" value="AA">AA (ICT)</option>
+            <option v-show = "itemType === ('Household Battery')" value="D">D (ICT)</option>
+            <option v-show = "itemType === ('Household Battery')" value="C">C (ICT)</option>
+            <option v-show = "itemType === ('Household Battery')" value="9-volt">9-volt (ICT)</option>
+            <option v-show = "itemType === ('Household Battery')" value="ButtonCell">ButtonCell (ICT)</option>
             
-            <option v-if = "log.itemType === ('Consumer Lamp')" value="Bulb">Bulb (ICT)</option>
-            <option v-if = "log.itemType === ('Consumer Lamp')" value="Fluorescent Tube">Fluorescent Tube (ICT)</option>
+            <option v-show = "itemType === ('Consumer Lamp')" value="Bulb">Bulb (ICT)</option>
+            <option v-show = "itemType === ('Consumer Lamp')" value="Fluorescent Tube">Fluorescent Tube (ICT)</option>
           </select>
         </div>
 
