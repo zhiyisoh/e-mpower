@@ -1,6 +1,7 @@
 package empower.empower.log.restcontroller;
 
 import empower.empower.log.entity.Log;
+import empower.empower.log.repository.EmissionRepository;
 import empower.empower.log.repository.LogRepository;
 import empower.empower.log.service.LogService;
 import empower.empower.springjwt.repository.UserRepository;
@@ -24,10 +25,12 @@ public class LogController {
 
     private LogRepository logRepo;
     private UserRepository userRepo;
+    private EmissionRepository emRepo;
 
-    public LogController(LogRepository logRepo, UserRepository userRepo, LogService logService) {
+    public LogController(LogRepository logRepo, UserRepository userRepo, EmissionRepository emRepo, LogService logService) {
         this.logRepo = logRepo;
         this.userRepo = userRepo;
+        this.emRepo = emRepo;
         this.logService = logService;
     }
 
@@ -61,6 +64,7 @@ public class LogController {
     public Log add(@PathVariable(value = "user_id") Long userId, @RequestBody Log log) {
         return userRepo.findById(userId)
                 .map(user -> {
+                    log.setEmissions(emRepo.findByItemName(log.getItemName()));
                     log.setUser(user);
                     Set<Log> logs = user.getLogs();
                     logs.add(log);

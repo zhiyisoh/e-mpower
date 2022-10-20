@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import empower.empower.log.entity.Emissions;
 
 public interface EmissionRepository extends JpaRepository<Emissions, Long>{
-    Optional<Emissions> findByItemName(String itemName);
+    Emissions findByItemName(String itemName);
 }
