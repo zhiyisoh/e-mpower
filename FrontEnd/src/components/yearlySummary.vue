@@ -87,10 +87,14 @@ export default {
         },
         mounted() {
             try{
-                axios.get('http://localhost:8080/api/logging/co2sum')
-                .then(response => 
-                    this.sumn = response.sumn,
-                );
+                // axios.get('http://localhost:8080/api/logging/co2sum')
+                // .then(response => 
+                //     this.sumn = response.sumn,
+                // );
+                const API_URL = 'http://localhost:8080/api/logging/';
+                this.ewasteco2 = this.$route.params.co2sum;
+                axios.get(API_URL + this.$route.params.co2sum).then(response =>
+                this.sumn = response.sumn);
             } catch(error) {
                     console.log(error);
                 };
