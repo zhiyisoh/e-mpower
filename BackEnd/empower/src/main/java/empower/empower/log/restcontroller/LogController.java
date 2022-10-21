@@ -123,7 +123,7 @@ public class LogController {
         Log log = logService.getLog(id);
         return userRepo.findById(userId)
                 .map(user -> {
-                    totalCO2 -= log.getEmissions().getEmissionsSaved();
+                    totalCO2 -= log.getEmissions().getEmissionsSaved() * log.getItemQuantity();
                     Set<Log> logs = user.getLogs();
                     logs.remove(log);
                     logService.deleteLog(id);

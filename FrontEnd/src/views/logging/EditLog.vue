@@ -142,7 +142,7 @@ import Footer from "../../components/Footer.vue";
 
         <div class="form-group">
           <label for="itemName">Item name: </label>
-          <select id="itemName" v-model="itemName" class="form-select" aria-label="Default select example">
+          <select id="itemName" v-model="record.itemName" class="form-select" aria-label="Default select example">
             <option selected>-- Select type of e-waste --</option>
             <option v-show = "itemType === ('ICT')" value="Computer">Computer/Laptop (ICT)</option>
             <option v-show = "itemType === ('ICT')" value="Phone">Mobile Phone/Tablet (ICT)</option>
@@ -166,7 +166,7 @@ import Footer from "../../components/Footer.vue";
 
         <div class="form-group">
           <label for="itemQuantity">Item Quantity: </label>
-          <input id="itemQuantity" v-model="itemQuantity" type="text" class="form-control" />
+          <input id="itemQuantity" v-model="record.itemQuantity" type="text" class="form-control" />
           <ErrorMessage name="username" class="error-feedback" />
         </div>
 
@@ -199,7 +199,6 @@ import Footer from "../../components/Footer.vue";
 
 <script>
 import axios from 'axios';
-
 
 
 export default {

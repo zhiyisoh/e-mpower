@@ -4,7 +4,7 @@
         <div class="co2stat">
             <h4>As of {{currentDate()}}, </h4>
             <h4>You have prevented </h4>
-            <h1>20KG or KG</h1>
+            <h1>20KG or {{ sumn }} KG</h1>
 
             <h4> of CO2 from emitting since 1/1/{{currentYear()}}</h4>
 
@@ -68,14 +68,13 @@ h4 {
 <script>
 import axios from 'axios';
 
-const url = 'http://localhost:8080/api/logging/co2sum';
-
 export default {
-    data() {
-        return {
-            sumn: ''
+    data(){
+        return{
+            sumn: 5
         };
-    }, methods: {
+    },
+    methods: {
         currentDate() {
             const current = new Date();
             const date = `${current.getDate()}/${current.getMonth() + 1}/${current.getFullYear()}`;
@@ -86,16 +85,16 @@ export default {
             const year = `${current.getFullYear()}`;
             return year;
         },
-        // mounted() {
-        //     axios.get(url)
-        //         .then(response => {
-        //             console.log(response.data);
-        //             this.sumn = response.data;
-
-        //         }).catch((error) => {
-        //             this.error = "Error!  " + error;
-        //         });
-        // }
+        mounted() {
+            try{
+                axios.get('http://localhost:8080/api/logging/co2sum')
+                .then(response => 
+                    this.sumn = response,
+                );
+            } catch(error) {
+                    console.log(error);
+                };
+        }
     }
 };
 </script>
