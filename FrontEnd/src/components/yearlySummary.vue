@@ -71,7 +71,7 @@ import axios from 'axios';
 export default {
     data(){
         return{
-            sumn: 5
+            sumn: null
         };
     },
     methods: {
@@ -89,7 +89,7 @@ export default {
             try{
                 axios.get('http://localhost:8080/api/logging/co2sum')
                 .then(response => 
-                    this.sumn = response,
+                    this.sumn = response.sumn,
                 );
             } catch(error) {
                     console.log(error);
