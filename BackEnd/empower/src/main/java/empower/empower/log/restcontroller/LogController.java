@@ -65,8 +65,7 @@ public class LogController {
     @GetMapping("/co2sum")
     public ResponseEntity<Double> getco2(){
         try{
-            Double de = 4.20;
-            return new ResponseEntity<Double>(de, HttpStatus.OK);
+            return new ResponseEntity<Double>(totalCO2, HttpStatus.OK);
         } catch (NoSuchElementException e){
             return new ResponseEntity<Double> (HttpStatus.NOT_FOUND);
         }
@@ -76,12 +75,12 @@ public class LogController {
     public Log add(@PathVariable(value = "user_id") Long userId, @RequestBody Log log) {
         return userRepo.findById(userId)
                 .map(user -> {
-                    Emissions e = emRepo.findByItemName(log.getItemName());
-                    log.setEmissions(e);
-                    totalCO2 += e.getEmissionsSaved() * log.getItemQuantity();
                     log.setUser(user);
                     Set<Log> logs = user.getLogs();
                     logs.add(log);
+                    Emissions e = emRepo.findByItemName(log.getItemName());
+                    log.setEmissions(e);
+                    totalCO2 += e.getEmissionsSaved() * log.getItemQuantity();
                     return logService.saveLog(log);
                 }).orElseThrow(() -> new UserNotFoundException(userId));
     }
