@@ -113,9 +113,12 @@ public class Log {
         return emissions;
     }
 
-
     public void setEmissions(Emissions emissions) {
         this.emissions = emissions;
+    }
+
+    public double getLogC02(){
+        return emissions.getEmissionsSaved() * itemQuantity;
     }
 
     public Integer getItemQuantity() {

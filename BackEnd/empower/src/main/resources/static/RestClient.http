@@ -1,4 +1,4 @@
-GET http://localhost:8080/api/logging/
+GET http://localhost:8080/api/logging/1
 Content-Type: application/json
 Authorization: Basic name name123
 ###
@@ -8,11 +8,16 @@ Content-Type: application/json
 Authorization: Basic name name123
 ###
 
+GET http://localhost:8080/api/logging/co2sum/1
+Content-Type: application/json
+Authorization: Basic name name123
+###
+
 GET http://localhost:8080/api/logging/userlogs/1
 Content-Type: application/json
 Authorization: Basic name name123
-
 ###
+
 ## updatelog/{user_id}/{log's id}. this is s.t. we can add the user id into the database and only that user can update that log
 PUT http://localhost:8080/api/logging/updatelog/1/2
 Content-Type: application/json
@@ -27,7 +32,7 @@ Authorization: Basic name name123
 }
 
 ###
-DELETE http://localhost:8080/api/logging/deletelog/4/2
+DELETE http://localhost:8080/api/logging/deletelog/1/2
 Content-Type: application/json
 Authorization: Basic name name123
 
@@ -40,6 +45,19 @@ Authorization: Basic name name123
 {
     "itemName": "AAA",
     "itemNotes": "AAAAAA",
+    "itemType": "Battery",
+    "itemQuantity": 1,
+    "createdDate": "2020-03-03"
+}
+
+###
+POST http://localhost:8080/api/logging/addlog/2
+Content-Type: application/json
+Authorization: Basic name name123
+
+{
+    "itemName": "AAA",
+    "itemNotes": "AAAA",
     "itemType": "Battery",
     "itemQuantity": 1,
     "createdDate": "2020-03-03"
