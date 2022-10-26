@@ -234,7 +234,11 @@ export default {
     }
   }, mounted(){
     const url = "http://localhost:8080/api/logging/"; //to be changed
-    axios.get(url + this.$route.params.id)
+    axios.get(url + this.$route.params.id, {
+        headers: {
+          'Authorization': 'Bearer ' + this.$store.state.auth.user.accessToken 
+        }
+      })
     .then(response => {
       this.record = response.data;
 
