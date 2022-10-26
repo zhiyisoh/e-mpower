@@ -7,6 +7,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class BinNotFoundException extends RuntimeException{
     private static final long serialVersionUID = 1L;
 
+    public BinNotFoundException(){
+        
+    }
+
     public BinNotFoundException(Long id){
         super("Could not find bin "+id);
     }

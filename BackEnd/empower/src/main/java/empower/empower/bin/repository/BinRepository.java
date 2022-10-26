@@ -8,7 +8,7 @@ import empower.empower.bin.entity.Bin;
 
 public interface BinRepository extends JpaRepository <Bin, Long>{
     List<Bin> findById(long id);
-    Optional<Bin> findByPostalCode(int postalCode);
+    List<Bin> findByPostalCode(int postalCode);
     Optional<Bin> findByAddress(String address);
     List<Bin> findByIct(boolean ict); //information and communication equipment
     List<Bin> findByBattery(boolean battery);

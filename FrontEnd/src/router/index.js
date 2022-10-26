@@ -84,6 +84,23 @@ const router = createRouter({
       path: '/admin',
       name: 'adminbin',
       component: () => import('../views/bins/Bin.vue')
+    },
+    {
+      path: '/BinResults',
+      name: 'binresults',
+      component: () => import('../views/bins/BinResults.vue')
+    }
+    ,
+    {
+      path: '/editbin/:id',
+      name: 'editbin',
+      component: () => import('../views/bins/EditBin.vue')
+    },
+    ,
+    {
+      path: '/enterbin',
+      name: 'enterbin',
+      component: () => import('../views/bins/EnterBin.vue')
     }
   ]
 })

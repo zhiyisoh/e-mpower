@@ -39,6 +39,15 @@ public class BinController {
         return binService.getBin(id);
     }
 
+    @GetMapping("/getBin/{postalCode}")
+    public List<Bin> getBin(@PathVariable int postalCode){
+        List<Bin> list = binRepository.findByPostalCode(postalCode);
+        if(list == null){
+            throw new BinNotFoundException();
+        }
+        return list;
+    }
+
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/addBin")
     public Bin addBin(@Valid @RequestBody Bin bin){
