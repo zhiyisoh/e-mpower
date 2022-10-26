@@ -41,6 +41,9 @@ import { RouterLink, RouterView } from 'vue-router'
                 <li class="nav-item">
                   <RouterLink to="/home" class="nav-link">My Home</RouterLink>
                 </li>
+                <li v-if="showAdminNav" class="nav-item">
+                  <RouterLink to="/admin" class="nav-link">Bins</RouterLink>
+                </li>
                 <li class="nav-item">
                   <RouterLink to="/about" class="nav-link">About Us</RouterLink>
                 </li>
@@ -142,6 +145,13 @@ export default {
   computed: {
     currentUser() {
       return this.$store.state.auth.user;
+    },
+    showAdminNav() {
+      if (this.currentUser && this.currentUser.roles) {
+        return this.currentUser.roles.includes('ROLE_ADMIN');
+      }
+
+      return false;
     }
   },
   methods: {
