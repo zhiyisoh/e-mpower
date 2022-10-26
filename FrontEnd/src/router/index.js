@@ -75,6 +75,11 @@ const router = createRouter({
       component: () => import('../views/user management/Profile.vue')
     },
     {
+      path: '/editprofile',
+      name: 'editprofile',
+      component: () => import('../views/user management/EditProfile.vue')
+    },
+    {
       path: '/returnedbins/:binid',
       name: 'returnedbins',
       component: () => import('../views/bin locator/ReturnedBins.vue')
