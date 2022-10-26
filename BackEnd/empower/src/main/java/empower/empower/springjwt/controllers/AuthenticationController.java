@@ -9,6 +9,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -16,6 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,6 +33,7 @@ import empower.empower.springjwt.repository.RoleRepository;
 import empower.empower.springjwt.repository.UserRepository;
 import empower.empower.springjwt.security.jwt.JwtUtils;
 import empower.empower.springjwt.security.service.UserDetailsImpl;
+import empower.empower.springjwt.security.service.UserDetailsServiceImpl;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -50,6 +53,9 @@ public class AuthenticationController {
     
         @Autowired
         JwtUtils jwtUtils;
+
+        @Autowired
+        UserDetailsServiceImpl userService;
     
         @PostMapping("/signin")
         public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
@@ -121,6 +127,36 @@ public class AuthenticationController {
             userRepository.save(user);
     
             return ResponseEntity.ok(new MessageResponse("You have registered successfully! Please proceed to login."));
+        }
+
+        @PutMapping("/editprofile/{id}")
+        public ResponseEntity<?> editProfile(@PathVariable(value = "id") Long id, @Valid @RequestBody SignUpRequest signUpRequest) {
+                if (userRepository.existsByUsername(signUpRequest.getUsername())) {
+                        return ResponseEntity
+                                .badRequest()
+                                .body(new MessageResponse("Error: Username is already taken!"));
+                    }
+            
+                    if (userRepository.existsByEmail(signUpRequest.getEmail())) {
+                        return ResponseEntity
+                                .badRequest()
+                                .body(new MessageResponse("Error: Email is already taken. Did you forget your password?"));
+                    }
+
+                    return userRepository.findById(id)
+                    .map(oldAccData ->{
+
+                        System.out.println(oldAccData.getEmail());
+
+                        oldAccData.setEmail(signUpRequest.getEmail());
+                        
+                        System.out.println(signUpRequest.getEmail());
+                        oldAccData.setPassword(encoder.encode(signUpRequest.getPassword()));
+                        oldAccData.setUsername(signUpRequest.getUsername());
+                        userService.saveUser(oldAccData);
+                        return ResponseEntity.ok().build();
+                    }).orElseThrow(() -> null);
+                
         }
     }
     

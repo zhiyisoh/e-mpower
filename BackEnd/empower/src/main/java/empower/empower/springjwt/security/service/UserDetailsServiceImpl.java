@@ -24,4 +24,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		return UserDetailsImpl.build(user);
 	}
 
+	public User saveUser(User user){
+		return userRepository.save(user);
+	}
+
+
+
+
+
 }
