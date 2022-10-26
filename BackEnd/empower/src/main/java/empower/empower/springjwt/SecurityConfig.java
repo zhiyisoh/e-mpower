@@ -63,6 +63,15 @@ public class SecurityConfig {
             .antMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
             .antMatchers("/api/auth/**").permitAll()
             .antMatchers(HttpMethod.POST, "/api/logging/**").authenticated()
+            .antMatchers(HttpMethod.GET, "/api/logging/**").authenticated()
+            .antMatchers(HttpMethod.DELETE, "/api/logging/**").authenticated()
+            .antMatchers(HttpMethod.PUT, "/api/logging/**").authenticated()
+
+            .antMatchers(HttpMethod.GET, "/api/bins/**").authenticated()
+            .antMatchers(HttpMethod.POST, "/api/bins/findNearestBin").authenticated()
+            .antMatchers(HttpMethod.POST, "/api/bins/addBin").hasAnyRole("ROLE_ADMIN")
+            .antMatchers(HttpMethod.DELETE, "/api/bins/**").hasAnyRole("ROLE_ADMIN")
+            .antMatchers(HttpMethod.PUT, "/api/bins/**").hasAnyRole("ROLE_ADMIN")
 
         .and()    
         .authenticationProvider(authenticationProvider()) //specifies the authentication provider for HttpSecurity

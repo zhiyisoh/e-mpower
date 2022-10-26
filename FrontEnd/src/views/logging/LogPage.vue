@@ -55,7 +55,11 @@ export default {
     created() {
         const API_URL = 'http://localhost:8080/api/logging/';
         this.ewasteid = this.$route.params.id;
-        axios.get(API_URL + this.$route.params.id).then(response =>
+        axios.get(API_URL + this.$route.params.id, {
+        headers: {
+          'Authorization': 'Bearer ' + this.$store.state.auth.user.accessToken 
+        }
+      }).then(response =>
             this.data = response.data);
     }
 }

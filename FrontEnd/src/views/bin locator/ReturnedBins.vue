@@ -44,7 +44,11 @@ import axios from 'axios';
     }, created(){
         try{
             const API_URL = 'http://localhost:8080/api/bins/' + this.$route.params.binid;
-            axios.get(API_URL).then(response =>
+            axios.get(API_URL, {
+        headers: {
+          'Authorization': 'Bearer ' + this.$store.state.auth.user.accessToken 
+        }
+      }).then(response =>
                 this.bins = response.data
             );
 
