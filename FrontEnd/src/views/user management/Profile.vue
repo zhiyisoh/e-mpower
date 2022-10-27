@@ -13,8 +13,6 @@
         
         <h4>Email: </h4>
         <p>{{this.$store.state.auth.user.email}}</p>
-        <h4>Saved Bin Locations: </h4>
-        <p>NULL</p>
         <h4>Password: </h4>
         <p>*********</p>
         <button type="button" class="btn btn-primary edit-btn "

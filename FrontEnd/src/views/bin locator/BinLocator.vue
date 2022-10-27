@@ -20,14 +20,7 @@
                     <div class="form-group">
                         <label for="location">Postal Code / Address</label>
                         <input name="location" v-model="location" type="text" class="form-control" />
-                        <button type="button" class="btn btn-primary saved-locations-btn" data-bs-toggle="collapse" href="#locationsCollapse"
-                          aria-expanded="false" aria-controls="locationsCollapse">
-                          View Saved Locations</button>
-                        <div class="collapse" id="locationsCollapse">
-                          <div class="card card-body">
-                            <h5>Saved Locations:</h5>
-                          </div>
-                        </div>
+                        
                         <ErrorMessage name="username" class="error-feedback" />
                         
                     </div>
