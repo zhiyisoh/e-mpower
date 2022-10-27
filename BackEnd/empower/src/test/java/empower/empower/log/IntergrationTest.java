@@ -65,20 +65,20 @@ class BookIntegrationTest {
 		useRepo.deleteAll();
 	}
 
-	@Test
-	public void getLogs_Success() throws Exception {
-		URI uri = new URI(baseUrl + port + "/books");
-        Calendar myCalendar = new GregorianCalendar(2014, 2, 11);
-        Date currDate = new Date(myCalendar.getTimeInMillis());
-		logRepo.save(new Log("Bulb", "screm", "Bulb", currDate));
+	// @Test
+	// public void getLogs_Success() throws Exception {
+	// 	URI uri = new URI(baseUrl + port + "/books");
+    //     Calendar myCalendar = new GregorianCalendar(2014, 2, 11);
+    //     Date currDate = new Date(myCalendar.getTimeInMillis());
+	// 	logRepo.save(new Log("Bulb", "screm", "Bulb", currDate));
 		
-		// Need to use array with a ReponseEntity here
-		ResponseEntity<Log []> result = restTemplate.getForEntity(uri, Log[].class);
-		Log[] books = result.getBody();
+	// 	// Need to use array with a ReponseEntity here
+	// 	ResponseEntity<Log []> result = restTemplate.getForEntity(uri, Log[].class);
+	// 	Log[] books = result.getBody();
 		
-		assertEquals(200, result.getStatusCode().value());
-		assertEquals(1, books.length);
-	}
+	// 	assertEquals(200, result.getStatusCode().value());
+	// 	assertEquals(1, books.length);
+	// }
 
 	// @Test
 	// public void getBook_ValidBookId_Success() throws Exception {
