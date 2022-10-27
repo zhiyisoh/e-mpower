@@ -1,69 +1,69 @@
-package empower.empower.log;
+// package empower.empower.log;
 
-import static org.junit.jupiter.api.Assertions.*;
+// import static org.junit.jupiter.api.Assertions.*;
 
-import java.net.URI;
-import java.util.Optional;
+// import java.net.URI;
+// import java.util.Optional;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+// import org.junit.jupiter.api.AfterEach;
+// import org.junit.jupiter.api.Test;
+// import org.springframework.boot.test.context.SpringBootTest;
+// import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+// import org.springframework.boot.test.web.client.TestRestTemplate;
+// import org.springframework.boot.test.web.server.LocalServerPort;
+// import org.springframework.http.HttpEntity;
+// import org.springframework.http.HttpMethod;
+// import org.springframework.http.ResponseEntity;
+// import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.sql.Date;
+// import java.util.Calendar;
+// import java.util.GregorianCalendar;
+// import java.sql.Date;
 
-import empower.empower.log.entity.*;
-import empower.empower.log.repository.*;
-import empower.empower.bin.entity.*;
-import empower.empower.bin.repository.*;
-import empower.empower.springjwt.models.*;
-import empower.empower.springjwt.repository.*;
+// import empower.empower.log.entity.*;
+// import empower.empower.log.repository.*;
+// import empower.empower.bin.entity.*;
+// import empower.empower.bin.repository.*;
+// import empower.empower.springjwt.models.*;
+// import empower.empower.springjwt.repository.*;
 
-/** Start an actual HTTP server listening at a random port*/
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-class BookIntegrationTest {
+// /** Start an actual HTTP server listening at a random port*/
+// @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+// class BookIntegrationTest {
 
-	@LocalServerPort
-	private int port;
+// 	@LocalServerPort
+// 	private int port;
 
-	private final String baseUrl = "http://localhost:";
+// 	private final String baseUrl = "http://localhost:";
 
-	@Autowired
-	/**
-	 * Use TestRestTemplate for testing a real instance of your application as an external actor.
-	 * Convenient subclass of RestTemplate that is suitable for integration tests.
- 	 * It is fault tolerant, and optionally can carry Basic authentication headers.
-	 */
-	private TestRestTemplate restTemplate;
+// 	@Autowired
+// 	/**
+// 	 * Use TestRestTemplate for testing a real instance of your application as an external actor.
+// 	 * Convenient subclass of RestTemplate that is suitable for integration tests.
+//  	 * It is fault tolerant, and optionally can carry Basic authentication headers.
+// 	 */
+// 	private TestRestTemplate restTemplate;
 
-	@Autowired
-	private LogRepository logRepo;
+// 	@Autowired
+// 	private LogRepository logRepo;
 
-	@Autowired
-	private BinRepository binRepo;
+// 	@Autowired
+// 	private BinRepository binRepo;
 
-    @Autowired
-    private UserRepository useRepo;
+//     @Autowired
+//     private UserRepository useRepo;
 
-	@Autowired
-	private BCryptPasswordEncoder encoder;
+// 	@Autowired
+// 	private BCryptPasswordEncoder encoder;
 
 
-	@AfterEach
-	void tearDown(){
-		logRepo.deleteAll();
-        binRepo.deleteAll();
-		useRepo.deleteAll();
-	}
+// 	@AfterEach
+// 	void tearDown(){
+// 		logRepo.deleteAll();
+//         binRepo.deleteAll();
+// 		useRepo.deleteAll();
+// 	}
 
 	// @Test
 	// public void getLogs_Success() throws Exception {
@@ -172,4 +172,4 @@ class BookIntegrationTest {
 	// 	assertEquals(404, result.getStatusCode().value());
 	// }
 
-}
+//}
