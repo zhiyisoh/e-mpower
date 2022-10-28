@@ -31,6 +31,10 @@ public class LogController {
         this.logService = logService;
     }
 
+    /*
+     * Get the list of logs by user id, 
+     * will return null if there are no logs or a NoSuchElementException is caught.
+     */
     @GetMapping("/userlogs/{user_id}")
     public List<Log> listLogs(@PathVariable Long user_id) {
         try {
@@ -47,6 +51,7 @@ public class LogController {
         }
     }
 
+    //Gets a specific log by its id
     @GetMapping("/{id}")
     public ResponseEntity<Log> get(@PathVariable Long id) {
         try {
@@ -57,6 +62,7 @@ public class LogController {
         }
     }
 
+    //Adds a new log to a user's account through the user id
     @PostMapping("/addlog/{user_id}")
     public Log add(@PathVariable(value = "user_id") Long userId, @RequestBody Log log) {
         return userRepo.findById(userId)
@@ -68,6 +74,9 @@ public class LogController {
                 }).orElseThrow(() -> new UserNotFoundException(userId));
     }
 
+    //Update a specific user's log with the user id and the log id
+    //If the user id does not exist then a UserNotFoundException is thrown
+    //If the log id does not exist then a LogNotFoundException is thrown
     @PutMapping("/updatelog/{user_id}/{id}")
     public ResponseEntity<?> update(@PathVariable(value = "user_id") Long userId, @PathVariable Long id,
             @Valid @RequestBody Log log) {
@@ -89,7 +98,7 @@ public class LogController {
         }).orElseThrow(() -> new LogNotFoundException(id));
 
     }
-    
+
     //throws LogNotFoundException if cannot be found by id, continues otherwise
     private void checkIfLogExistsById(Long id) {
         if (!logRepo.existsById(id)) {
@@ -97,6 +106,9 @@ public class LogController {
         }
     }
 
+    //Deletes a specific user's log
+    //If the user id does not exist then a UserNotFoundException is thrown
+    //If the log id does not exist then a LogNotFoundException is thrown
     @DeleteMapping("/deletelog/{user_id}/{id}")
     public ResponseEntity<?> delete(@PathVariable(value = "user_id") Long userId, @PathVariable Long id) {
         

@@ -27,11 +27,14 @@ public class BinController {
         this.binService=binService;
     }
 
+    //returns a list of all the bins
     @GetMapping("")
     public List<Bin> getBins(){
         return binService.listBins();
     }
 
+    //returns a specific bin by the bin's id
+    //throws a BinNotFoundException if the bin is null
     @GetMapping("/{id}")
     public Bin getBin(@PathVariable Long id){
         Bin bin = binService.getBin(id);
@@ -39,6 +42,8 @@ public class BinController {
         return binService.getBin(id);
     }
 
+    //returns a list of bins by postal code
+    //if the list is null then a BinNotFoundException is thrown
     @GetMapping("/getBin/{postalCode}")
     public List<Bin> getBin(@PathVariable int postalCode){
         List<Bin> list = binRepository.findByPostalCode(postalCode);
@@ -56,6 +61,8 @@ public class BinController {
         return savedBin;
     }
 
+    //Finds the nearest bin by taking in coordinates
+    //Gets recycle type of the bin closest to the coordinates
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/findNearestBin")
     public Long getNearestBin(@RequestBody Coordinate coordinate){
@@ -83,6 +90,7 @@ public class BinController {
         return closestBin.getId();
     }
 
+    //returns the nearest bin based on coordinate distance
     public Bin compareCoordinates(List<Bin> list, double longitude, double latitude){
         Bin nearest = list.get(0);
 
@@ -132,6 +140,8 @@ public class BinController {
         return(c * r);
     }
 
+    //updates information about a bin through the bin's id
+    //if the bin cannot be found by the id entered then a BinNotFoundException is thrown
     @PutMapping("/updateBin/{id}")
     public ResponseEntity<?> updateBin(@PathVariable Long id, @Valid @RequestBody Bin bin){
         if(!binRepository.existsById(id)) throw new BinNotFoundException(id);
@@ -149,6 +159,7 @@ public class BinController {
         }).orElseThrow(() -> new BinNotFoundException(id));
     }
 
+    //deletes a bin by its id
     @DeleteMapping("deleteBin/{id}")
     public void deleteBin(@PathVariable Long id){
         try{
