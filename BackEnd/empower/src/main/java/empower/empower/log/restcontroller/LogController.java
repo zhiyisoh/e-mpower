@@ -72,9 +72,8 @@ public class LogController {
     public ResponseEntity<?> update(@PathVariable(value = "user_id") Long userId, @PathVariable Long id,
             @Valid @RequestBody Log log) {
 
-        if (!logRepo.existsById(id)) {
-            throw new LogNotFoundException(id);
-        }
+        //throws LogNotFoundException if cannot be found by id, continues otherwise
+        checkIfLogExistsById(id);
 
         if (!userRepo.existsById(userId)) {
             throw new UserNotFoundException(userId);
@@ -90,12 +89,19 @@ public class LogController {
         }).orElseThrow(() -> new LogNotFoundException(id));
 
     }
-
-    @DeleteMapping("/deletelog/{user_id}/{id}")
-    public ResponseEntity<?> delete(@PathVariable(value = "user_id") Long userId, @PathVariable Long id) {
+    
+    //throws LogNotFoundException if cannot be found by id, continues otherwise
+    private void checkIfLogExistsById(Long id) {
         if (!logRepo.existsById(id)) {
             throw new LogNotFoundException(id);
         }
+    }
+
+    @DeleteMapping("/deletelog/{user_id}/{id}")
+    public ResponseEntity<?> delete(@PathVariable(value = "user_id") Long userId, @PathVariable Long id) {
+        
+        //throws LogNotFoundException if cannot be found by id, continues otherwise
+        checkIfLogExistsById(id);
 
         Log log = logService.getLog(id);
         return userRepo.findById(userId)
