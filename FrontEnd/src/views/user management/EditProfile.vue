@@ -8,38 +8,34 @@ import Footer from "../../components/Footer.vue";
     <div class="col-md-12">
       <div class="card card-container">
         <h2 class="header">Edit Profile</h2>
-        <Form>
-          <div v-if="!successful">
+        <Form @submit="onSubmit" :validation-schema="schema" v-on:submit.prevent="submitForm">
+          <div>
             <div class="form-group">
               <label for="username">Username</label>
-              <Field name="username" type="text" class="form-control">
                 <input  v-model="username" type="text" class="form-control"/>
-              </Field>
               <ErrorMessage name="username" class="error-feedback" />
             </div>
             <div class="form-group">
               <label for="email">Email</label>
-              <Field name="email" type="email" class="form-control">
                 <input  v-model="email" type="text" class="form-control"/>
-              </Field>
               <ErrorMessage name="email" class="error-feedback" />
             </div>
             <div class="form-group">
               <label for="password">Password</label>
-              <Field name="password" type="password" class="form-control" />
+                <input  v-model="password" type="password" class="form-control"/>
               <ErrorMessage name="password" class="error-feedback" />
             </div>
 
             <div class="form-group">
               <label for="confirmpassword">Confirm Password</label>
-              <Field name="confirmpassword" type="password" class="form-control" />
+                <input  v-model="confirmpassword" type="password" class="form-control"/>
               <ErrorMessage name="confirmpassword" class="error-feedback" />
             </div>
 
             <div class="form-group">
               <button class="btn btn-primary btn-block" :disabled="loading">
                 <span v-show="loading" class="spinner-border spinner-border-sm"></span>
-                Register
+                Edit
               </button>
             </div>
           </div>
@@ -55,50 +51,81 @@ import Footer from "../../components/Footer.vue";
 </template>
 
 <script>
-import { Form, Field, ErrorMessage } from "vee-validate";
-import * as yup from "yup";
+// import { Form, Field, ErrorMessage } from "vee-validate";
+// import * as yup from "yup";
+import axios from 'axios';
 
 export default {
-  name: "EditProfile",
-  components: {
-    Form,
-    Field,
-    ErrorMessage,
-  },
+  name: "EditProfile",  
+  // components: {
+  //   Form,
+  //   Field,
+  //   ErrorMessage,
+  // },
+  el: "#app",
   data() {
-
-    const schema = yup.object().shape({
-      username: yup
-        .string()
-        .required("Username is required!")
-        .min(3, "Must be at least 3 characters!")
-        .max(25, "Must be maximum 25 characters!"),
-      email: yup
-        .string()
-        .required("Email is required!")
-        .email("Email is invalid!"),
-      password: yup
-        .string()
-        .required("Password is required!")
-        .min(6, "Must be at least 6 characters!")
-        .max(30, "Must be maximum 30 characters!"),
-      confirmpassword: yup
-        .string()
-        .required("Confirm Password Field is required!")
-        .oneOf([yup.ref('password'), null], 'Passwords must match')
-    });
+    // const schema = yup.object().shape({
+    //   usernameCheck: yup
+    //     .string()
+    //     .required("Username is required!")
+    //     .min(3, "Must be at least 3 characters!")
+    //     .max(25, "Must be maximum 25 characters!"),
+    //   emailCheck: yup
+    //     .string()
+    //     .required("Email is required!")
+    //     .email("Email is invalid!"),
+    //   passwordCheck: yup
+    //     .string()
+    //     .required("Password is required!")
+    //     .min(6, "Must be at least 6 characters!")
+    //     .max(30, "Must be maximum 30 characters!"),
+    //   confirmpasswordCheck: yup
+    //     .string()
+    //     .required("Confirm Password Field is required!")
+    //     .oneOf([yup.ref('password'), null], 'Passwords must match')
+    // });
 
     return {
       username: this.$store.state.auth.user.username,
-      email: this.$store.state.auth.user.email
+      email: this.$store.state.auth.user.email,
+      password: "",
+      confirmpassword: "",
+      successful: false,
+      loading: false,
+      // message: "",
+      // schema,
     }
-
     
   }
+  , methods: {
+    onSubmit(e) {
+      e.preventDefault();
 
-  
+      let currentObj = this;
+      const API_URL ='http://localhost:8080/api/auth/editprofile/' + this.$store.state.auth.user.id;
       
-}
+      alert(API_URL + " " + this.username + " " + this.password);
+      axios.put(API_URL, {
+        username: this.username,
+        email: this.email,
+        password: this.password
+      }, {
+        headers: {
+          'Authorization': 'Bearer ' + this.$store.state.auth.user.accessToken 
+        }
+      })
+        .then(function (response) {
+          currentObj.output = response.data;
+          alert("Your account details have been saved.");
+          history.back();
+        })
+        .catch(function (error) {
+          currentObj.output = error;
+          alert('Unsuccessful Submission. ' + error);
+        });
+    }
+    }
+  }
 </script>
 
 
