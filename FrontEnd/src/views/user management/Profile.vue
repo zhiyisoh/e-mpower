@@ -9,10 +9,10 @@
         <img src="/src/assets/profilepic.svg" alt="leaves" id="profilepic">
         <div class="profile-details">
         <h4>Username: </h4>
-        <p>{{this.$store.state.auth.user.username}}</p>
+        <p>{{record.username}}</p>
         
         <h4>Email: </h4>
-        <p>{{this.$store.state.auth.user.email}}</p>
+        <p>{{record.email}}</p>
         <h4>Password: </h4>
         <p>*********</p>
         <button type="button" class="btn btn-primary edit-btn "
@@ -23,6 +23,38 @@
         <Footer/>
     </section>
 </template>
+
+<script>
+import axios from 'axios';
+
+
+export default {
+
+  name: 'Profile',
+  el: "#app",
+  data() {
+    return {
+      record: []
+    }
+  }, created() {
+    const url = "http://localhost:8080/api/auth/profile/" ;
+    axios.get(url + this.$store.state.auth.user.id, {
+      headers: {
+        'Authorization': 'Bearer ' + this.$store.state.auth.user.accessToken
+      }
+    })
+      .then(response => {
+        this.record = response.data;
+        console.log(response.data);
+
+      }).catch((error) => {
+        this.error = "Error!  " + error;
+      });
+
+  }
+}
+
+</script>
 
 <style scoped>
 

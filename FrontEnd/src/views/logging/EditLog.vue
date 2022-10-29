@@ -163,7 +163,6 @@ import Footer from "../../components/Footer.vue";
 import axios from 'axios';
 
 
-
 export default {
 
   name: 'LogEntry',

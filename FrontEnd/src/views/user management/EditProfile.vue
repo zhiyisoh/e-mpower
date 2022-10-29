@@ -8,28 +8,28 @@ import Footer from "../../components/Footer.vue";
     <div class="col-md-12">
       <div class="card card-container">
         <h2 class="header">Edit Profile</h2>
-        <Form @submit="onSubmit" :validation-schema="schema" v-on:submit.prevent="submitForm">
+        <Form @submit="onSubmit" :validation-schema="schema"  >
           <div>
             <div class="form-group">
               <label for="username">Username</label>
-                <input  v-model="username" type="text" class="form-control"/>
-              <ErrorMessage name="username" class="error-feedback" />
+                <Field name="usernameCheck" v-model="record.username" type="text" class="form-control"/>
+              <ErrorMessage name="usernameCheck" class="error-feedback" />
             </div>
             <div class="form-group">
               <label for="email">Email</label>
-                <input  v-model="email" type="text" class="form-control"/>
-              <ErrorMessage name="email" class="error-feedback" />
+                <Field name="emailCheck" v-model="record.email" type="text" class="form-control"/>
+              <ErrorMessage name="emailCheck" class="error-feedback" />
             </div>
             <div class="form-group">
               <label for="password">Password</label>
-                <input  v-model="password" type="password" class="form-control"/>
-              <ErrorMessage name="password" class="error-feedback" />
+                <Field name="passwordCheck" v-model="password" type="password" class="form-control"/>
+              <ErrorMessage name="passwordCheck" class="error-feedback" />
             </div>
 
             <div class="form-group">
               <label for="confirmpassword">Confirm Password</label>
-                <input  v-model="confirmpassword" type="password" class="form-control"/>
-              <ErrorMessage name="confirmpassword" class="error-feedback" />
+                <Field name="confirmpasswordCheck" v-model="confirmpassword" type="password" class="form-control"/>
+              <ErrorMessage name="confirmpasswordCheck" class="error-feedback" />
             </div>
 
             <div class="form-group">
@@ -51,63 +51,81 @@ import Footer from "../../components/Footer.vue";
 </template>
 
 <script>
-// import { Form, Field, ErrorMessage } from "vee-validate";
-// import * as yup from "yup";
+import { Form, Field, ErrorMessage } from "vee-validate";
+import * as yup from "yup";
 import axios from 'axios';
+
+const schema = yup.object().shape({
+      usernameCheck: yup
+        .string()
+        .required("Username is required!")
+        .min(3, "Must be at least 3 characters!")
+        .max(25, "Must be maximum 25 characters!"),
+      emailCheck: yup
+        .string()
+        .required("Email is required!")
+        .email("Email is invalid!"),
+      passwordCheck: yup
+        .string()
+        .required("Password is required!")
+        .min(6, "Must be at least 6 characters!")
+        .max(30, "Must be maximum 30 characters!"),
+      confirmpasswordCheck: yup
+        .string()
+        .required("Confirm Password Field is required!")
+        .oneOf([yup.ref('passwordCheck'), null], 'Passwords must match')
+    });
 
 export default {
   name: "EditProfile",  
-  // components: {
-  //   Form,
-  //   Field,
-  //   ErrorMessage,
-  // },
+  components: {
+    Form,
+    Field,
+    ErrorMessage,
+  },
   el: "#app",
   data() {
-    // const schema = yup.object().shape({
-    //   usernameCheck: yup
-    //     .string()
-    //     .required("Username is required!")
-    //     .min(3, "Must be at least 3 characters!")
-    //     .max(25, "Must be maximum 25 characters!"),
-    //   emailCheck: yup
-    //     .string()
-    //     .required("Email is required!")
-    //     .email("Email is invalid!"),
-    //   passwordCheck: yup
-    //     .string()
-    //     .required("Password is required!")
-    //     .min(6, "Must be at least 6 characters!")
-    //     .max(30, "Must be maximum 30 characters!"),
-    //   confirmpasswordCheck: yup
-    //     .string()
-    //     .required("Confirm Password Field is required!")
-    //     .oneOf([yup.ref('password'), null], 'Passwords must match')
-    // });
 
     return {
-      username: this.$store.state.auth.user.username,
-      email: this.$store.state.auth.user.email,
+      username: "",
+      email: "",
       password: "",
       confirmpassword: "",
       successful: false,
       loading: false,
-      // message: "",
-      // schema,
+      message: "",
+      schema,
+      record: []
     }
     
+  }, created() {
+    const url = "http://localhost:8080/api/auth/profile/" ;
+    axios.get(url + this.$store.state.auth.user.id, {
+      headers: {
+        'Authorization': 'Bearer ' + this.$store.state.auth.user.accessToken
+      }
+    })
+      .then(response => {
+        this.record = response.data;
+        console.log(response.data);
+
+      }).catch((error) => {
+        this.error = "Error!  " + error;
+      });
+
+
   }
   , methods: {
     onSubmit(e) {
-      e.preventDefault();
+      this.successful = true;
+      this.loading = false;
 
       let currentObj = this;
       const API_URL ='http://localhost:8080/api/auth/editprofile/' + this.$store.state.auth.user.id;
-      
-      alert(API_URL + " " + this.username + " " + this.password);
+
       axios.put(API_URL, {
-        username: this.username,
-        email: this.email,
+        username: this.record.username,
+        email: this.record.email,
         password: this.password
       }, {
         headers: {
@@ -122,6 +140,7 @@ export default {
         .catch(function (error) {
           currentObj.output = error;
           alert('Unsuccessful Submission. ' + error);
+          
         });
     }
     }
@@ -182,37 +201,11 @@ p {
   margin: 2px;
 }
 
-.google {
-  background-color: rgb(255, 255, 255);
-  color: black;
-  margin: 0 auto;
-  margin-bottom: 5px;
-  border-radius: 8px;
-  text-align: center;
-  align-items: center;
-  font-size: 15px;
-  height: 53px;
-  display: inline-flex;
-  border-color: transparent;
-  width: 250px;
+.btn{
+  margin-bottom: 20px;
 }
-
-#google-icon {
-  margin-right: 10px;
-}
-
-.google:hover {
-  border-color: grey;
-}
-
 .alertmsg{
   margin: 10px 15px;
 }
 
-@media(max-width: 960px){
-  .register-view{
-    width: 90%;
-    border-radius: 5%;
-  }
-}
 </style>

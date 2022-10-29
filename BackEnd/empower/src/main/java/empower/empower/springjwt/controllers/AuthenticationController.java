@@ -2,6 +2,7 @@ package empower.empower.springjwt.controllers;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -9,6 +10,7 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -170,5 +172,16 @@ public class AuthenticationController {
                 }).orElseThrow(() -> new RuntimeException("Error: Something went wrong"));
                 
         }
+
+        //Gets a specific log by its id
+        @GetMapping("/profile/{id}")
+        public ResponseEntity<User> get(@PathVariable Long id) {
+        try {
+            User u = userService.getUser(id);
+            return new ResponseEntity<User>(u, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+        }
+    }
     }
     
