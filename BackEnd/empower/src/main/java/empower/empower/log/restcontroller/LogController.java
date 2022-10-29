@@ -96,9 +96,9 @@ public class LogController {
                 .map(user -> {
                     log.setUser(user);
                     Set<Log> logs = user.getLogs();
-                    logs.add(log);
                     Emissions e = emRepo.findByItemName(log.getItemName());
                     log.setEmissions(e);
+                    logs.add(log);
                     totalCO2 += log.getLogC02();
                     return logService.saveLog(log);
                 }).orElseThrow(() -> new UserNotFoundException(userId));
