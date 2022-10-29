@@ -27,7 +27,7 @@ public class LogController {
     private LogRepository logRepo;
     private UserRepository userRepo;
     private EmissionRepository emRepo;
-    private Double totalCO2 = 0.0;
+    private Double totalCO2;
 
     public LogController(LogRepository logRepo, UserRepository userRepo, EmissionRepository emRepo, LogService logService) {
         this.logRepo = logRepo;

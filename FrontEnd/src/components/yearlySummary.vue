@@ -69,9 +69,9 @@ h4 {
 import axios from 'axios';
 
 export default {
-    data(){
-        return{
-            sumn: 5
+    data() {
+        return {
+            sumn: null,
         };
     },
     methods: {
@@ -86,14 +86,19 @@ export default {
             return year;
         },
         mounted() {
-            try{
-                axios.get('http://localhost:8080/api/logging/co2sum')
-                .then(response => 
-                    this.sumn = response,
-                );
-            } catch(error) {
-                    console.log(error);
-                };
+            try {
+                console.log("hehehe we r here!!")
+                const API_URL = 'http://localhost:8080/api/logging/co2sum/';
+                axios.get(API_URL + this.$store.state.auth.user.id, {
+                    headers: {
+                        'Authorization': 'Bearer ' + this.$store.state.auth.user.accessToken
+                    }
+                }).then(response =>
+                        console.log(response.data)
+                    );
+            } catch (error) {
+                console.log(error);
+            };
         }
     }
 };

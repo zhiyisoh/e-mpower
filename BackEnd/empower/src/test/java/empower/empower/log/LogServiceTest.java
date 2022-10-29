@@ -46,7 +46,7 @@ public class LogServiceTest {
         // arrange *** create log
         Calendar myCalendar = new GregorianCalendar(2014, 2, 11);
         Date currDate = new Date(myCalendar.getTimeInMillis());
-        Log newLog = new Log("newObject", "AAAAAA", "type",1, currDate);
+        Log newLog = new Log("Battery", "AAAAAA", "Battery",1, currDate);
         
         // mock the "save" operation 
         when(logService.saveLog(any(Log.class))).thenReturn(newLog);
@@ -57,6 +57,31 @@ public class LogServiceTest {
         // assert ***
         assertNotNull(savedLog);
         verify(log).save(newLog);
+    }
+
+    @Test
+    void updateLog_NotFound_ReturnNull(){
+        Book book = new Book("Updated Title of Book");
+        Long bookId = 10L;
+        when(books.findById(bookId)).thenReturn(Optional.empty());
+        
+        Book updatedBook = bookService.updateBook(bookId, book);
+        
+        assertNull(updatedBook);
+        verify(books).findById(bookId);
+    }
+
+    @Test
+    void saveLog_ReturnRightCO2(){
+        //crete a mock log
+        Calendar myCalendar = new GregorianCalendar(2014, 2, 11);
+        Date currDate = new Date(myCalendar.getTimeInMillis());
+        Log newLog = new Log("Phone", "AAAAAAAA", "ICT",2, currDate);
+        Long id = 10L;
+
+        when();
+        
+        
     }
 
 }
