@@ -46,6 +46,10 @@ public class Bin {
         this.postalCode=postalCode;
     }
 
+    public Bin(int postalCode){
+        this.postalCode=postalCode;
+    }
+
     public Bin(int postalCode, String address, boolean ict, boolean battery, boolean lamp, double latitude, double longitude) {
         this.postalCode = postalCode;
         this.address = address;
