@@ -98,8 +98,8 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJuYW1lIiwiaWF0IjoxNjY2Nzg4MjU4LCJleHAiOjE2NjY4NzQ2NTh9.ttF7vOklfFmuynWkrXjo9n1neTNhSzZwwkolVQJQt_aRVRN3x7h4gFVRZehfdtCZSbKUcXX8F-OD-yA4RIuN7A
 
 {
-    "username": "hellouname",
-    "email" : "hi@mail.com",
+    "username": "heh1",
+    "email" : "selkds@mail.com",
     "password": "password"
     
 }

@@ -2,6 +2,7 @@ package empower.empower.springjwt.controllers;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -131,31 +132,42 @@ public class AuthenticationController {
 
         @PutMapping("/editprofile/{id}")
         public ResponseEntity<?> editProfile(@PathVariable(value = "id") Long id, @Valid @RequestBody SignUpRequest signUpRequest) {
-                if (userRepository.existsByUsername(signUpRequest.getUsername())) {
+                
+                Optional<User> optionalCurrUser = userRepository.findById(id);
+                User currUser = null;
+
+                boolean unameResult = userRepository.existsByUsername(signUpRequest.getUsername());
+                boolean emailResult = userRepository.existsByEmail(signUpRequest.getEmail());
+
+                if(optionalCurrUser.isPresent()){
+                        currUser = optionalCurrUser.get();
+                }
+
+                String oldUsername = currUser.getUsername();
+                String oldEmail = currUser.getEmail();
+
+
+                if (unameResult && !oldUsername.equals(signUpRequest.getUsername())) {
                         return ResponseEntity
                                 .badRequest()
                                 .body(new MessageResponse("Error: Username is already taken!"));
                     }
             
-                    if (userRepository.existsByEmail(signUpRequest.getEmail())) {
+                if (emailResult && !oldEmail.equals(signUpRequest.getEmail())) {
                         return ResponseEntity
                                 .badRequest()
                                 .body(new MessageResponse("Error: Email is already taken. Did you forget your password?"));
                     }
 
-                    return userRepository.findById(id)
-                    .map(oldAccData ->{
 
-                        System.out.println(oldAccData.getEmail());
-
+                return optionalCurrUser
+                .map(oldAccData ->{
                         oldAccData.setEmail(signUpRequest.getEmail());
-                        
-                        System.out.println(signUpRequest.getEmail());
                         oldAccData.setPassword(encoder.encode(signUpRequest.getPassword()));
                         oldAccData.setUsername(signUpRequest.getUsername());
                         userService.saveUser(oldAccData);
                         return ResponseEntity.ok().build();
-                    }).orElseThrow(() -> null);
+                }).orElseThrow(() -> new RuntimeException("Error: Something went wrong"));
                 
         }
     }
