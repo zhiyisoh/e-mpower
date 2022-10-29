@@ -59,4 +59,17 @@ public class LogServiceTest {
         verify(log).save(newLog);
     }
 
+    @Test
+    void updateLog_NotFound_ReturnNull(){
+        Calendar myCalendar = new GregorianCalendar(2014, 2, 11);
+        Date currDate = new Date(myCalendar.getTimeInMillis());
+        Log someLog = new Log("name", "notes", "lamp", currDate);
+
+        Long id = 99L;
+        when(log.findById(id)).thenReturn(Optional.empty());
+
+        Log updatedLog = logService.updateLog(id, someLog);
+        assertNull(updatedLog);
+        verify(log).findById(id);
+    }
 }

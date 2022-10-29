@@ -35,4 +35,13 @@ public class LogService {
         logRepository.deleteById(id);
     }
 
+    public Log updateLog(Long id, Log newLog){
+        return logRepository.findById(id).map(log -> {
+            log.setItemName(newLog.getItemName());
+            log.setItemNotes(newLog.getItemNotes());
+            log.setItemType(newLog.getItemType());
+            log.setCreatedDate(newLog.getCreatedDate());
+            return logRepository.save(log);
+        }).orElse(null);
+    }
 }
