@@ -110,23 +110,23 @@ import Footer from "../../components/Footer.vue";
           <label for="itemName">Item name: </label>
           <select id="itemType" v-model="record.itemName" class="form-select" aria-label="Default select example">
             <option selected>-- Select type of e-waste --</option>
-            <option v-show="itemType === ('ICT')" value="Computer">Computer/Laptop (ICT)</option>
-            <option v-show="itemType === ('ICT')" value="Phone">Mobile Phone/Tablet (ICT)</option>
-            <option v-show="itemType === ('ICT')" value="Printer">Printer (ICT)</option>
-            <option v-show="itemType === ('ICT')" value="Powerbank">Power Bank (ICT)</option>
-            <option v-show="itemType === ('ICT')" value="Computer">Network/Set-top Boxes (ICT)</option>
-            <option v-show="itemType === ('ICT')" value="Computer">Television/Desktop Monitor (ICT)</option>
+            <option v-show="record.itemType === ('ICT')" value="Computer">Computer/Laptop (ICT)</option>
+            <option v-show="record.itemType === ('ICT')" value="Phone">Mobile Phone/Tablet (ICT)</option>
+            <option v-show="record.itemType === ('ICT')" value="Printer">Printer (ICT)</option>
+            <option v-show="record.itemType === ('ICT')" value="Powerbank">Power Bank (ICT)</option>
+            <option v-show="record.itemType === ('ICT')" value="Computer">Network/Set-top Boxes (ICT)</option>
+            <option v-show="record.itemType === ('ICT')" value="Computer">Television/Desktop Monitor (ICT)</option>
 
-            <option v-show="itemType === ('Household Battery')" value="AAAA">AAAA (Battery)</option>
-            <option v-show="itemType === ('Household Battery')" value="AAA">AAA (Battery)</option>
-            <option v-show="itemType === ('Household Battery')" value="AA">AA (Battery)</option>
-            <option v-show="itemType === ('Household Battery')" value="D">D (Battery)</option>
-            <option v-show="itemType === ('Household Battery')" value="C">C (Battery)</option>
-            <option v-show="itemType === ('Household Battery')" value="9-volt">9-volt (Battery)</option>
-            <option v-show="itemType === ('Household Battery')" value="ButtonCell">ButtonCell (Battery)</option>
+            <option v-show="record.itemType === ('Household Battery')" value="AAAA">AAAA (Battery)</option>
+            <option v-show="record.itemType === ('Household Battery')" value="AAA">AAA (Battery)</option>
+            <option v-show="record.itemType === ('Household Battery')" value="AA">AA (Battery)</option>
+            <option v-show="record.itemType === ('Household Battery')" value="D">D (Battery)</option>
+            <option v-show="record.itemType === ('Household Battery')" value="C">C (Battery)</option>
+            <option v-show="record.itemType === ('Household Battery')" value="9-volt">9-volt (Battery)</option>
+            <option v-show="record.itemType === ('Household Battery')" value="ButtonCell">ButtonCell (Battery)</option>
 
-            <option v-show="itemType === ('Consumer Lamp')" value="Bulb">Bulb (Consumer Lamp)</option>
-            <option v-show="itemType === ('Consumer Lamp')" value="Fluorescent Tube">Fluorescent Tube (Consumer Lamp)</option>
+            <option v-show="record.itemType === ('Consumer Lamp')" value="Bulb">Bulb (Consumer Lamp)</option>
+            <option v-show="record.itemType === ('Consumer Lamp')" value="Fluorescent Tube">Fluorescent Tube (Consumer Lamp)</option>
           </select>
           <ErrorMessage name="username" class="error-feedback" />
         </div>

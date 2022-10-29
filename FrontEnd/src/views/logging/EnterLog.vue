@@ -97,6 +97,7 @@ import Footer from "../../components/Footer.vue";
         </div>
 
         <div class="form-group">
+          <label for="itemType"> Name of e-waste: </label>
           <select id="itemType" v-model="itemName" class="form-select" aria-label="Default select example">
             <option selected>-- Select type of e-waste --</option>
             <option v-show="itemType === ('ICT')" value="Computer">Computer/Laptop (ICT)</option>
