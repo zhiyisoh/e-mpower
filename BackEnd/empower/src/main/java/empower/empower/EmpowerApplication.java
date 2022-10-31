@@ -17,45 +17,11 @@ import empower.empower.bin.entity.Bin;
 import empower.empower.bin.repository.BinRepository;
 import empower.empower.springjwt.models.ERole;
 import empower.empower.springjwt.repository.RoleRepository;
-import org.springframework.context.ApplicationContext;
-
 import empower.empower.log.repository.EmissionRepository;
 import empower.empower.log.entity.Emissions;
 
 @SpringBootApplication
 public class EmpowerApplication {
-	public static void main(String[] args) {
-		ApplicationContext ctx = SpringApplication.run(EmpowerApplication.class, args);
-
-		EmissionRepository emRepo = ctx.getBean(EmissionRepository.class);
-		List<String[]> list = readAllDataAtOnce("./src/main/java/empower/empower/emissiondata.csv");
-
-		for (String[] s : list) {
-			double emissionval = Double.parseDouble(s[2]);
-			emRepo.save(new Emissions(s[1], emissionval));
-		}
-	}
-
-	public static List<String[]> readAllDataAtOnce(String file) {
-		try {
-			// Create an object of file reader
-			// class with CSV file as a parameter.
-			FileReader filereader = new FileReader(file);
-
-			// create csvReader object and skip first Line
-			CSVReader csvReader = new CSVReaderBuilder(filereader)
-					.withSkipLines(1)
-					.build();
-			List<String[]> allData = csvReader.readAll();
-
-			// print Data
-			// for (String[] row : allData) {
-			// for (String cell : row) {
-			// System.out.print(cell + "\t");
-			// }
-			// System.out.println();
-			// }
-
 	public static void main(String[] args) {
 		ApplicationContext ctx = SpringApplication.run(EmpowerApplication.class, args);
 
@@ -77,7 +43,16 @@ public class EmpowerApplication {
 			binRepo.save(new Bin(Long.parseLong(s[0]),Integer.parseInt(s[7]), s[1], isIct, isBattery, isLamp, Float.parseFloat(s[5]), Float.parseFloat(s[6])));
 		}
 
+		EmissionRepository emRepo = ctx.getBean(EmissionRepository.class);
+		List<String[]> listem = readAllDataAtOnce("./src/main/java/empower/empower/emissiondata.csv");
+
+		for (String[] s : listem) {
+			double emissionval = Double.parseDouble(s[2]);
+			emRepo.save(new Emissions(s[1], emissionval));
+		}
+
 	}
+
 	public static boolean isItem(String s) {
 		if(s.equals("1")){
 			return true;
