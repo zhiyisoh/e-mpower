@@ -27,13 +27,14 @@ public class LogController {
     private LogRepository logRepo;
     private UserRepository userRepo;
     private EmissionRepository emRepo;
-    private Double totalCO2 = 0.0;
+    private Double totalCO2;
 
     public LogController(LogRepository logRepo, UserRepository userRepo, EmissionRepository emRepo, LogService logService) {
         this.logRepo = logRepo;
         this.userRepo = userRepo;
         this.emRepo = emRepo;
         this.logService = logService;
+        totalCO2 = logService.getAllCO2();
     }
 
     @GetMapping("/userlogs/{user_id}")
@@ -63,10 +64,23 @@ public class LogController {
     }
 
     @GetMapping("/co2sum")
-    public ResponseEntity<Double> getco2(){
+    public ResponseEntity<Double> getco2all(){
         try{
-            Double de = 4.20;
-            return new ResponseEntity<Double>(de, HttpStatus.OK);
+            if(totalCO2 <= 0){
+                totalCO2 = 0.0;
+            }
+            
+            return new ResponseEntity<Double>(totalCO2, HttpStatus.OK);
+        } catch (NoSuchElementException e){
+            return new ResponseEntity<Double> (HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/co2sum/{id}")
+    public ResponseEntity<Double> getco2user(@PathVariable Long id){
+        try{
+            double user = logService.getUserCO2(id);
+            return new ResponseEntity<Double>(user, HttpStatus.OK);
         } catch (NoSuchElementException e){
             return new ResponseEntity<Double> (HttpStatus.NOT_FOUND);
         }
@@ -74,14 +88,18 @@ public class LogController {
 
     @PostMapping("/addlog/{user_id}")
     public Log add(@PathVariable(value = "user_id") Long userId, @RequestBody Log log) {
+        if (emRepo.findByItemName(log.getItemName()) == null){
+            throw new EmissionNotFoundException(log.getItemName());
+        }
+
         return userRepo.findById(userId)
                 .map(user -> {
-                    Emissions e = emRepo.findByItemName(log.getItemName());
-                    log.setEmissions(e);
-                    totalCO2 += e.getEmissionsSaved() * log.getItemQuantity();
                     log.setUser(user);
                     Set<Log> logs = user.getLogs();
+                    Emissions e = emRepo.findByItemName(log.getItemName());
+                    log.setEmissions(e);
                     logs.add(log);
+                    totalCO2 += log.getLogC02();
                     return logService.saveLog(log);
                 }).orElseThrow(() -> new UserNotFoundException(userId));
     }
@@ -99,8 +117,7 @@ public class LogController {
         }
 
         return logRepo.findByIdAndUserId(id, userId).map(oldLog -> {
-            totalCO2 -= oldLog.getEmissions().getEmissionsSaved() * oldLog.getItemQuantity();
-
+            totalCO2 -= oldLog.getLogC02();
             oldLog.setItemName(log.getItemName());
             oldLog.setItemNotes(log.getItemNotes());
             oldLog.setItemQuantity(log.getItemQuantity());
@@ -108,7 +125,7 @@ public class LogController {
             oldLog.setCreatedDate(log.getCreatedDate());
             logService.saveLog(oldLog);
 
-            totalCO2 += oldLog.getEmissions().getEmissionsSaved() * oldLog.getItemQuantity();
+            totalCO2 += oldLog.getLogC02();
             return ResponseEntity.ok().build();
         }).orElseThrow(() -> new LogNotFoundException(id));
 
@@ -121,9 +138,9 @@ public class LogController {
         }
 
         Log log = logService.getLog(id);
+        totalCO2 -= log.getLogC02();
         return userRepo.findById(userId)
                 .map(user -> {
-                    totalCO2 -= log.getEmissions().getEmissionsSaved() * log.getItemQuantity();
                     Set<Log> logs = user.getLogs();
                     logs.remove(log);
                     logService.deleteLog(id);
