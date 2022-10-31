@@ -10,25 +10,16 @@
                 <div class="row binentry">
                     <img src="/src/assets/recycle-bin.png" style="max-width: 200px">
                     <div class="item">
-                    <h4 >Address 1</h4>
-                    <h4>Postal 1</h4>
+                    <h4>Address: </h4>
+                    <h5>{{bins.address}}</h5>
+                    <br><br>
+                    <h4>Postal Code: </h4>
+                    <h5>{{bins.postalCode}}</h5>
+                    <br><br>
                     <h4>Accepts:</h4>
-                    </div>
-                </div>
-                <div class="row binentry">
-                    <img src="/src/assets/recycle-bin.png" style="max-width: 200px">
-                    <div class="item">
-                    <h4 >Address 2</h4>
-                    <h4>Postal 2</h4>
-                    <h4>Accepts:</h4>
-                    </div>
-                </div>
-                <div class="row binentry">
-                    <img src="/src/assets/recycle-bin.png" style="max-width: 200px">
-                    <div class="item">
-                    <h4 >Address 3</h4>
-                    <h4>Postal 3</h4>
-                    <h4>Accepts:</h4>
+                    <h5 v-if = "bins.ict === true" > ICT </h5>
+                    <h5 v-if = "bins.battery === true" >Batteries </h5>
+                    <h5 v-if = "bins.lamp === true" > Bulbs </h5>
                     </div>
                 </div>
                 <RouterLink to="/binlocator">
@@ -38,12 +29,44 @@
             </div>
         </div>
     </div>
+    <Footer/>
 </template>
+
+<script>
+import axios from 'axios';
+
+  export default {
+    data(){
+        return{
+            bins : [],
+
+        }
+    }, created(){
+        try{
+            const API_URL = 'http://localhost:8080/api/bins/' + this.$route.params.binid;
+            axios.get(API_URL).then(response =>
+                this.bins = response.data
+            );
+
+        }catch(error){
+            console.log(error);
+        }
+    }
+  }
+  </script>
 
 <style scoped>
 
 h1 {
     font-weight: 700;
+}
+
+h4 {
+    display: inline;
+}
+
+h5 {
+    display: inline;
 }
 
 label {
