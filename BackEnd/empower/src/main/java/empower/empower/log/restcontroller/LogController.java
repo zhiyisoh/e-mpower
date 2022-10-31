@@ -111,7 +111,7 @@ public class LogController {
     //If the log id does not exist then a LogNotFoundException is thrown
     @DeleteMapping("/deletelog/{user_id}/{id}")
     public ResponseEntity<?> delete(@PathVariable(value = "user_id") Long userId, @PathVariable Long id) {
-        
+         
         //throws LogNotFoundException if cannot be found by id, continues otherwise
         checkIfLogExistsById(id);
 
