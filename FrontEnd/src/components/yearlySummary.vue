@@ -75,16 +75,6 @@ export default {
         };
     },
     methods: {
-        currentDate() {
-            const current = new Date();
-            const date = `${current.getDate()}/${current.getMonth() + 1}/${current.getFullYear()}`;
-            return date;
-        },
-        currentYear() {
-            const current = new Date();
-            const year = `${current.getFullYear()}`;
-            return year;
-        },
         mounted() {
             try {
                 console.log("hehehe we r here!!")
@@ -99,6 +89,16 @@ export default {
             } catch (error) {
                 console.log(error);
             };
+        },
+        currentDate() {
+            const current = new Date();
+            const date = `${current.getDate()}/${current.getMonth() + 1}/${current.getFullYear()}`;
+            return date;
+        },
+        currentYear() {
+            const current = new Date();
+            const year = `${current.getFullYear()}`;
+            return year;
         }
     }
 };

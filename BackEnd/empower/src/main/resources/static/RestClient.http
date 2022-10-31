@@ -100,6 +100,17 @@ Authorization: Basic name name123
 }
 
 ###
+POST http://localhost:8080/api/bins/findNearestBin
+Content-Type: application/json
+Authorization: Basic abiya1 password
+
+{
+    "longitude": 103.764216360638,
+    "latitude": 1.38442024544603,
+    "recycleType": "Bulb"
+}
+
+###
 DELETE http://localhost:8080/api/bins/deleteBin/2
 Content-Type: application/json
 Authorization: Basic name name123

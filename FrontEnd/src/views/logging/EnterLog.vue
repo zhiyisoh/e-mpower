@@ -213,7 +213,7 @@ export default {
   }, methods: {
     onSubmit(e) {
       e.preventDefault();
-      var message = ""
+      var message;
 
       if (!this.itemName) {
         message+='❌ Item Name field is required\n'
