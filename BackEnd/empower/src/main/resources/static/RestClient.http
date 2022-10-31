@@ -63,22 +63,18 @@ Authorization: Basic name name123
 }
 
 ###
-PUT http://localhost:8080/api/bins/updateBin/1
+GET http://localhost:8080/api/bins/getBin/671524
 Content-Type: application/json
-Authorization: Basic name name123
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY2Njc3MDQzNywiZXhwIjoxNjY2ODU2ODM3fQ.ACI4iw83qbXR4ZfP7NbYaJi-SYej7AWZn23RSouw9Olrt3-1LGSon5Dn-SGeRQq9JKXmQWldxSuftGlOiFzjFQ
 
 {
-    "postalCode": "111111",
-    "address": "new place",
-    "isIct": "false",
-    "isBattery": "false",
-    "isBulb": "false"
+    "postalCode": 671524
 }
 
 ###
 POST http://localhost:8080/api/bins/findNearestBin
 Content-Type: application/json
-Authorization: Basic abiya1 password
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY2Njc3MDQzNywiZXhwIjoxNjY2ODU2ODM3fQ.ACI4iw83qbXR4ZfP7NbYaJi-SYej7AWZn23RSouw9Olrt3-1LGSon5Dn-SGeRQq9JKXmQWldxSuftGlOiFzjFQ
 
 {
     "longitude": 103.764216360638,
@@ -94,3 +90,21 @@ Authorization: Basic name name123
 POST http://localhost:8080/api/auth/signup
 Content-Type: application/json
 Authorization: Bearer admin name123
+
+
+###
+PUT http://localhost:8080/api/auth/editprofile/4
+Content-Type: application/json
+Authorization: Bearer name name123
+
+{
+    "username": "name",
+    "email" : "name@mail.com",
+    "password": "name123"
+    
+}
+
+###
+GET http://localhost:8080/api/auth/profile/4
+Content-Type: application/json
+Authorization: Bearer name name123

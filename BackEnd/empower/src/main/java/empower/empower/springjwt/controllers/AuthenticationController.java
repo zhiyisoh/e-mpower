@@ -2,13 +2,17 @@ package empower.empower.springjwt.controllers;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -16,6 +20,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,6 +36,7 @@ import empower.empower.springjwt.repository.RoleRepository;
 import empower.empower.springjwt.repository.UserRepository;
 import empower.empower.springjwt.security.jwt.JwtUtils;
 import empower.empower.springjwt.security.service.UserDetailsImpl;
+import empower.empower.springjwt.security.service.UserDetailsServiceImpl;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -50,6 +56,9 @@ public class AuthenticationController {
     
         @Autowired
         JwtUtils jwtUtils;
+
+        @Autowired
+        UserDetailsServiceImpl userService;
     
         @PostMapping("/signin")
         public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
@@ -122,5 +131,57 @@ public class AuthenticationController {
     
             return ResponseEntity.ok(new MessageResponse("You have registered successfully! Please proceed to login."));
         }
+
+        @PutMapping("/editprofile/{id}")
+        public ResponseEntity<?> editProfile(@PathVariable(value = "id") Long id, @Valid @RequestBody SignUpRequest signUpRequest) {
+                
+                Optional<User> optionalCurrUser = userRepository.findById(id);
+                User currUser = null;
+
+                boolean unameResult = userRepository.existsByUsername(signUpRequest.getUsername());
+                boolean emailResult = userRepository.existsByEmail(signUpRequest.getEmail());
+
+                if(optionalCurrUser.isPresent()){
+                        currUser = optionalCurrUser.get();
+                }
+
+                String oldUsername = currUser.getUsername();
+                String oldEmail = currUser.getEmail();
+
+
+                if (unameResult && !oldUsername.equals(signUpRequest.getUsername())) {
+                        return ResponseEntity
+                                .badRequest()
+                                .body(new MessageResponse("Error: Username is already taken!"));
+                    }
+            
+                if (emailResult && !oldEmail.equals(signUpRequest.getEmail())) {
+                        return ResponseEntity
+                                .badRequest()
+                                .body(new MessageResponse("Error: Email is already taken. Did you forget your password?"));
+                    }
+
+
+                return optionalCurrUser
+                .map(oldAccData ->{
+                        oldAccData.setEmail(signUpRequest.getEmail());
+                        oldAccData.setPassword(encoder.encode(signUpRequest.getPassword()));
+                        oldAccData.setUsername(signUpRequest.getUsername());
+                        userService.saveUser(oldAccData);
+                        return ResponseEntity.ok().build();
+                }).orElseThrow(() -> new RuntimeException("Error: Something went wrong"));
+                
+        }
+
+        //Gets a specific log by its id
+        @GetMapping("/profile/{id}")
+        public ResponseEntity<User> get(@PathVariable Long id) {
+        try {
+            User u = userService.getUser(id);
+            return new ResponseEntity<User>(u, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+        }
+    }
     }
     

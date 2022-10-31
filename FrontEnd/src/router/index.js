@@ -75,6 +75,11 @@ const router = createRouter({
       component: () => import('../views/user management/Profile.vue')
     },
     {
+      path: '/editprofile',
+      name: 'editprofile',
+      component: () => import('../views/user management/EditProfile.vue')
+    },
+    {
       path: '/returnedbins/:binid',
       name: 'returnedbins',
       component: () => import('../views/bin locator/ReturnedBins.vue')
@@ -84,6 +89,23 @@ const router = createRouter({
       path: '/admin',
       name: 'adminbin',
       component: () => import('../views/bins/Bin.vue')
+    },
+    {
+      path: '/BinResults',
+      name: 'binresults',
+      component: () => import('../views/bins/BinResults.vue')
+    }
+    ,
+    {
+      path: '/editbin/:id',
+      name: 'editbin',
+      component: () => import('../views/bins/EditBin.vue')
+    },
+    ,
+    {
+      path: '/enterbin',
+      name: 'enterbin',
+      component: () => import('../views/bins/EnterBin.vue')
     }
   ]
 })

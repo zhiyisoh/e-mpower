@@ -27,16 +27,30 @@ public class BinController {
         this.binService=binService;
     }
 
+    //returns a list of all the bins
     @GetMapping("")
     public List<Bin> getBins(){
         return binService.listBins();
     }
 
+    //returns a specific bin by the bin's id
+    //throws a BinNotFoundException if the bin is null
     @GetMapping("/{id}")
     public Bin getBin(@PathVariable Long id){
         Bin bin = binService.getBin(id);
         if(bin==null) throw new BinNotFoundException(id);
         return binService.getBin(id);
+    }
+
+    //returns a list of bins by postal code
+    //if the list is null then a BinNotFoundException is thrown
+    @GetMapping("/getBin/{postalCode}")
+    public List<Bin> getBin(@PathVariable int postalCode){
+        List<Bin> list = binRepository.findByPostalCode(postalCode);
+        if(list == null){
+            throw new BinNotFoundException();
+        }
+        return list;
     }
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -47,6 +61,8 @@ public class BinController {
         return savedBin;
     }
 
+    //Finds the nearest bin by taking in coordinates
+    //Gets recycle type of the bin closest to the coordinates
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/findNearestBin")
     public Long getNearestBin(@RequestBody Coordinate coordinate){
@@ -70,59 +86,17 @@ public class BinController {
                 binlist = binService.listBins();
         }
         //System.out.println(binlist.size() + "Longitude and Latitude: " + longitude + latitude);
-        Bin closestBin = compareCoordinates(binlist, longitude, latitude);
+        Bin closestBin = binService.compareCoordinates(binlist, longitude, latitude);
         return closestBin.getId();
     }
 
-    public Bin compareCoordinates(List<Bin> list, double longitude, double latitude){
-        Bin nearest = list.get(0);
+    //returns the nearest bin based on coordinate distance
+    
 
-        System.out.println("list size is " + list.size());
-        double nearestDistance = Double.MAX_VALUE;
-        //int count = 0;
-        for (int i = 0; i < list.size(); i++) {
-            Bin currBin = list.get(i);
-            double currBinLon = currBin.getLongitude();
-            double currBinLat = currBin.getLatitude();
-            double distance = distance(currBinLat, latitude, currBinLon, longitude);
-            //System.out.println("distance calculated is " + distance);
-            if(nearestDistance > distance){
-                nearestDistance = distance;
-                nearest = currBin;
-            }
-            //System.out.println("nearest distance is " + nearestDistance);
-            //System.out.println(++count);
-        }
-        return nearest;
-    }
+    
 
-    public static double distance(double lat1, double lat2, double lon1, double lon2) {
- 
-        // The math module contains a function
-        // named toRadians which converts from
-        // degrees to radians.
-        lon1 = Math.toRadians(lon1);
-        lon2 = Math.toRadians(lon2);
-        lat1 = Math.toRadians(lat1);
-        lat2 = Math.toRadians(lat2);
- 
-        // Haversine formula
-        double dlon = lon2 - lon1;
-        double dlat = lat2 - lat1;
-        double a = Math.pow(Math.sin(dlat / 2), 2)
-                 + Math.cos(lat1) * Math.cos(lat2)
-                 * Math.pow(Math.sin(dlon / 2),2);
-             
-        double c = 2 * Math.asin(Math.sqrt(a));
- 
-        // Radius of earth in kilometers. Use 3956
-        // for miles
-        double r = 6371;
- 
-        // calculate the result
-        return(c * r);
-    }
-
+    //updates information about a bin through the bin's id
+    //if the bin cannot be found by the id entered then a BinNotFoundException is thrown
     @PutMapping("/updateBin/{id}")
     public ResponseEntity<?> updateBin(@PathVariable Long id, @Valid @RequestBody Bin bin){
         if(!binRepository.existsById(id)) throw new BinNotFoundException(id);
@@ -140,6 +114,7 @@ public class BinController {
         }).orElseThrow(() -> new BinNotFoundException(id));
     }
 
+    //deletes a bin by its id
     @DeleteMapping("deleteBin/{id}")
     public void deleteBin(@PathVariable Long id){
         try{

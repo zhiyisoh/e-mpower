@@ -19,13 +19,8 @@ import Footer from "../../components/Footer.vue";
           <select id="itemType" v-model="itemType" class="form-select" aria-label="Default select example">
             <option selected>-- Select type of e-waste --</option>
             <option value="ICT">Information and Communication Equipment (ICT)</option>
-            <option value="Large Household Appliance">Large Household Appliance</option>
-            <option value="Electric Mobility">Electric Mobility Device</option>
             <option value="Household Battery">Household Battery</option>
-            <option value="Lithium Ion Battery">Lithium Ion Portable Battery</option>
             <option value="Consumer Lamp">Consumer Lamp</option>
-            <option value="Consumer EV Battery">Consumer Electric Vehicle Battery</option>
-            
           </select>
 
           <p>
@@ -36,7 +31,7 @@ import Footer from "../../components/Footer.vue";
           </p>
           <div class="collapse" id="collapseExample">
             <div class="card card-body">
-              <p>If your item is not found in any of these categories, it is an unregulated waste and is <strong>not recyclable</strong>. 
+              <p>If your item is not found in any of these categories, they cannot be thrown in the bins. 
                 We would recommend for you to bring your E-Waste down to the nearest Cash for Trash (CFT) station. <a href="https://www.alba-wh.sg/map.html">Click here for more information.</a></p>
               <h5>Information and Communication Equipment (ICT)</h5>
               <ul class="type-list">
@@ -55,37 +50,8 @@ import Footer from "../../components/Footer.vue";
                 <li>
                   Desktop Monitors
                 </li>
-              </ul>
-
-              <h5>Large Household Appliance</h5>
-              <ul class="type-list">
                 <li>
-                  Consumer Refrigerators less than 900L
-                </li>
-                <li>
-                  Air-Conditioners
-                </li>
-                <li>
-                  Washing Machines
-                </li>
-                <li>
-                  Dryers
-                </li>
-                <li>
-                  Televisions
-                </li>
-              </ul>
-
-              <h5>Electric Mobility Device</h5>
-              <ul class="type-list">
-                <li>
-                  Personal Mobility Device
-                </li>
-                <li>
-                  Power Assisted Bicycle
-                </li>
-                <li>
-                  Electric Mobility Scooter
+                  Powerbank
                 </li>
               </ul>
 
@@ -117,19 +83,6 @@ import Footer from "../../components/Footer.vue";
                 </li>
               </ul>
 
-              <h5>Lithium Ion Portable Battery</h5>
-              <ul class="type-list">
-                <li>
-                  Powerbank
-                </li>
-                <li>
-                  Mobile Telephone Battery
-                </li>
-                <li>
-                  Laptop Battery
-                </li>
-              </ul>
-
               <h5>Consumer Lamp</h5>
               <ul class="type-list">
                 <li>
@@ -139,16 +92,32 @@ import Footer from "../../components/Footer.vue";
                   Fluorescent Tube
                 </li>
               </ul>
-
-              <h5>Consumer Electric Vehicle Battery</h5>
-
             </div>
           </div>
         </div>
 
         <div class="form-group">
-          <label for="itemName">Item name: </label>
-          <input id="itemName" v-model="itemName" type="text" class="form-control" />
+          <label for="itemType"> Name of e-waste: </label>
+          <select id="itemType" v-model="itemName" class="form-select" aria-label="Default select example">
+            <option selected>-- Select type of e-waste --</option>
+            <option v-show="itemType === ('ICT')" value="Computer">Computer/Laptop (ICT)</option>
+            <option v-show="itemType === ('ICT')" value="Phone">Mobile Phone/Tablet (ICT)</option>
+            <option v-show="itemType === ('ICT')" value="Printer">Printer (ICT)</option>
+            <option v-show="itemType === ('ICT')" value="Powerbank">Power Bank (ICT)</option>
+            <option v-show="itemType === ('ICT')" value="Computer">Network/Set-top Boxes (ICT)</option>
+            <option v-show="itemType === ('ICT')" value="Computer">Television/Desktop Monitor (ICT)</option>
+
+            <option v-show="itemType === ('Household Battery')" value="AAAA">AAAA (Battery)</option>
+            <option v-show="itemType === ('Household Battery')" value="AAA">AAA (Battery)</option>
+            <option v-show="itemType === ('Household Battery')" value="AA">AA (Battery)</option>
+            <option v-show="itemType === ('Household Battery')" value="D">D (Battery)</option>
+            <option v-show="itemType === ('Household Battery')" value="C">C (Battery)</option>
+            <option v-show="itemType === ('Household Battery')" value="9-volt">9-volt (Battery)</option>
+            <option v-show="itemType === ('Household Battery')" value="ButtonCell">ButtonCell (Battery)</option>
+
+            <option v-show="itemType === ('Consumer Lamp')" value="Bulb">Bulb (Consumer Lamp)</option>
+            <option v-show="itemType === ('Consumer Lamp')" value="Fluorescent Tube">Fluorescent Tube (Consumer Lamp)</option>
+          </select>
           <ErrorMessage name="username" class="error-feedback" />
         </div>
 
@@ -170,7 +139,7 @@ import Footer from "../../components/Footer.vue";
         </div>
       </Form>
     </div> 
-    <Footer />
+    <Footer/>
   </div>
 
 </template>

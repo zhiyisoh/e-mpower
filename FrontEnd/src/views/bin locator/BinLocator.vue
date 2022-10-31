@@ -20,7 +20,7 @@
                     <div class="form-group">
                         <label for="location">Postal Code / Address</label>
                         <input name="location" v-model="location" type="text" class="form-control" />
-                        <button type="button" class="btn btn-primary saved-locations-btn">View Saved Locations</button>
+                        
                         <ErrorMessage name="username" class="error-feedback" />
                         
                     </div>
