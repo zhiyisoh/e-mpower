@@ -5,17 +5,16 @@
 
 <template>
     <div class="container">
-        <h1>Add a new Bin</h1>
-        <p>Add the details of the address below.</p>
+        <h1>Add the details of your new bin below.</h1>
     </div>
 
     <div class="formBin">
         <Form @submit="onSubmit" :validation-schema="schema" v-on:submit.prevent="submitForm">
             <div class="form-group">
-                <label for="binAddress">Enter Address</label>
+                <label for="binAddress">Enter New Address</label>
                 <input name="binAddress" v-model="binAddress" type="text" class="form-control" />
 
-                <label for="postalCode">Enter Postal code</label>
+                <label for="postalCode">Enter New Postal code</label>
                 <input name="postalCode" v-model="postalCode" type="text" class="form-control" />
 
                 <label for="ICTRecycling">Recycles ICT?</label>
@@ -57,10 +56,6 @@
     
 
 </template>
-
-<script>
-
-</script>
 
 <style scoped>
     h1 {
