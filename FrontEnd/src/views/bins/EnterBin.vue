@@ -5,7 +5,7 @@
 
 <template>
     <div class="container">
-        <p>Edit the details of the address below.</p>
+        <h1>Add the details of your new bin below.</h1>
     </div>
 
     <div class="formBin">
