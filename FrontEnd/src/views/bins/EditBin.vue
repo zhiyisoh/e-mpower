@@ -23,6 +23,20 @@
 
                 <input name="ICTRecycling" v-model="ICTRecycling" type="radio" id="two" value="Two" />
                 <label for="two">False</label>
+
+                <label for="batteryRecycling">Recycles Battery?</label>
+                <input name="batteryRecycling" v-model="batteryRecycling" type="radio" id="one" value="One"  />
+                <label for="one">True</label>
+
+                <input name="batteryRecycling" v-model="batteryRecycling" type="radio" id="two" value="Two" />
+                <label for="two">False</label>
+
+                <label for="bulbRecycling">Recycles Bulbs?</label>
+                <input name="bulbRecycling" v-model="bulbRecycling" type="radio" id="one" value="One"  />
+                <label for="one">True</label>
+
+                <input name="bulbRecycling" v-model="bulbRecycling" type="radio" id="two" value="Two" />
+                <label for="two">False</label>
             </div>
 
             <div class="form-group">

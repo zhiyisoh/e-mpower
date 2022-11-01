@@ -11,7 +11,7 @@ import Footer from "../../components/Footer.vue";
         <div>
           <Form @submit="onSubmit" :validation-schema="schema" v-on:submit.prevent="submitForm">
             <div class="form-group">
-              <label for="postalCode">Bin Postal Code</label>
+              <label for="postalCode">Enter Bin Postal Code</label>
               <input name="postalCode" v-model="postalCode" type="text" class="form-control" />
             </div>
 
