@@ -25,6 +25,8 @@ import Footer from "../../components/Footer.vue";
         </div>
       </div>
 
+      
+
       <div class="addBin">
         <h3>or Add a new Bin here</h3>
         <br>
@@ -59,7 +61,6 @@ export default {
       //console.log(this.$store.state.auth.user.accessToken);
       let currentObj = this;
       let self = this;
-
       const API_URL = 'http://localhost:8080/api/bins/getBin/';
       axios.get(API_URL + this.postalCode, {
         postalCode: this.postalCode
