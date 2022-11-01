@@ -104,4 +104,15 @@ public class Log {
     public User getUser() {
         return user;
     }
+
+
+    public Emissions getEmissions() {
+        return emissions;
+    }
+
+
+    public void setEmissions(Emissions emissions) {
+        this.emissions = emissions;
+    }
+
 }

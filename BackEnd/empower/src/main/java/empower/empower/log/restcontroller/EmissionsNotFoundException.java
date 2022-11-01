@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class EmissionsNotFoundException extends RuntimeException{
     private static final long serialVersionUID = 1L;
 
-    public EmissionsNotFoundException(Long id) {
-        super("Could not find log " + id);
+    public EmissionsNotFoundException() {
+        super("Could not find emissions ");
     }
     
 }

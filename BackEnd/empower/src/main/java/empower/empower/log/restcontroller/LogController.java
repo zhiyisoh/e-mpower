@@ -1,6 +1,8 @@
 package empower.empower.log.restcontroller;
 
+import empower.empower.log.entity.Emissions;
 import empower.empower.log.entity.Log;
+import empower.empower.log.repository.EmissionsRepository;
 import empower.empower.log.repository.LogRepository;
 import empower.empower.log.service.LogService;
 import empower.empower.springjwt.repository.UserRepository;
@@ -24,11 +26,14 @@ public class LogController {
 
     private LogRepository logRepo;
     private UserRepository userRepo;
+    private EmissionsRepository emRepo;
+    private double totalCO2;
 
-    public LogController(LogRepository logRepo, UserRepository userRepo, LogService logService) {
+    public LogController(LogRepository logRepo, UserRepository userRepo, LogService logService, EmissionsRepository emRepo) {
         this.logRepo = logRepo;
         this.userRepo = userRepo;
         this.logService = logService;
+        this.emRepo = emRepo;
     }
 
     /*
@@ -62,13 +67,52 @@ public class LogController {
         }
     }
 
-    //Adds a new log to a user's account through the user id
+    //emissions for all user database
+    
+    @GetMapping("/co2sum")
+    public ResponseEntity<Double> getco2all(){
+        try{
+            List<Log> logs = logService.listAllLogs();
+
+            for(Log log : logs){
+                totalCO2 += log.getEmissions().getEmissionsSaved();
+            }
+            
+            return new ResponseEntity<Double>(totalCO2, HttpStatus.OK);
+        } catch (NoSuchElementException e){
+            return new ResponseEntity<Double> (HttpStatus.NOT_FOUND);
+        }
+    }
+
+    //emissions for user 
+
+    @GetMapping("/co2sum/{id}")
+    public ResponseEntity<Double> getUserCo2(@PathVariable(value = "user_id") Long userId){
+        try{
+            List<Log> logs = logService.listUserLogs(userId);
+
+            for(Log log : logs){
+                totalCO2 += log.getEmissions().getEmissionsSaved();
+            }
+            
+            return new ResponseEntity<Double>(totalCO2, HttpStatus.OK);
+        } catch (NoSuchElementException e){
+            return new ResponseEntity<Double> (HttpStatus.NOT_FOUND);
+        }
+    }
+
     @PostMapping("/addlog/{user_id}")
     public Log add(@PathVariable(value = "user_id") Long userId, @RequestBody Log log) {
+        if (emRepo.findByItemName(log.getItemName()) == null){
+            throw new EmissionsNotFoundException();
+        }
+
         return userRepo.findById(userId)
                 .map(user -> {
                     log.setUser(user);
                     Set<Log> logs = user.getLogs();
+                    Emissions e = emRepo.findByItemName(log.getItemName());
+                    log.setEmissions(e);
                     logs.add(log);
                     return logService.saveLog(log);
                 }).orElseThrow(() -> new UserNotFoundException(userId));
