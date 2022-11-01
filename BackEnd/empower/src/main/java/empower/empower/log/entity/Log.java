@@ -36,6 +36,10 @@ public class Log {
     @JoinColumn(name="user_id", nullable=false)
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name="emissions_id", nullable=false)
+    private Emissions emissions;
+
     
     public Log() {
     }
@@ -100,4 +104,15 @@ public class Log {
     public User getUser() {
         return user;
     }
+
+
+    public Emissions getEmissions() {
+        return emissions;
+    }
+
+
+    public void setEmissions(Emissions emissions) {
+        this.emissions = emissions;
+    }
+
 }
