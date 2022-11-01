@@ -23,6 +23,7 @@
 
                 <input name="ICTRecycling" v-model="ICTRecycling" type="radio" id="two" value="Two" />
                 <label for="two">False</label>
+                <br>
 
                 <label for="batteryRecycling">Recycles Battery?</label>
                 <input name="batteryRecycling" v-model="batteryRecycling" type="radio" id="one" value="One"  />
@@ -30,6 +31,7 @@
 
                 <input name="batteryRecycling" v-model="batteryRecycling" type="radio" id="two" value="Two" />
                 <label for="two">False</label>
+                <br>
 
                 <label for="bulbRecycling">Recycles Bulbs?</label>
                 <input name="bulbRecycling" v-model="bulbRecycling" type="radio" id="one" value="One"  />
@@ -40,16 +42,18 @@
             </div>
 
             <div class="form-group">
-                <button class="btn btn-primary btn-block" :disabled="loading">
+                <button class="btn btn-primary btn-block editbin-submit" :disabled="loading">
                     <span v-show="loading" class="spinner-border spinner-border-sm"></span>
                     Submit
                 </button>
             </div>
         </Form>
-    </div>
-    <BinCard/>
 
-    <Footer/>
+        <Footer/>
+    </div>
+
+
+    
 
 </template>
 
@@ -60,11 +64,21 @@
 
     .container {
         text-align: center;
+        position: relative;
+    }
+
+    .formBin {
+        width: 800px;
+        margin: 0 auto;
     }
 
     label {
     margin: 7px 5px 0;
     font-size: 20px;
+  }
+
+  .editbin-submit{
+    margin: 20px;
   }
 
 </style>
