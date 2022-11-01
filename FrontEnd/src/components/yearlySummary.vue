@@ -3,11 +3,11 @@
 </script>
 
 <template>
-    <section class="yearlySummary">
+    <section class="yearlySummary" onload="getUserEmission()">
         <div class="co2stat">
             <h4>As of {{ currentDate() }}, </h4>
             <h4>You have prevented </h4>
-            <h1>{{ created()}}</h1>
+            <h1>{{sumn}} kg</h1>
             <h4> of CO2 from emitting since 1/1/{{ currentYear() }}</h4>
 
         </div>
@@ -16,7 +16,7 @@
         <div class="co2stat">
             <h4>As of {{ currentDate() }}, </h4>
             <h4>All of our users have prevented </h4>
-            <h1>2,000,000KG</h1>
+            <h1>{{totalsumn}} kg</h1>
             <h4> of CO2 from emitting since 1/1/{{ currentYear() }}</h4>
 
         </div>
@@ -72,30 +72,36 @@ h4 {
 import axios from 'axios';
 
 export default {
+
+    name: 'SummaryEmissions',
     data() {
         return {
             sumn: '',
+            totalsumn: ''
         };
     },
-    methods: {
-        created() {
-            try {
-                console.log("im here");
-                axios.get('http://localhost:8080/api/logging/co2sum/' + this.$store.state.auth.user.id, {
-                    headers: {
-                        'Authorization': 'Bearer ' + this.$store.state.auth.user.accessToken
-                    }
-                })
-                    .then(function (response) {
-                        this.sumn = response.data;
-                        console.log("sumn");
-                        
-                    });
-                return this.sumn;
-            } catch (error) {
-                console.log(error);
-            };
+    mounted() {
+            console.log('http://localhost:8080/api/logging/co2sum/' + this.$store.state.auth.user.id);
+            axios.get('http://localhost:8080/api/logging/co2sum/' + this.$store.state.auth.user.id, {
+                headers: {
+                    'Authorization': 'Bearer ' + this.$store.state.auth.user.accessToken
+                }
+            }).then(response => {
+                this.sumn = response.data;
+                console.log(this.sumn)
+            });
+
+            axios.get('http://localhost:8080/api/logging/co2sum', {
+                headers: {
+                    'Authorization': 'Bearer ' + this.$store.state.auth.user.accessToken
+                }
+            }).then(response => {
+                this.totalsumn = response.data;
+                console.log(this.totalsumn)
+            });
         },
+    methods: {
+        
         currentDate() {
             const current = new Date();
             const date = `${current.getDate()}/${current.getMonth() + 1}/${current.getFullYear()}`;

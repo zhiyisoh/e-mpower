@@ -3,7 +3,7 @@ Content-Type: application/json
 Authorization: Basic name name123
 ###
 
-GET http://localhost:8080/api/logging/co2sum
+GET http://localhost:8080/api/logging/co2sum/5
 Content-Type: application/json
 Authorization: Basic admin iamadmin
 

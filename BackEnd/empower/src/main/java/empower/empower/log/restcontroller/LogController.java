@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
@@ -27,7 +29,7 @@ public class LogController {
     private LogRepository logRepo;
     private UserRepository userRepo;
     private EmissionsRepository emRepo;
-    private double totalCO2;
+    private static final DecimalFormat df = new DecimalFormat("0.00");
 
     public LogController(LogRepository logRepo, UserRepository userRepo, LogService logService, EmissionsRepository emRepo) {
         this.logRepo = logRepo;
@@ -70,34 +72,40 @@ public class LogController {
     //emissions for all user database
     
     @GetMapping("/co2sum")
-    public ResponseEntity<Double> getco2all(){
+    public ResponseEntity<String> getco2all(){
         try{
             List<Log> allLogs = logService.listAllLogs();
+            double totalCO2 = 0.0;
 
             for(Log log : allLogs){
                 totalCO2 += log.getEmissions().getEmissionsSaved();
             }
+
+            String result = df.format(totalCO2);
             
-            return new ResponseEntity<Double>(totalCO2, HttpStatus.OK);
+            return new ResponseEntity<String>(result, HttpStatus.OK);
         } catch (NoSuchElementException e){
-            return new ResponseEntity<Double> (HttpStatus.NOT_FOUND);
+            return new ResponseEntity<String> (HttpStatus.NOT_FOUND);
         }
     }
 
     //emissions for user 
 
     @GetMapping("/co2sum/{user_id}")
-    public ResponseEntity<Double> getUserCo2(@PathVariable(value = "user_id") Long userId){
+    public ResponseEntity<String> getUserCo2(@PathVariable(value = "user_id") Long userId){
         try{
             List<Log> userLogs = logService.listUserLogs(userId);
+            double totalCO2 = 0.0;
 
             for(Log log : userLogs){
                 totalCO2 += log.getEmissions().getEmissionsSaved();
             }
+
+            String result = df.format(totalCO2);
             
-            return new ResponseEntity<Double>(totalCO2, HttpStatus.OK);
+            return new ResponseEntity<String>(result, HttpStatus.OK);
         } catch (NoSuchElementException e){
-            return new ResponseEntity<Double> (HttpStatus.NOT_FOUND);
+            return new ResponseEntity<String> (HttpStatus.NOT_FOUND);
         }
     }
 
