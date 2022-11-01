@@ -2,6 +2,7 @@ package empower.empower.log.entity;
 
 import java.util.*;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "Emissions")
@@ -19,10 +22,11 @@ public class Emissions {
     
     private String itemName;
 
-    @Column(name = "EmissionsSaved")
+    @Column(name = "emissionsSaved")
     private Double EmissionsSaved;
 
-    @OneToMany(mappedBy = "emissions")
+    @OneToMany(mappedBy="emissions", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Log> logs;
 
     public Emissions() {

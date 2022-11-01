@@ -72,9 +72,9 @@ public class LogController {
     @GetMapping("/co2sum")
     public ResponseEntity<Double> getco2all(){
         try{
-            List<Log> logs = logService.listAllLogs();
+            List<Log> allLogs = logService.listAllLogs();
 
-            for(Log log : logs){
+            for(Log log : allLogs){
                 totalCO2 += log.getEmissions().getEmissionsSaved();
             }
             
@@ -86,12 +86,12 @@ public class LogController {
 
     //emissions for user 
 
-    @GetMapping("/co2sum/{id}")
+    @GetMapping("/co2sum/{user_id}")
     public ResponseEntity<Double> getUserCo2(@PathVariable(value = "user_id") Long userId){
         try{
-            List<Log> logs = logService.listUserLogs(userId);
+            List<Log> userLogs = logService.listUserLogs(userId);
 
-            for(Log log : logs){
+            for(Log log : userLogs){
                 totalCO2 += log.getEmissions().getEmissionsSaved();
             }
             
@@ -110,11 +110,16 @@ public class LogController {
         return userRepo.findById(userId)
                 .map(user -> {
                     log.setUser(user);
+                    
+                    List<Emissions> e = emRepo.findByItemName(log.getItemName());
+                    Emissions emission = e.get(0);
+                    log.setEmissions(emission);
+
                     Set<Log> logs = user.getLogs();
-                    Emissions e = emRepo.findByItemName(log.getItemName());
-                    log.setEmissions(e);
                     logs.add(log);
+
                     return logService.saveLog(log);
+
                 }).orElseThrow(() -> new UserNotFoundException(userId));
     }
 

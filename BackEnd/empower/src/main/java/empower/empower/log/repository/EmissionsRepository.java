@@ -1,5 +1,6 @@
 package empower.empower.log.repository;
 
+
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +9,5 @@ import empower.empower.log.entity.Emissions;
 
 public interface EmissionsRepository extends JpaRepository<Emissions, Long>{
     Optional<Emissions> findById(Long id);
-    List<Emissions> findByEmissionsSaved(Double emissionsSaved);
-    Emissions findByItemName(String itemName);
+    List<Emissions> findByItemName(String itemName);
 }
