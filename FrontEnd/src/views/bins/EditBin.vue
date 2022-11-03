@@ -4,9 +4,9 @@
 </script>
 
 <template>
-    <div class="enter">
+    <!-- <div class="enter">
         <h1>Hello Admin, made a mistake somewhere?</h1>
-            <img src="/src/assets/recycle-bin.gif" alt="leaves" class="bin-icon">
+            <img src="/src/assets/recycle-bin.gif" alt="leaves" class="bin-icon"> -->
 
         <div class="formBin">
             <Form @submit="onSubmit" :validation-schema="schema" v-on:submit.prevent="submitForm">
@@ -46,13 +46,90 @@
                         <span v-show="loading" class="spinner-border spinner-border-sm"></span>
                         Submit
                     </button>
+
                 </div>
             </Form>
         </div>
         <Footer/>
-    </div>
+    <!-- </div> -->
 
 </template>
+
+<script>
+// import axios from 'axios';
+
+
+// export default {
+
+//   name: 'EditBin',
+//   el: "#app",
+//   data() {
+//     return {
+//       address: "",
+//       postal_code: 0,
+//       //ict, batt, bulbs
+//       ict: 0,
+//       battery: 0,
+//       bulb: 0,
+//       record: []
+//     }
+//   }, methods: {
+//     onSubmit(e) {
+//       e.preventDefault();
+//       if (!this.record.postal_code) {
+//         alert('❌ Postal Code field is required ')
+//         return
+//       }
+
+//       if (!this.record.address) {
+//         alert('❌ Address field is required')
+//         return
+//       }
+
+//       let currentObj = this;
+//       let self = this;
+//       const API_URL = 'http://localhost:8080/api/bins/updateBin/';
+
+//       axios.put(API_URL + this.$store.state.auth.user.id + '/' + this.$route.params.id, {
+//         address: this.record.address,
+//         postal_code: this.record.postal_code,
+//         ict: this.record.ict,
+//         battery: this.record.battery,
+//         bulb: this.record.battery
+//       }, {
+//         headers: {
+//           'Authorization': 'Bearer ' + this.$store.state.auth.user.accessToken
+//         }
+//       })
+//         .then(function (response) {
+//           currentObj.output = response.data;
+//           history.back();
+//         })
+//         .catch(function (error) {
+//           currentObj.output = error;
+//           alert('Unsuccessful Submission. ' + error);
+//         });
+//     }
+//   }, mounted() {
+//     const url = "http://localhost:8080/api/getBin/"; //to be changed
+//     axios.get(url + "671524", {
+//       headers: {
+//         'Authorization': 'Bearer ' + this.$store.state.auth.user.accessToken
+//       }
+//     })
+//       .then(response => {
+//         this.record = response.data;
+//         console.log(record)
+
+//       }).catch((error) => {
+//         this.error = "Error!  " + error;
+//       });
+
+
+//   }
+// }
+
+// </script>
 
 <style scoped>
     h1 {
