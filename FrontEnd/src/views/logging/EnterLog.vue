@@ -104,8 +104,8 @@ import Footer from "../../components/Footer.vue";
             <option v-show="itemType === ('ICT')" value="Phone">Mobile Phone/Tablet (ICT)</option>
             <option v-show="itemType === ('ICT')" value="Printer">Printer (ICT)</option>
             <option v-show="itemType === ('ICT')" value="Powerbank">Power Bank (ICT)</option>
-            <option v-show="itemType === ('ICT')" value="Computer">Network/Set-top Boxes (ICT)</option>
-            <option v-show="itemType === ('ICT')" value="Computer">Television/Desktop Monitor (ICT)</option>
+            <option v-show="itemType === ('ICT')" value="Boxes">Network/Set-top Boxes (ICT)</option>
+            <option v-show="itemType === ('ICT')" value="ComputerTV">Television/Desktop Monitor (ICT)</option>
 
             <option v-show="itemType === ('Household Battery')" value="AAAA">AAAA (Battery)</option>
             <option v-show="itemType === ('Household Battery')" value="AAA">AAA (Battery)</option>

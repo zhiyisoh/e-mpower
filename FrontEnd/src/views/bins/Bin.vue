@@ -11,7 +11,7 @@ import Footer from "../../components/Footer.vue";
         <div>
           <Form @submit="onSubmit" :validation-schema="schema" v-on:submit.prevent="submitForm">
             <div class="form-group">
-              <label for="postalCode">Bin Postal Code/Address</label>
+              <label for="postalCode">Enter Bin Postal Code</label>
               <input name="postalCode" v-model="postalCode" type="text" class="form-control" />
             </div>
 
@@ -24,6 +24,8 @@ import Footer from "../../components/Footer.vue";
           </Form>
         </div>
       </div>
+
+      
 
       <div class="addBin">
         <h3>or Add a new Bin here</h3>
@@ -59,7 +61,6 @@ export default {
       //console.log(this.$store.state.auth.user.accessToken);
       let currentObj = this;
       let self = this;
-
       const API_URL = 'http://localhost:8080/api/bins/getBin/';
       axios.get(API_URL + this.postalCode, {
         postalCode: this.postalCode
