@@ -5,7 +5,7 @@
                 <div class="card h-100">
                     <img v-if = "log.itemType === ('Lithium Ion Battery')" class="card-img-top" src="/src/assets/x-LI-image.svg" alt="hehe" id="category-pic" img-top>
                     <img v-if = "log.itemType === ('Household Battery')" class="card-img-top" src="/src/assets/x-HB-image.svg" alt="hehe" id="category-pic" img-top>
-                    <img v-if = "log.itemType === ('Consumer EV Battery')" class="card-img-top" src="/src/assets/x-EVB-image.svg" alt="hehe" id="category-pic" img-top>
+                    <img v-if = "log.itemType === ('Consumer EV Battery')" class="card-img-top" src="/src/assets/x-EVB.svg" alt="hehe" id="category-pic" img-top>
                     <img v-if = "log.itemType === ('Consumer Lamp')" class="card-img-top" src="/src/assets/x-CL-image.svg" alt="hehe" id="category-pic" img-top>
                     <img v-if = "log.itemType === ('ICT')" class="card-img-top" src="/src/assets/x-ICT-image.svg" alt="hehe" id="category-pic" img-top>
                     <img v-if = "log.itemType === ('Electric Mobility')" class="card-img-top" src="/src/assets/x-EMD-image.svg" alt="hehe" id="category-pic" img-top>

@@ -5,7 +5,10 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import empower.empower.log.entity.Log;
+import org.springframework.stereotype.Repository;
 
+
+@Repository
 public interface LogRepository extends JpaRepository <Log, Long>{
     List<Log> findByUserId(Long userId);
     Optional<Log> findById(Long id);

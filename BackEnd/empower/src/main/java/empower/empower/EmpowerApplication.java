@@ -23,6 +23,8 @@ public class EmpowerApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(EmpowerApplication.class, args);
 
+		
+
 		// //user roles repository
 		// RoleRepository roleRepo = ctx.getBean(RoleRepository.class);
 		// System.out.println("[Add User Role]: " + roleRepo.save(new Role(1, ERole.ROLE_USER)).getName());

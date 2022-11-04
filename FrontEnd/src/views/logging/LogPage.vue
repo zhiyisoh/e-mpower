@@ -17,7 +17,7 @@
             class="border border-5 border-light rounded" alt="hehe" id="profile-pic">
         <img v-if="data.itemType === ('Household Battery')" src="/src/assets/x-HB-image.svg"
             class="border border-5 border-light rounded" alt="hehe" id="profile-pic">
-        <img v-if="data.itemType === ('Consumer EV Battery')" src="/src/assets/x-EVB-image.svg"
+        <img v-if="data.itemType === ('Consumer EV Battery')" src="/src/assets/x-EVB.svg"
             class="border border-5 border-light rounded" alt="hehe" id="profile-pic">
         <img v-if="data.itemType === ('Consumer Lamp')" src="/src/assets/x-CL-image.svg"
             class="border border-5 border-light rounded" alt="hehe" id="profile-pic">

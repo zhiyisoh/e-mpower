@@ -5,7 +5,10 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import empower.empower.bin.entity.Bin;
+import org.springframework.stereotype.Repository;
 
+
+@Repository
 public interface BinRepository extends JpaRepository <Bin, Long>{
     List<Bin> findById(long id);
     List<Bin> findByPostalCode(int postalCode);
