@@ -87,4 +87,20 @@ public class BinService {
         // calculate the result
         return(c * r);
     }
+
+    public Bin updateBin(Long id, Bin newBin){
+        return binRepository.findById(id).map(bin ->{
+            bin.setPostalCode(newBin.getPostalCode());
+            bin.setAddress(newBin.getAddress());
+            bin.setIct(newBin.isIct());
+            bin.setBattery(newBin.isBattery());
+            bin.setLamp(newBin.isLamp());
+            bin.setLatitude(newBin.getLatitude());
+            bin.setLongitude(newBin.getLongitude());
+            return binRepository.save(bin);
+        }).orElse(null);
+    }
+
+
+
 }
