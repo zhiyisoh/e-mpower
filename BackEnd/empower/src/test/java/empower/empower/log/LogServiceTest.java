@@ -72,4 +72,17 @@ public class LogServiceTest {
         assertNull(updatedLog);
         verify(log).findById(id);
     }
+
+    @Test
+    void deleteLog_LogNotFound_ReturnNull(){
+        //arrange, nothing to arrange?
+
+
+        //act
+        Long id = 40L;
+
+        //assert
+        logService.deleteLog(id);
+        verify(log).deleteById(id);
+    }
 }

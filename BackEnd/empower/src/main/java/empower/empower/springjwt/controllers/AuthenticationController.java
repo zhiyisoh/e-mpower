@@ -173,7 +173,7 @@ public class AuthenticationController {
                 
         }
 
-        //Gets a specific log by its id
+        //gets information of a user for profile displaying
         @GetMapping("/profile/{id}")
         public ResponseEntity<User> get(@PathVariable Long id) {
         try {
