@@ -79,13 +79,10 @@ class LogIntegrationTest {
 		
 		//creating role for authentication
 		Set<Role> roles = new HashSet<Role>();
-		roles.add(roleRepository.findByName(ERole.ROLE_USER).map(role -> {
-			return role;
-		}).orElseThrow(() -> new Exception()));
-
-		roles.add(roleRepository.findByName(ERole.ROLE_ADMIN).map(role -> {
-			return role;
-		}).orElseThrow(() -> new Exception()));
+		Role userRole = roleRepository.save(new Role(1,ERole.ROLE_USER));
+		Role adminRole = roleRepository.save(new Role(2,ERole.ROLE_ADMIN));
+		roles.add(userRole);
+		roles.add(adminRole);
 
 		userRepo.save(new User("admin", "admin@gmail.com", encoder.encode("goodpassword"), roles));
 		URI uri = new URI(baseUrl + port + "/api/logging/0");
@@ -99,13 +96,10 @@ class LogIntegrationTest {
 
 		//creating role for authentication
 		Set<Role> roles = new HashSet<Role>();
-		roles.add(roleRepository.findByName(ERole.ROLE_USER).map(role -> {
-			return role;
-		}).orElseThrow(() -> new Exception()));
-
-		roles.add(roleRepository.findByName(ERole.ROLE_ADMIN).map(role -> {
-			return role;
-		}).orElseThrow(() -> new Exception()));
+		Role userRole = roleRepository.save(new Role(1,ERole.ROLE_USER));
+		Role adminRole = roleRepository.save(new Role(2,ERole.ROLE_ADMIN));
+		roles.add(userRole);
+		roles.add(adminRole);
 		User user = new User("admin", "admin@gmail.com", encoder.encode("goodpassword"), roles);
 		userRepo.save(user);
 		Emissions em = emRepo.save(new Emissions("AA", 0.02));
@@ -126,13 +120,10 @@ class LogIntegrationTest {
 
 		//creating role for authentication
 		Set<Role> roles = new HashSet<Role>();
-		roles.add(roleRepository.findByName(ERole.ROLE_USER).map(role -> {
-			return role;
-		}).orElseThrow(() -> new Exception()));
-
-		roles.add(roleRepository.findByName(ERole.ROLE_ADMIN).map(role -> {
-			return role;
-		}).orElseThrow(() -> new Exception()));
+		Role userRole = roleRepository.save(new Role(1,ERole.ROLE_USER));
+		Role adminRole = roleRepository.save(new Role(2,ERole.ROLE_ADMIN));
+		roles.add(userRole);
+		roles.add(adminRole);
 		User user = new User("admin", "admin@gmail.com", encoder.encode("goodpassword"), roles);
 		userRepo.save(user);
 
@@ -155,13 +146,10 @@ class LogIntegrationTest {
 
 		//creating role for authentication
 		Set<Role> roles = new HashSet<Role>();
-		roles.add(roleRepository.findByName(ERole.ROLE_USER).map(role -> {
-			return role;
-		}).orElseThrow(() -> new Exception()));
-
-		roles.add(roleRepository.findByName(ERole.ROLE_ADMIN).map(role -> {
-			return role;
-		}).orElseThrow(() -> new Exception()));
+		Role userRole = roleRepository.save(new Role(1,ERole.ROLE_USER));
+		Role adminRole = roleRepository.save(new Role(2,ERole.ROLE_ADMIN));
+		roles.add(userRole);
+		roles.add(adminRole);
 		User user = new User("admin", "admin@gmail.com", encoder.encode("goodpassword"), roles);
 		userRepo.save(user);
 
@@ -178,13 +166,10 @@ class LogIntegrationTest {
 
 		//creating role for authentication
 		Set<Role> roles = new HashSet<Role>();
-		roles.add(roleRepository.findByName(ERole.ROLE_USER).map(role -> {
-			return role;
-		}).orElseThrow(() -> new Exception()));
-
-		roles.add(roleRepository.findByName(ERole.ROLE_ADMIN).map(role -> {
-			return role;
-		}).orElseThrow(() -> new Exception()));
+		Role userRole = roleRepository.save(new Role(1,ERole.ROLE_USER));
+		Role adminRole = roleRepository.save(new Role(2,ERole.ROLE_ADMIN));
+		roles.add(userRole);
+		roles.add(adminRole);
 		User user = new User("admin", "admin@gmail.com", encoder.encode("goodpassword"), roles);
 		userRepo.save(user);
 
@@ -201,13 +186,10 @@ class LogIntegrationTest {
 
 		//creating role for authentication
 		Set<Role> roles = new HashSet<Role>();
-		roles.add(roleRepository.findByName(ERole.ROLE_USER).map(role -> {
-			return role;
-		}).orElseThrow(() -> new Exception()));
-
-		roles.add(roleRepository.findByName(ERole.ROLE_ADMIN).map(role -> {
-			return role;
-		}).orElseThrow(() -> new Exception()));
+		Role userRole = roleRepository.save(new Role(1,ERole.ROLE_USER));
+		Role adminRole = roleRepository.save(new Role(2,ERole.ROLE_ADMIN));
+		roles.add(userRole);
+		roles.add(adminRole);
 		User user = new User("admin", "admin@gmail.com", encoder.encode("goodpassword"), roles);
 		userRepo.save(user);
 
