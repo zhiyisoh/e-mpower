@@ -108,10 +108,11 @@ class LogIntegrationTest {
 		}).orElseThrow(() -> new Exception()));
 		User user = new User("admin", "admin@gmail.com", encoder.encode("goodpassword"), roles);
 		userRepo.save(user);
+		Emissions em = emRepo.save(new Emissions("AA", 0.02));
 
 		Calendar myCalendar = new GregorianCalendar(2014, 2, 11);
         Date currDate = new Date(myCalendar.getTimeInMillis());
-        Log savedLog = logRepo.save(new Log("AA", "Stuff", "Bulb", currDate, user, emRepo.findByItemName("AA").get(0)));
+        Log savedLog = logRepo.save(new Log("AA", "Stuff", "Bulb", currDate, user, em));
 		Long logId = savedLog.getId();
 
 		URI uri = new URI(baseUrl + port + "/api/logging/" + logId);
@@ -135,9 +136,11 @@ class LogIntegrationTest {
 		User user = new User("admin", "admin@gmail.com", encoder.encode("goodpassword"), roles);
 		userRepo.save(user);
 
+		Emissions em = emRepo.save(new Emissions("AA", 0.02));
+
 		Calendar myCalendar = new GregorianCalendar(2014, 2, 11);
         Date currDate = new Date(myCalendar.getTimeInMillis());
-        Log savedLog = logRepo.save(new Log("AA", "Stuff", "Bulb", currDate, user, emRepo.findByItemName("AA").get(0)));
+        Log savedLog = logRepo.save(new Log("AA", "Stuff", "Bulb", currDate, user, em));
 		Long logId = savedLog.getId();
 		Long userId = user.getId();
 
