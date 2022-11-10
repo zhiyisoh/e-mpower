@@ -1,6 +1,7 @@
 # E-MPOWER
 ![empower logo](FrontEnd/src/assets/e-mp.png) <br />
-[![Java CI](https://github.com/zhiyisoh/e-mpower/actions/workflows/maven.yml/badge.svg)](https://github.com/zhiyisoh/e-mpower/actions/workflows/maven.yml) <br />
+[![Java CI](https://github.com/zhiyisoh/e-mpower/actions/workflows/maven.yml/badge.svg)](https://github.com/zhiyisoh/e-mpower/actions/workflows/maven.yml) 
+[![pages-build-deployment](https://github.com/zhiyisoh/e-mpower/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/zhiyisoh/e-mpower/actions/workflows/pages/pages-build-deployment) <br />
 Welcome to our CS203 repository, featuring E-MPOWER web application. 
 ## The Problem
 In 2019, Singapore declared its goal of becoming a Zero Waste Nation, aiming for a 30 percent reduction in waste dumped into the Semakau Landfill by 2030. However, our lack of awareness and knowledge regarding e-waste management has led to unregulated e-waste taking up about 30% of the e-waste bin storage. Furthermore, only about 6 percent of the e-waste we generate each year is recycled, while about 25 percent is thrown out with food and other general waste. 
@@ -41,9 +42,9 @@ Our solution is needed in order to make managing e-waste more convenient and eff
 
 # Getting Started with Local Deployment
 ## Requirements
-Please ensure that you have `JDK 17`, `Node.js v16+`, `Maven 3.3` and `MySQL Workbench` installed in your machine.
+Please ensure that you have `JDK 17`, `Node.js v16+`, `Maven 3.3` and `MySQL Workbench` installed in your machine. Clone the repository (main branch) for local deployment.
 
-## Steps to deploy application locally
+## Steps to deploy application locally (main branch code)
 ### Step 1: Setting up database
 Create new MySQL Schema in your localhost:3306 connection and name it `empowerdb`. 
 ```
