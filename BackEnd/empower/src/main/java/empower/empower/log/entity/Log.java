@@ -52,6 +52,16 @@ public class Log {
         this.createdDate = createdDate;
     }
 
+    public Log(String itemName, String itemNotes, String itemType, Date createdDate, User user, Emissions emissions) {
+        this.itemName = itemName;
+        this.itemNotes = itemNotes;
+        this.itemType = itemType;
+        this.createdDate = createdDate;
+        this.user = user;
+        this.emissions = emissions;
+    }
+
+
     public Log(long id, String itemName){
         this.id=id;
         this.itemName=itemName;
