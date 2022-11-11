@@ -144,9 +144,18 @@ public class AuthenticationController {
                 if(optionalCurrUser.isPresent()){
                         currUser = optionalCurrUser.get();
                 }
+                
+                String oldUsername = "";
+                String oldEmail = "";
 
-                String oldUsername = currUser.getUsername();
-                String oldEmail = currUser.getEmail();
+                if(currUser != null){
+                        oldUsername = currUser.getUsername();
+                        oldEmail = currUser.getEmail();
+                }else{
+                        return ResponseEntity
+                        .badRequest()
+                        .body(new MessageResponse("Error: User not found"));
+                }
 
 
                 if (unameResult && !oldUsername.equals(signUpRequest.getUsername())) {
