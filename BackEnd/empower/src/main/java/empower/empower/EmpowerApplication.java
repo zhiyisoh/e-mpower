@@ -1,9 +1,7 @@
 package empower.empower;
 
 import java.io.FileReader;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,10 +11,8 @@ import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 
 import empower.empower.springjwt.models.Role;
-import empower.empower.springjwt.payloads.request.SignUpRequest;
 import empower.empower.bin.entity.Bin;
 import empower.empower.bin.repository.BinRepository;
-import empower.empower.springjwt.controllers.AuthenticationController;
 import empower.empower.springjwt.models.ERole;
 import empower.empower.springjwt.repository.RoleRepository;
 import empower.empower.log.repository.EmissionsRepository;
