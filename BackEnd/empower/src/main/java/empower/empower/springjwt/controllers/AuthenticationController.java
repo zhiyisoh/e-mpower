@@ -132,6 +132,7 @@ public class AuthenticationController {
             return ResponseEntity.ok(new MessageResponse("You have registered successfully! Please proceed to login."));
         }
 
+        //edit profile based on ID 
         @PutMapping("/editprofile/{id}")
         public ResponseEntity<?> editProfile(@PathVariable(value = "id") Long id, @Valid @RequestBody SignUpRequest signUpRequest) {
                 
