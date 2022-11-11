@@ -356,7 +356,7 @@ class LogIntegrationTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void getuserCo2Sum_validUserId_Success() throws Exception {
+	public void getUserCo2Sum_validUserId_Success() throws Exception {
 
 		Set<Role> roles = new HashSet<Role>();																			//Create a new user for authentication
 		Role userRole = roleRepository.save(new Role(1,ERole.ROLE_USER));
@@ -381,7 +381,7 @@ class LogIntegrationTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void gettotalCo2Sum_validUser_Success() throws Exception {
+	public void getTotalCo2Sum_validUser_Success() throws Exception {
 
 		Set<Role> roles = new HashSet<Role>();																			//Create a new user for authentication
 		Role userRole = roleRepository.save(new Role(1,ERole.ROLE_USER));

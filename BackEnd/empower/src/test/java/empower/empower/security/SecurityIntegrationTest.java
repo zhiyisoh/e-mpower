@@ -20,6 +20,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import java.util.HashSet;
 
 import empower.empower.springjwt.models.*;
+import empower.empower.springjwt.payloads.request.LoginRequest;
 import empower.empower.springjwt.payloads.request.SignUpRequest;
 import empower.empower.springjwt.repository.*;
 
@@ -50,121 +51,118 @@ class SecurityIntegrationTest {
 	private BCryptPasswordEncoder encoder;
 
 
+	/**
+	 * @AfterEach:
+	 * used to signal that the annotated method should be executed after each @Test method in the current test class.
+	 */
 	@AfterEach
 	void tearDown(){
 		userRepo.deleteAll();
 		roleRepository.deleteAll();
 	}
 
-	// @Test
-	// public void addUser_validSignupRequest_Success() throws Exception {
-	// 	//creating role for authentication
-	// 	Set<String> roles = new HashSet<String>();
-	// 	roles.add("ROLE_ADMIN");
-	// 	roles.add("ROLE_USER");
+/**
+ * TEST 1: addUser_validSignupRequest_Success()
+ * Tests the registration of new user
+ * @throws Exception
+ */
+	@Test
+	public void addUser_validSignupRequest_Success() throws Exception {
 
-	// 	//create sign up request
-	// 	SignUpRequest user = new SignUpRequest();
-	// 	user.setEmail("admin@gmail.com");
-	// 	user.setPassword("goodpassword");
-	// 	user.setRole(roles);
-	// 	user.setUsername("admin");
+		Role userRole = roleRepository.save(new Role(1,ERole.ROLE_USER));										//add new roles
+		Role adminRole = roleRepository.save(new Role(2,ERole.ROLE_ADMIN));
 
-	// 	URI uri = new URI(baseUrl + port + "/api/auth/signup");
-	// 	ResponseEntity<User> result = restTemplate.exchange(uri, HttpMethod.POST, new HttpEntity<>(user), User.class);
+		SignUpRequest user = new SignUpRequest();																//create a sign up request
+		user.setEmail("admin@gmail.com");
+		user.setPassword("goodpassword");
+		Set<String> roles = new HashSet<String>();
+		roles.add("ROLE_ADMIN");
+		roles.add("ROLE_USER");
+		user.setRole(roles);
+		user.setUsername("admin");
 
-	// 	assertEquals(200, result.getStatusCode().value());
-	// }
+		URI uri = new URI(baseUrl + port + "/api/auth/signup");													//URI reference
+		ResponseEntity<SignUpRequest> result = restTemplate																//get response entity
+									.exchange(uri, HttpMethod.POST, new HttpEntity<>(user), SignUpRequest.class);
 
+		assertEquals(200, result.getStatusCode().value());														//ensure that the status code returned is 200 ok
+	}
+
+/**
+ * TEST 2: addUser_existingUsername_Failure()
+ * Tests the registration of new user. If username already exists, it should return error code 400 bad request.
+ * @throws Exception
+ */
 	@Test
 	public void addUser_existingUsername_Failure() throws Exception {
 
-		//create existing user
 		Set<Role> roles = new HashSet<Role>();
-		Role userRole = roleRepository.save(new Role(1,ERole.ROLE_USER));
+		Role userRole = roleRepository.save(new Role(1,ERole.ROLE_USER));										//add new roles
 		Role adminRole = roleRepository.save(new Role(2,ERole.ROLE_ADMIN));
 		roles.add(userRole);
 		roles.add(adminRole);
-		User existingUser = new User("admin", "admin@gmail.com", encoder.encode("goodpassword"), roles);
+		User existingUser = new User("admin", "admin@gmail.com", encoder.encode("goodpassword"), roles);		//create an existing user
 		userRepo.save(existingUser);
 
-		//creating role for authentication
+		SignUpRequest user = new SignUpRequest();																//create a sign up request with same username
+		user.setEmail("admin1@gmail.com");
+		user.setPassword("goodpassword");
 		Set<String> role = new HashSet<String>();
 		role.add("ROLE_ADMIN");
 		role.add("ROLE_USER");
-
-		//create sign up request
-		SignUpRequest user = new SignUpRequest();
-		user.setEmail("admin1@gmail.com");
-		user.setPassword("goodpassword");
 		user.setRole(role);
 		user.setUsername("admin");
 
-		URI uri = new URI(baseUrl + port + "/api/auth/signup");
-		ResponseEntity<User> result = restTemplate.exchange(uri, HttpMethod.POST, new HttpEntity<>(user), User.class);
+		URI uri = new URI(baseUrl + port + "/api/auth/signup");													//URI reference
+		ResponseEntity<User> result = restTemplate																//get response entity
+									.exchange(uri, HttpMethod.POST, new HttpEntity<>(user), User.class);
 
-		assertEquals(400, result.getStatusCode().value());
+		assertEquals(400, result.getStatusCode().value());														//ensure that the status code returned is 400
 	}
 
+/**
+ * TEST 3: addUser_existingEmail_Failure()
+ * Tests the registration of new user. If email already exists, it should return error code 400 bad request.
+ * @throws Exception
+ */
 	@Test
 	public void addUser_existingEmail_Failure() throws Exception {
 
-		//create existing user
 		Set<Role> roles = new HashSet<Role>();
-		Role userRole = roleRepository.save(new Role(1,ERole.ROLE_USER));
+		Role userRole = roleRepository.save(new Role(1,ERole.ROLE_USER));										//add new roles
 		Role adminRole = roleRepository.save(new Role(2,ERole.ROLE_ADMIN));
 		roles.add(userRole);
 		roles.add(adminRole);
-		User existingUser = new User("admin1", "admin@gmail.com", encoder.encode("goodpassword"), roles);
+		User existingUser = new User("admin1", "admin@gmail.com", encoder.encode("goodpassword"), roles);		//create an existing user
 		userRepo.save(existingUser);
 
-		//creating role for authentication
+		SignUpRequest user = new SignUpRequest();																//create a sign up request with same email
+		user.setEmail("admin@gmail.com");
+		user.setPassword("goodpassword");
 		Set<String> role = new HashSet<String>();
 		role.add("ROLE_ADMIN");
 		role.add("ROLE_USER");
-
-		//create sign up request
-		SignUpRequest user = new SignUpRequest();
-		user.setEmail("admin@gmail.com");
-		user.setPassword("goodpassword");
 		user.setRole(role);
 		user.setUsername("admin");
 
-		URI uri = new URI(baseUrl + port + "/api/auth/signup");
-		ResponseEntity<User> result = restTemplate.exchange(uri, HttpMethod.POST, new HttpEntity<>(user), User.class);
+		URI uri = new URI(baseUrl + port + "/api/auth/signup");													//URI reference
+		ResponseEntity<User> result = restTemplate																//get response entity
+									.exchange(uri, HttpMethod.POST, new HttpEntity<>(user), User.class);
 
-		assertEquals(400, result.getStatusCode().value());
+		assertEquals(400, result.getStatusCode().value());														//ensure that the status code returned is 400
 	}
 
-	// @Test
-	// public void authenticateUser_validLoginRequest_Success() throws Exception {
-
-	// 	//create existing user
-	// 	Set<Role> roles = new HashSet<Role>();
-	// 	Role userRole = roleRepository.save(new Role(1, ERole.ROLE_USER));
-	// 	Role adminRole = roleRepository.save(new Role(2, ERole.ROLE_ADMIN));
-	// 	roles.add(userRole);
-	// 	roles.add(adminRole);
-	// 	User existingUser = new User("admin", "admin@gmail.com", encoder.encode("goodpassword"), roles);
-	// 	userRepo.save(existingUser);
-
-	// 	//create sign up request
-	// 	LoginRequest user = new LoginRequest();
-	// 	user.setPassword("goodpassword");
-	// 	user.setUsername("admin");
-
-	// 	URI uri = new URI(baseUrl + port + "/api/auth/signin");
-	// 	ResponseEntity<User> result = restTemplate.exchange(uri, HttpMethod.POST, new HttpEntity<>(user), User.class);
-
-	// 	assertEquals(200, result.getStatusCode().value());
-	// }
-
+/**
+ * TEST 4: getUserDetails_validUserId_Success() 
+ * Tests the retreival of user details. If user id is valid, then status code should return 200.
+ * @throws Exception
+ */
 	@Test
 	public void getUserDetails_validUserId_Success() throws Exception {
 
 		//create existing user
 		Set<Role> roles = new HashSet<Role>();
-		Role userRole = roleRepository.save(new Role(1,ERole.ROLE_USER));
+		Role userRole = roleRepository.save(new Role(1,ERole.ROLE_USER));										//add new roles
 		Role adminRole = roleRepository.save(new Role(2,ERole.ROLE_ADMIN));
 		roles.add(userRole);
 		roles.add(adminRole);
@@ -174,131 +172,178 @@ class SecurityIntegrationTest {
 		URI uri = new URI(baseUrl + port + "/api/auth/profile/" + existingUser.getId());
 		ResponseEntity<User> result = restTemplate.exchange(uri, HttpMethod.GET, null, User.class);
 
-		assertEquals(200, result.getStatusCode().value());
+		assertEquals(200, result.getStatusCode().value());														//ensure that the status code returned is 200
 	}
 
+/**
+ * TEST 5: getUserDetails_invalidUserId_Failure()
+ * Tests the retreival of user details. If user id is invalid, then status code should return 404 (UserNotFoundException).
+ * @throws Exception
+ */
 	@Test
 	public void getUserDetails_invalidUserId_Failure() throws Exception {
 
 		URI uri = new URI(baseUrl + port + "/api/auth/profile/0");
 		ResponseEntity<User> result = restTemplate.exchange(uri, HttpMethod.GET, null, User.class);
 
-		assertEquals(404, result.getStatusCode().value());
+		assertEquals(404, result.getStatusCode().value());														//ensure that the status code returned is 404
 	}
 
+
+/**
+ * TEST 6: updateProfile_validUserId_Success()
+ * Tests the update of user details. If user id is valid, then status code should return 200.
+ * @throws Exception
+ */
 	@Test
 	public void updateProfile_validUserId_Success() throws Exception {
 
 		//create existing user
 		Set<Role> roles = new HashSet<Role>();
-		Role userRole = roleRepository.save(new Role(1,ERole.ROLE_USER));
+		Role userRole = roleRepository.save(new Role(1,ERole.ROLE_USER));										//add new roles
 		Role adminRole = roleRepository.save(new Role(2,ERole.ROLE_ADMIN));
 		roles.add(userRole);
 		roles.add(adminRole);
 		User existingUser = new User("adminNameChange", "admin@gmail.com", encoder.encode("goodpassword"), roles);
 		userRepo.save(existingUser);
 
-		//creating role for authentication
-		Set<String> role = new HashSet<String>();
-		role.add("ROLE_ADMIN");
-		role.add("ROLE_USER");
-
-		//create new updated user details
-		SignUpRequest newDetails = new SignUpRequest();
+		SignUpRequest newDetails = new SignUpRequest();															//create new updated user details
 		newDetails.setEmail("admin@gmail.com");
 		newDetails.setPassword("password");
 		newDetails.setUsername("admin");
+		Set<String> role = new HashSet<String>();
+		role.add("ROLE_ADMIN");
+		role.add("ROLE_USER");
 		newDetails.setRole(role);
 
-		URI uri = new URI(baseUrl + port + "/api/auth/editprofile/" + existingUser.getId());
-		ResponseEntity<User> result = restTemplate.exchange(uri, HttpMethod.PUT, new HttpEntity<>(newDetails), User.class);
+		URI uri = new URI(baseUrl + port + "/api/auth/editprofile/" + existingUser.getId());;					//URI Reference
+		ResponseEntity<User> result = restTemplate																//get response entity
+									.exchange(uri, HttpMethod.PUT, new HttpEntity<>(newDetails), User.class);
 
-		assertEquals(200, result.getStatusCode().value());
+		assertEquals(200, result.getStatusCode().value());														//ensure that the status code returned is 200
 	}
 
+
+/**
+ * TEST 7: updateProfile_invalidUserId_Failure()
+ * Tests the update of user details. If user id is invalid, then status code should return 404 (UserNotFoundException).
+ * @throws Exception
+ */
 	@Test
 	public void updateProfile_invalidUserId_Failure() throws Exception {
 
-		//creating role for authentication
-		Set<String> role = new HashSet<String>();
-		role.add("ROLE_ADMIN");
-		role.add("ROLE_USER");
-
-		//create new updated user details
-		SignUpRequest newDetails = new SignUpRequest();
+		SignUpRequest newDetails = new SignUpRequest();															//create new updated user details
 		newDetails.setEmail("admin@gmail.com");
 		newDetails.setPassword("password");
 		newDetails.setUsername("admin");
+		Set<String> role = new HashSet<String>();
+		role.add("ROLE_ADMIN");
+		role.add("ROLE_USER");
 		newDetails.setRole(role);
 
-		URI uri = new URI(baseUrl + port + "/api/auth/editprofile/0");
-		ResponseEntity<User> result = restTemplate.exchange(uri, HttpMethod.PUT, new HttpEntity<>(newDetails), User.class);
+		URI uri = new URI(baseUrl + port + "/api/auth/editprofile/0");											//URI Reference with invalid user id 0
+		ResponseEntity<User> result = restTemplate																//get response entity
+									.exchange(uri, HttpMethod.PUT, new HttpEntity<>(newDetails), User.class);
 
-		assertEquals(500, result.getStatusCode().value());
+		assertEquals(500, result.getStatusCode().value());														//ensure that the status code returned is 500
 	}
 
+
+/**
+ * TEST 8: updateProfile_emailAlreadyExists_Failure()
+ * Tests the update of user details. If email already exists, then status code should return 400.
+ * @throws Exception
+ */
 	@Test
 	public void updateProfile_emailAlreadyExists_Failure() throws Exception {
 
-		//create existing user
 		Set<Role> roles = new HashSet<Role>();
-		Role userRole = roleRepository.save(new Role(1,ERole.ROLE_USER));
+		Role userRole = roleRepository.save(new Role(1,ERole.ROLE_USER));										//add new roles
 		Role adminRole = roleRepository.save(new Role(2,ERole.ROLE_ADMIN));
 		roles.add(userRole);
 		roles.add(adminRole);
-		User existingUser = new User("adminNameChange", "admin@gmail.com", encoder.encode("goodpassword"), roles);
+		User existingUser = new User("adminNameChange", "admin@gmail.com", encoder.encode("goodpassword"), roles);//create existing user with email "admin@gmail.com"
 		userRepo.save(existingUser);
-		User sameEmailUser = new User("admin", "adminChange@gmail.com", encoder.encode("goodpassword"), roles);
+		User sameEmailUser = new User("admin", "adminChange@gmail.com", encoder.encode("goodpassword"), roles);	//create user (want to change email to "admin@gmail.com")
 		userRepo.save(sameEmailUser);
 
-		//creating role for authentication
-		Set<String> role = new HashSet<String>();
-		role.add("ROLE_ADMIN");
-		role.add("ROLE_USER");
-
-		//create new updated user details
-		SignUpRequest newDetails = new SignUpRequest();
+		SignUpRequest newDetails = new SignUpRequest();															//create new updated user details
 		newDetails.setEmail("admin@gmail.com");
 		newDetails.setPassword("goodpassword");
 		newDetails.setUsername("admin");
+		Set<String> role = new HashSet<String>();
+		role.add("ROLE_ADMIN");
+		role.add("ROLE_USER");
 		newDetails.setRole(role);
 
-		URI uri = new URI(baseUrl + port + "/api/auth/editprofile/" + existingUser.getId());
-		ResponseEntity<User> result = restTemplate.exchange(uri, HttpMethod.PUT, new HttpEntity<>(newDetails), User.class);
+		URI uri = new URI(baseUrl + port + "/api/auth/editprofile/" + existingUser.getId());					//URI Reference
+		ResponseEntity<User> result = restTemplate																//get response entity
+										.exchange(uri, HttpMethod.PUT, new HttpEntity<>(newDetails), User.class);
 
-		assertEquals(400, result.getStatusCode().value());
+		assertEquals(400, result.getStatusCode().value());														//ensure that the status code returned is 400
 	}
 
+
+/**
+ * TEST 9: updateProfile_usernameAlreadyExists_Failure()
+ * Tests the update of user details. If username already exists, then status code should return 400.
+ * @throws Exception
+ */
 	@Test
 	public void updateProfile_usernameAlreadyExists_Failure() throws Exception {
 
-		//create existing user
 		Set<Role> roles = new HashSet<Role>();
-		Role userRole = roleRepository.save(new Role(1,ERole.ROLE_USER));
+		Role userRole = roleRepository.save(new Role(1,ERole.ROLE_USER));										//add new roles
 		Role adminRole = roleRepository.save(new Role(2,ERole.ROLE_ADMIN));
 		roles.add(userRole);
 		roles.add(adminRole);
-		User existingUser = new User("adminNameChange", "admin@gmail.com", encoder.encode("goodpassword"), roles);
+		User existingUser = new User("adminNameChange", "admin@gmail.com", encoder.encode("goodpassword"), roles); //create existing user (want to change name to "admin")
 		userRepo.save(existingUser);
-		User sameEmailUser = new User("admin", "anotheradmin@gmail.com", encoder.encode("goodpassword"), roles);
+		User sameEmailUser = new User("admin", "anotheradmin@gmail.com", encoder.encode("goodpassword"), roles);   //create another user with username "admin"
 		userRepo.save(sameEmailUser);
-
-		//creating role for authentication
-		Set<String> role = new HashSet<String>();
-		role.add("ROLE_ADMIN");
-		role.add("ROLE_USER");
-
-		//create new updated user details
-		SignUpRequest newDetails = new SignUpRequest();
+		
+		SignUpRequest newDetails = new SignUpRequest();															//create new updated user details
 		newDetails.setEmail("admin@gmail.com");
 		newDetails.setPassword("goodpassword");
 		newDetails.setUsername("admin");
+		Set<String> role = new HashSet<String>();
+		role.add("ROLE_ADMIN");
+		role.add("ROLE_USER");
 		newDetails.setRole(role);
 
-		URI uri = new URI(baseUrl + port + "/api/auth/editprofile/" + existingUser.getId());
-		ResponseEntity<User> result = restTemplate.exchange(uri, HttpMethod.PUT, new HttpEntity<>(newDetails), User.class);
+		URI uri = new URI(baseUrl + port + "/api/auth/editprofile/" + existingUser.getId());					//URI Reference
+		ResponseEntity<User> result = restTemplate																//get response entity
+										.exchange(uri, HttpMethod.PUT, new HttpEntity<>(newDetails), User.class);
 
-		assertEquals(400, result.getStatusCode().value());
+		assertEquals(400, result.getStatusCode().value());														//ensure that the status code returned is 400
+	}
+
+/**
+ * TEST 10: authenticateUser_validLoginRequest_Success()
+ * Tests the login of user. If loginRequest is valid, then status code should return 200.
+ * @throws Exception
+ */
+	@Test
+	public void authenticateUser_validLoginRequest_Success() throws Exception {
+
+
+		Set<Role> roles = new HashSet<Role>();
+		Role userRole = roleRepository.save(new Role(1,ERole.ROLE_USER));										//add new roles
+		Role adminRole = roleRepository.save(new Role(2,ERole.ROLE_ADMIN));
+		roles.add(userRole);
+		roles.add(adminRole);
+		User existingUser = new User("admin", "admin@gmail.com", encoder.encode("goodpassword"), roles);//create existing user 
+		userRepo.save(existingUser);
+
+		LoginRequest user = new LoginRequest();																	//create new log in request
+		user.setPassword("goodpassword");
+		user.setUsername("admin");
+
+		URI uri = new URI(baseUrl + port + "/api/auth/signin");													//URI Reference
+		ResponseEntity<LoginRequest> result = restTemplate														//get response entity
+												.exchange(uri, HttpMethod.POST, new HttpEntity<>(user), LoginRequest.class);
+
+		assertEquals(200, result.getStatusCode().value());														//ensure that the status code returned is 200
 	}
 
 }
