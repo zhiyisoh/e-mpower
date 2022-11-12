@@ -21,10 +21,6 @@
 
         </div>
         <img src="/src/assets/greencloud.svg" alt="green cloud" id="cloud-back">
-        <h1>Let us view your e-waste recycling efforts over the years. Do keep up the good effort!</h1>
-        <div class="yearlyco2Chart">
-            <p>chart</p>
-        </div>
     </section>
 
 </template>

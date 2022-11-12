@@ -44,10 +44,6 @@ import Footer from "../../components/Footer.vue";
             {{ message }}
           </div>
         </Form>
-        <br>
-        <p>or</p>
-        <button type="button" class="google"><input id="google-icon" width="50" height="50" type="image"
-            src="/src/assets/googleicon.png" />Register with Google</button>
         <div class="to-login">
           <p>Already have an account?
             <RouterLink to="/login"><button type="button" class="link" href="Login.vue"><u>Click to login
