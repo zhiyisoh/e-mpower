@@ -204,7 +204,6 @@ import axios from 'axios';
       let self = this;
 
       const location_url = 'https://developers.onemap.sg/commonapi/search?searchVal=' + this.location + '&returnGeom=Y&getAddrDetails=Y&pageNum=1';
-      //console.log(location_url);
       await axios.get( location_url ,
         {
          params: {
@@ -214,8 +213,6 @@ import axios from 'axios';
       .then(function(response){
         currentObj.longitude = response.data.results[0].LONGITUDE;
         currentObj.latitude = response.data.results[0].LATITUDE;
-        //console.log(response.data.results[0].LATITUDE);
-        //alert(currentObj.longitude + ' and ' + currentObj.latitude);
       })
       .catch(function(error){
         alert('Invalid Location. ' + error);

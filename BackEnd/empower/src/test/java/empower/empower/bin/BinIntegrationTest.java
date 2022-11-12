@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -22,12 +23,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 // import java.util.Calendar;
 // import java.util.GregorianCalendar;
 import java.util.HashSet;
-import java.sql.Date;
+import java.util.List;
 
 import empower.empower.bin.entity.*;
 import empower.empower.bin.repository.*;
 import empower.empower.bin.requests.Coordinate;
-//import empower.empower.log.repository.*;
 import empower.empower.springjwt.models.*;
 import empower.empower.springjwt.repository.*;
 
@@ -48,12 +48,23 @@ class BinIntegrationTest {
 	 */
 	private TestRestTemplate restTemplate;
 
-    @Autowired
+	@Autowired
+	private RoleRepository roleRepository;
+  
+	@Autowired
+	private UserRepository userRepo;
+  
+	@Autowired
 	private BinRepository binRepo;
 
-    @AfterEach
-	void tearDown(){
-        binRepo.deleteAll();
+	@Autowired
+	private BCryptPasswordEncoder encoder;
+  
+	  @AfterEach
+		void tearDown(){
+		  binRepo.deleteAll();
+	  	  userRepo.deleteAll();
+	  	  roleRepository.deleteAll();
 	}
 
     @Test
@@ -80,52 +91,64 @@ class BinIntegrationTest {
 		assertEquals(415, result.getStatusCode().value());
 	}
 
-	@Test //do later -- the responseType is incorrect
-	public void getBinPostal_Success() throws Exception {
+
+	@Test 
+  	public void getBinPostal_Success() throws Exception {
         Bin savedBin = binRepo.save(new Bin(219468, "109 Dorset Rd", true, false, true, 100.0, 250.55));
 		//Long binId = savedBin.getId();
 		int postalCode = savedBin.getPostalCode();
 
 		URI uri = new URI(baseUrl + port + "/api/bins/getBin/" + postalCode);
-		ResponseEntity<Bin> result = restTemplate.exchange(uri, HttpMethod.GET, null, Bin.class);
-		
+		ResponseEntity<List<Bin>> result = restTemplate.exchange(uri, HttpMethod.GET, null, new ParameterizedTypeReference<List<Bin>>() {
+		});
+    
 
-		assertEquals(200, result.getStatusCode().value());
+    	assertEquals(200, result.getStatusCode().value());
+  }
 
-	}
 
-    @Test //do later -- same error
-    public void getBinPostal_InvalidPostal_Failure() throws Exception{
+    @Test 
+	public void getBin_ValidBinID_Success() throws Exception{
         Bin savedBin = binRepo.save(new Bin(219468, "109 Dorset Rd", true, false, true, 100.0, 250.55));
-		Long binId = savedBin.getId();
-		//int postalCode = savedBin.getPostalCode();
+    	Long binId = savedBin.getId();
 
-        
-    }
-
-    @Test //same error --json
-    public void getBin_ValidBinID_Success() throws Exception{
-        Bin savedBin = binRepo.save(new Bin(219468, "109 Dorset Rd", true, false, true, 100.0, 250.55));
-		Long binId = savedBin.getId();
-		int postalCode = savedBin.getPostalCode();
-
-        URI uri = new URI(baseUrl + port + "/api/bins/getBin/" + binId);
-		ResponseEntity<Bin> result = restTemplate.exchange(uri, HttpMethod.GET, null, Bin.class);
+        URI uri = new URI(baseUrl + port + "/api/bins/" + binId);
+    	ResponseEntity<Bin> result = restTemplate.exchange(uri, HttpMethod.GET, null, Bin.class);
 
         assertEquals(200, result.getStatusCode().value());
-
     }
 
-    @Test //same error -- json
-    public void findNearestBin_Success() throws Exception{
 
-        //public Coordinate(double longitude, double latitude, String recycleType)
+	@Test 
+    public void getBin_invalidBinID_Failure() throws Exception{
+
+        URI uri = new URI(baseUrl + port + "/api/bins/0");
+    	ResponseEntity<Bin> result = restTemplate.exchange(uri, HttpMethod.GET, null, Bin.class);
+
+        assertEquals(404, result.getStatusCode().value());
+    }
+
+
+	@Test 
+    public void findNearestBin_Success() throws Exception{
+    
+		Set<Role> roles = new HashSet<Role>();                                    //Create a new user for authentication
+		Role userRole = roleRepository.save(new Role(1,ERole.ROLE_USER));
+		Role adminRole = roleRepository.save(new Role(2,ERole.ROLE_ADMIN));
+		roles.add(userRole);
+		roles.add(adminRole);
+		User user = new User("admin", "admin@gmail.com", encoder.encode("goodpassword"), roles);
+		userRepo.save(user);
+
+		Bin savedBin = binRepo.save(new Bin(219468, "109 Dorset Rd", true, false, true, 100.0, 250.55));
+
         Coordinate currCoordinate = new Coordinate(100.02, 250.59, "ICT");
 
-        URI uri = new URI(baseUrl + port + "/api/bins/findNearestBin/");
-		ResponseEntity<Long> result = restTemplate.exchange(uri, HttpMethod.POST, new HttpEntity<>(currCoordinate), Long.class);
+        URI uri = new URI(baseUrl + port + "/api/bins/findNearestBin");
+    	ResponseEntity<Long> result = restTemplate.withBasicAuth("admin", "goodpassword")
+            .exchange(uri, HttpMethod.POST, new HttpEntity<>(currCoordinate), Long.class);
 
-        assertEquals(200, result.getStatusCode().value());
+        assertEquals(201, result.getStatusCode().value());
     }
 
 }

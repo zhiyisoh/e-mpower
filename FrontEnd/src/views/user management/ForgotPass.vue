@@ -30,15 +30,6 @@
     }
     ,
     
-    // methods: {
-    //   async handleSubmit(){
-    //     const response = await axios.post('forgotpassword',{
-    //       email = this.email
-    //     });
-
-    //     console.log(response);
-    //   }
-    // }
 
   }
 </script>

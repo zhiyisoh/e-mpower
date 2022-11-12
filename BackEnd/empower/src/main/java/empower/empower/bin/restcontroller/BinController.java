@@ -32,13 +32,15 @@ public class BinController {
     public List<Bin> getBins(){
         return binService.listBins();
     }
+    
 
     //returns a specific bin by the bin's id
     //throws a BinNotFoundException if the bin is null
     @GetMapping("/{id}")
     public Bin getBin(@PathVariable Long id){
-        Bin bin = binService.getBin(id);
-        if(bin==null) throw new BinNotFoundException(id);
+        if(!binRepository.existsById(id)){
+            throw new BinNotFoundException(id);
+        }
         return binService.getBin(id);
     }
 
@@ -90,34 +92,4 @@ public class BinController {
         return closestBin.getId();
     }
 
-    
-
-    //updates information about a bin through the bin's id
-    //if the bin cannot be found by the id entered then a BinNotFoundException is thrown
-    @PutMapping("/updateBin/{id}")
-    public ResponseEntity<?> updateBin(@PathVariable Long id, @Valid @RequestBody Bin bin){
-        if(!binRepository.existsById(id)) throw new BinNotFoundException(id);
-
-        return binRepository.findById(id).map(oldBin ->{
-            oldBin.setPostalCode(bin.getPostalCode());
-            oldBin.setAddress(bin.getAddress());
-            oldBin.setIct(bin.isIct());
-            oldBin.setBattery(bin.isBattery());
-            oldBin.setLamp(bin.isLamp());
-            oldBin.setLatitude(bin.getLatitude());
-            oldBin.setLongitude(bin.getLongitude());
-            binService.saveBin(oldBin);
-            return ResponseEntity.ok().build();
-        }).orElseThrow(() -> new BinNotFoundException(id));
-    }
-
-    //deletes a bin by its id
-    @DeleteMapping("deleteBin/{id}")
-    public void deleteBin(@PathVariable Long id){
-        try{
-            binService.deleteBin(id);
-        } catch(EmptyResultDataAccessException e){
-            throw new BinNotFoundException(id);
-        }
-    }
 }
