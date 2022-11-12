@@ -66,10 +66,6 @@ public class SecurityConfig {
             .antMatchers(HttpMethod.DELETE, "/api/logging/**").authenticated()
             .antMatchers(HttpMethod.PUT, "/api/logging/**").authenticated()
             .antMatchers(HttpMethod.POST, "/api/bins/findNearestBin").authenticated()
-            //.antMatchers("/api/bins/**").authenticated()
-            //.antMatchers(HttpMethod.GET, "/api/bins/getBin/**").authenticated()
-            // .antMatchers(HttpMethod.DELETE, "/api/bins/**").authenticated()
-            // .antMatchers(HttpMethod.PUT, "/api/bins/**").authenticated()
             
         .and()    
         .authenticationProvider(authenticationProvider()) //specifies the authentication provider for HttpSecurity
