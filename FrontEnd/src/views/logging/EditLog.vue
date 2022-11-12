@@ -114,8 +114,8 @@ import Footer from "../../components/Footer.vue";
             <option v-show="record.itemType === ('ICT')" value="Phone">Mobile Phone/Tablet (ICT)</option>
             <option v-show="record.itemType === ('ICT')" value="Printer">Printer (ICT)</option>
             <option v-show="record.itemType === ('ICT')" value="Powerbank">Power Bank (ICT)</option>
-            <option v-show="record.itemType === ('ICT')" value="Computer">Network/Set-top Boxes (ICT)</option>
-            <option v-show="record.itemType === ('ICT')" value="Computer">Television/Desktop Monitor (ICT)</option>
+            <option v-show="record.itemType === ('ICT')" value="Boxes">Set-top Boxes (ICT)</option>
+            <option v-show="record.itemType === ('ICT')" value="ComputerTV">Television/Desktop Monitor (ICT)</option>
 
             <option v-show="record.itemType === ('Household Battery')" value="AAAA">AAAA (Battery)</option>
             <option v-show="record.itemType === ('Household Battery')" value="AAA">AAA (Battery)</option>
@@ -126,7 +126,6 @@ import Footer from "../../components/Footer.vue";
             <option v-show="record.itemType === ('Household Battery')" value="ButtonCell">ButtonCell (Battery)</option>
 
             <option v-show="record.itemType === ('Consumer Lamp')" value="Bulb">Bulb (Consumer Lamp)</option>
-            <option v-show="record.itemType === ('Consumer Lamp')" value="Fluorescent Tube">Fluorescent Tube (Consumer Lamp)</option>
           </select>
           <ErrorMessage name="username" class="error-feedback" />
         </div>
