@@ -90,9 +90,6 @@ public class BinController {
         return closestBin.getId();
     }
 
-    //returns the nearest bin based on coordinate distance
-    
-
     
 
     //updates information about a bin through the bin's id

@@ -39,10 +39,10 @@ public class BinService {
         binRepository.deleteById(id);
     }
 
+    //Returns the nearest bin by comparing all the bins in the list with the inputted bin's longtitude and latitude
     public Bin compareCoordinates(List<Bin> list, double longitude, double latitude){
         Bin nearest = list.get(0);
 
-        System.out.println("list size is " + list.size());
         double nearestDistance = Double.MAX_VALUE;
         //int count = 0;
         for (int i = 0; i < list.size(); i++) {
@@ -50,17 +50,16 @@ public class BinService {
             double currBinLon = currBin.getLongitude();
             double currBinLat = currBin.getLatitude();
             double distance = distance(currBinLat, latitude, currBinLon, longitude);
-            //System.out.println("distance calculated is " + distance);
+
             if(nearestDistance > distance){
                 nearestDistance = distance;
                 nearest = currBin;
             }
-            //System.out.println("nearest distance is " + nearestDistance);
-            //System.out.println(++count);
         }
         return nearest;
     }
 
+    // Haversine formula to determine the closest bin in it's surroundings
     public static double distance(double lat1, double lat2, double lon1, double lon2) {
  
         // The math module contains a function
@@ -87,4 +86,20 @@ public class BinService {
         // calculate the result
         return(c * r);
     }
+
+    public Bin updateBin(Long id, Bin newBin){
+        return binRepository.findById(id).map(bin ->{
+            bin.setPostalCode(newBin.getPostalCode());
+            bin.setAddress(newBin.getAddress());
+            bin.setIct(newBin.isIct());
+            bin.setBattery(newBin.isBattery());
+            bin.setLamp(newBin.isLamp());
+            bin.setLatitude(newBin.getLatitude());
+            bin.setLongitude(newBin.getLongitude());
+            return binRepository.save(bin);
+        }).orElse(null);
+    }
+
+
+
 }

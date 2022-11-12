@@ -132,6 +132,7 @@ public class AuthenticationController {
             return ResponseEntity.ok(new MessageResponse("You have registered successfully! Please proceed to login."));
         }
 
+        //edit profile based on ID 
         @PutMapping("/editprofile/{id}")
         public ResponseEntity<?> editProfile(@PathVariable(value = "id") Long id, @Valid @RequestBody SignUpRequest signUpRequest) {
                 
@@ -144,9 +145,18 @@ public class AuthenticationController {
                 if(optionalCurrUser.isPresent()){
                         currUser = optionalCurrUser.get();
                 }
+                
+                String oldUsername = "";
+                String oldEmail = "";
 
-                String oldUsername = currUser.getUsername();
-                String oldEmail = currUser.getEmail();
+                if(currUser != null){
+                        oldUsername = currUser.getUsername();
+                        oldEmail = currUser.getEmail();
+                }else{
+                        return ResponseEntity
+                        .badRequest()
+                        .body(new MessageResponse("Error: User not found"));
+                }
 
 
                 if (unameResult && !oldUsername.equals(signUpRequest.getUsername())) {
@@ -173,7 +183,7 @@ public class AuthenticationController {
                 
         }
 
-        //Gets a specific log by its id
+        //gets information of a user for profile displaying
         @GetMapping("/profile/{id}")
         public ResponseEntity<User> get(@PathVariable Long id) {
         try {

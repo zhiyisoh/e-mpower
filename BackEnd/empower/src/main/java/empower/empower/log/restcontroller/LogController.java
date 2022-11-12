@@ -93,6 +93,11 @@ public class LogController {
 
     @GetMapping("/co2sum/{user_id}")
     public ResponseEntity<String> getUserCo2(@PathVariable(value = "user_id") Long userId){
+
+        if (!userRepo.existsById(userId)) {
+            throw new UserNotFoundException(userId);
+        }
+
         try{
             List<Log> userLogs = logService.listUserLogs(userId);
             double totalCO2 = 0.0;
