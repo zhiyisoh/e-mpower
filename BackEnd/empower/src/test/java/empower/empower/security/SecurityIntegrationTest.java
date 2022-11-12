@@ -226,7 +226,7 @@ class SecurityIntegrationTest {
 
 /**
  * TEST 7: updateProfile_invalidUserId_Failure()
- * Tests the update of user details. If user id is invalid, then status code should return 404 (UserNotFoundException).
+ * Tests the update of user details. If user id is invalid, then status code should return 400.
  * @throws Exception
  */
 	@Test
@@ -245,7 +245,7 @@ class SecurityIntegrationTest {
 		ResponseEntity<User> result = restTemplate																//get response entity
 									.exchange(uri, HttpMethod.PUT, new HttpEntity<>(newDetails), User.class);
 
-		assertEquals(500, result.getStatusCode().value());														//ensure that the status code returned is 500
+		assertEquals(400, result.getStatusCode().value());														//ensure that the status code returned is 400
 	}
 
 

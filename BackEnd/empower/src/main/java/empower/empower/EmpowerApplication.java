@@ -27,7 +27,6 @@ public class EmpowerApplication {
 		RoleRepository roleRepo = ctx.getBean(RoleRepository.class);
 		System.out.println("[Add User Role]: " + roleRepo.save(new Role(1, ERole.ROLE_USER)).getName());
 		System.out.println("[Add Admin Role]: " + roleRepo.save(new Role(2, ERole.ROLE_ADMIN)).getName());
-		//System.out.println(System.getProperty("user.dir"));
 
 		//bin data upload
 		BinRepository binRepo = ctx.getBean(BinRepository.class);
