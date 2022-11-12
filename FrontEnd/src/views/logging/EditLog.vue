@@ -45,9 +45,6 @@ import Footer from "../../components/Footer.vue";
                   Mobile Phones and Tablets
                 </li>
                 <li>
-                  Network and Set-up boxes
-                </li>
-                <li>
                   Desktop Monitors
                 </li>
               </ul>
@@ -98,9 +95,6 @@ import Footer from "../../components/Footer.vue";
                 <li>
                   Bulb
                 </li>
-                <li>
-                  Fluorescent Tube
-                </li>
               </ul>
             </div>
           </div>
@@ -114,8 +108,7 @@ import Footer from "../../components/Footer.vue";
             <option v-show="record.itemType === ('ICT')" value="Phone">Mobile Phone/Tablet (ICT)</option>
             <option v-show="record.itemType === ('ICT')" value="Printer">Printer (ICT)</option>
             <option v-show="record.itemType === ('ICT')" value="Powerbank">Power Bank (ICT)</option>
-            <option v-show="record.itemType === ('ICT')" value="Boxes">Set-top Boxes (ICT)</option>
-            <option v-show="record.itemType === ('ICT')" value="ComputerTV">Television/Desktop Monitor (ICT)</option>
+            <option v-show="record.itemType === ('ICT')" value="Computer">Television/Desktop Monitor (ICT)</option>
 
             <option v-show="record.itemType === ('Household Battery')" value="AAAA">AAAA (Battery)</option>
             <option v-show="record.itemType === ('Household Battery')" value="AAA">AAA (Battery)</option>
