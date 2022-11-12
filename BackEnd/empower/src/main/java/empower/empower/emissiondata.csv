@@ -4,8 +4,8 @@ id,Name,Emmisions reduced (kg)
 3,AAAA,0.00104
 4,D,0.0272
 5,C,0.0104
-6,9-volt,1
-7,ButtonCell,1
+6,9-volt,0.005424
+7,ButtonCell,0.0004
 8,Phone,0.948
 9,Printer,23.182
 10,Computer,16.49
